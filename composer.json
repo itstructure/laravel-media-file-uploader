@@ -2,7 +2,7 @@
     "name": "itstructure/laravel-media-file-uploader",
     "description": "Media file uploader for laravel framework",
     "type": "library",
-    "keywords": [/*"laravel", "media", "file", "upload", "image", "picture", "audio", "video"*/],
+    "keywords": ["laravel", "media", "file", "upload", "image", "picture", "audio", "video"],
     "license": "MIT",
     "minimum-stability": "dev",
     "prefer-stable": true,
