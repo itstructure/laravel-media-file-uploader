@@ -56,10 +56,6 @@ class UploadServiceProvider extends ServiceProvider
         $this->publishViews();
         $this->publishTranslations();
         $this->publishMigrations();
-
-
-        // Global view's params
-        //View::share('rbacRowsPerPage', config('rbac.rowsPerPage', Grid::INIT_ROWS_PER_PAGE));
     }
 
 
