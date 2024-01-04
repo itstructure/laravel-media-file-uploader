@@ -6,7 +6,10 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Itstructure\MFU\Facades\Uploader;
+use Itstructure\MFU\Facades\Uploader as UploaderFacade;
+use Itstructure\MFU\Services\Uploader as UploaderService;
+use Itstructure\MFU\Facades\Previewer as PreviewerFacade;
+use Itstructure\MFU\Services\Previewer as PreviewerService;
 
 /**
  * Class UploadServiceProvider
@@ -22,9 +25,14 @@ class UploadServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('uploader', function ($app) {
-            return UploadService::getInstance($app['config']['uploader']);
+            return UploaderService::getInstance($app['config']['uploader']['processor']);
         });
-        AliasLoader::getInstance()->alias('Uploader', Uploader::class);
+        AliasLoader::getInstance()->alias('Uploader', UploaderFacade::class);
+
+        $this->app->bind('previewer', function ($app) {
+            return PreviewerService::getInstance($app['config']['uploader']['preview']);
+        });
+        AliasLoader::getInstance()->alias('Previewer', PreviewerFacade::class);
 
         // Directives
         require_once __DIR__ . '/functions.php';

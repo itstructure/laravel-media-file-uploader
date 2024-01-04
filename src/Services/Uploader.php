@@ -1,6 +1,6 @@
 <?php
 
-namespace Itstructure\MFU;
+namespace Itstructure\MFU\Services;
 
 use Exception;
 use Illuminate\Http\UploadedFile;
@@ -11,11 +11,11 @@ use Itstructure\MFU\Processors\{
 use Itstructure\MFU\Models\Mediafile;
 
 /**
- * Class UploadService
- * @package Itstructure\MFU
+ * Class Uploader
+ * @package Itstructure\MFU\Services
  * @author Andrey Girnik <girnikandrey@gmail.com>
  */
-class UploadService
+class Uploader
 {
     /**
      * @var array
@@ -29,7 +29,7 @@ class UploadService
 
     /**
      * @param array $config
-     * @return UploadService
+     * @return Uploader
      */
     public static function getInstance(array $config = []): self
     {
@@ -44,7 +44,7 @@ class UploadService
      */
     public function upload(array $data, UploadedFile $file = null): bool
     {
-        $this->processor = UploadProcessor::getInstance($this->config['processor'])
+        $this->processor = UploadProcessor::getInstance($this->config)
             ->setMediafileModel(new Mediafile())
             ->setData($data)
             ->setFile($file);
@@ -61,7 +61,7 @@ class UploadService
      */
     public function update(int $id, array $data, UploadedFile $file = null): bool
     {
-        $this->processor = UpdateProcessor::getInstance($this->config['processor'])
+        $this->processor = UpdateProcessor::getInstance($this->config)
             ->setMediafileModel(Mediafile::find($id))
             ->setData($data)
             ->setFile($file);

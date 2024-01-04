@@ -2,6 +2,7 @@
 
 use Illuminate\Validation\Rule;
 use Itstructure\MFU\Processors\SaveProcessor;
+use Itstructure\MFU\Services\Previewer;
 
 return [
     'processor' => [
@@ -81,5 +82,63 @@ return [
     ],
     'routing' => [
         'middlewares' => ['auth'],
+    ],
+    'preview' => [
+        'htmlAttributes' => [
+            SaveProcessor::FILE_TYPE_IMAGE => [
+                Previewer::LOCATION_FILE_ITEM => [
+                    'width' => 200,
+                    'height' => 200
+                ],
+                Previewer::LOCATION_FILE_INFO => [
+                    'width' => 200,
+                    'height' => 200
+                ],
+                Previewer::LOCATION_EXISTING => [
+                    'width' => 400,
+                    'height' => 400
+                ],
+            ],
+            SaveProcessor::FILE_TYPE_AUDIO => [
+                Previewer::LOCATION_FILE_ITEM => [
+                    'width' => 300
+                ],
+                Previewer::LOCATION_FILE_INFO => [
+                    'width' => 300
+                ],
+                Previewer::LOCATION_EXISTING => [
+                    'width' => 300
+                ],
+            ],
+            SaveProcessor::FILE_TYPE_VIDEO => [
+                Previewer::LOCATION_FILE_ITEM => [
+                    'width' => 300,
+                    'height' => 240
+                ],
+                Previewer::LOCATION_FILE_INFO => [
+                    'width' => 300,
+                    'height' => 240
+                ],
+                Previewer::LOCATION_EXISTING => [
+                    'width' => 300,
+                    'height' => 240
+                ],
+            ],
+            SaveProcessor::FILE_TYPE_APP => [
+                Previewer::LOCATION_FILE_ITEM => [
+                    'width' => 50
+                ],
+            ],
+            SaveProcessor::FILE_TYPE_TEXT => [
+                Previewer::LOCATION_FILE_ITEM => [
+                    'width' => 50
+                ],
+            ],
+            SaveProcessor::FILE_TYPE_OTHER => [
+                Previewer::LOCATION_FILE_ITEM => [
+                    'width' => 50
+                ],
+            ]
+        ]
     ]
 ];

@@ -7,7 +7,6 @@ use Illuminate\Support\Arr;
 use Imagine\Filter\Basic\Autorotate;
 use Imagine\Image\{Box, BoxInterface, ImageInterface, ImagineInterface, ManipulatorInterface, Palette\RGB, Point};
 
-
 class ImageHelper
 {
     /**

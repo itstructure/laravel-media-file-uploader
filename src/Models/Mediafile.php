@@ -3,6 +3,7 @@
 namespace Itstructure\MFU\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Itstructure\MFU\Processors\SaveProcessor;
 
 class Mediafile extends Model
@@ -41,6 +42,38 @@ class Mediafile extends Model
     }
 
     /**
+     * @return null|string
+     */
+    public function getAlt(): ?string
+    {
+        return $this->alt;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSize(): int
+    {
+        return $this->size;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
      * @return string
      */
     public function getDisk(): string
@@ -75,6 +108,23 @@ class Mediafile extends Model
         }
 
         return $this->getPath();
+    }
+
+    /**
+     * @param string $alias
+     * @return string
+     */
+    public function getThumbUrl(string $alias = SaveProcessor::THUMB_ALIAS_DEFAULT): string
+    {
+        return Storage::disk($this->getDisk())->url($this->getThumbPath($alias));
+    }
+
+    /**
+     * @return string
+     */
+    public function getViewUrl(): string
+    {
+        return Storage::disk($this->getDisk())->url($this->getPath());
     }
 
     /**
