@@ -85,6 +85,7 @@ return [
     ],
     'preview' => [
         'htmlAttributes' => [
+            // For media display
             SaveProcessor::FILE_TYPE_IMAGE => [
                 Previewer::LOCATION_FILE_ITEM => [
                     'width' => 200,
@@ -124,19 +125,90 @@ return [
                     'height' => 240
                 ],
             ],
+
+            // For stubs
+            SaveProcessor::FILE_TYPE_APP_WORD => [
+                Previewer::LOCATION_FILE_ITEM => [
+                    'width' => 50,
+                    'height' => 50
+                ],
+                Previewer::LOCATION_FILE_INFO => [
+                    'width' => 50,
+                    'height' => 50
+                ],
+                Previewer::LOCATION_EXISTING => [
+                    'width' => 50,
+                    'height' => 50
+                ],
+            ],
+            SaveProcessor::FILE_TYPE_APP_EXCEL => [
+                Previewer::LOCATION_FILE_ITEM => [
+                    'width' => 50,
+                    'height' => 50
+                ],
+                Previewer::LOCATION_FILE_INFO => [
+                    'width' => 50,
+                    'height' => 50
+                ],
+                Previewer::LOCATION_EXISTING => [
+                    'width' => 50,
+                    'height' => 50
+                ],
+            ],
+            SaveProcessor::FILE_TYPE_APP_PDF => [
+                Previewer::LOCATION_FILE_ITEM => [
+                    'width' => 50,
+                    'height' => 50
+                ],
+                Previewer::LOCATION_FILE_INFO => [
+                    'width' => 50,
+                    'height' => 50
+                ],
+                Previewer::LOCATION_EXISTING => [
+                    'width' => 50,
+                    'height' => 50
+                ],
+            ],
             SaveProcessor::FILE_TYPE_APP => [
                 Previewer::LOCATION_FILE_ITEM => [
-                    'width' => 50
+                    'width' => 50,
+                    'height' => 50
+                ],
+                Previewer::LOCATION_FILE_INFO => [
+                    'width' => 50,
+                    'height' => 50
+                ],
+                Previewer::LOCATION_EXISTING => [
+                    'width' => 50,
+                    'height' => 50
                 ],
             ],
             SaveProcessor::FILE_TYPE_TEXT => [
                 Previewer::LOCATION_FILE_ITEM => [
-                    'width' => 50
+                    'width' => 50,
+                    'height' => 50
+                ],
+                Previewer::LOCATION_FILE_INFO => [
+                    'width' => 50,
+                    'height' => 50
+                ],
+                Previewer::LOCATION_EXISTING => [
+                    'width' => 50,
+                    'height' => 50
                 ],
             ],
             SaveProcessor::FILE_TYPE_OTHER => [
                 Previewer::LOCATION_FILE_ITEM => [
-                    'width' => 50
+                    'width' => 50,
+                    'height' => 50
+                ],
+                Previewer::LOCATION_FILE_INFO => [
+                    'width' => 50,
+                    'height' => 50
+                ],
+                Previewer::LOCATION_EXISTING => [
+                    'width' => 50,
+                    'height' => 50
                 ],
             ]
         ]

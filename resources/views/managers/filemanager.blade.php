@@ -2,6 +2,8 @@
 
 @endphp
 
+{{--<link rel="stylesheet" href="{{ asset('vendor/uploader/css/modal.css') }}">--}}
+
 <div id="filemanager" role="filemanager" data-url-info="">
 
     <div class="items">

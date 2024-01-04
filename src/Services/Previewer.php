@@ -26,11 +26,21 @@ class Previewer
         return new static($config);
     }
 
+    /**
+     * Previewer constructor.
+     * @param array $config
+     */
     private function __construct(array $config = [])
     {
         $this->config = $config;
     }
 
+    /**
+     * @param Mediafile $mediafile
+     * @param string $location
+     * @param array $htmlAttributes
+     * @return string
+     */
     public function getPreviewHtml(Mediafile $mediafile, string $location, array $htmlAttributes = []): string
     {
         if ($mediafile->isImage()) {
@@ -43,12 +53,24 @@ class Previewer
             return $this->getVideoPreview($mediafile, $location, $htmlAttributes);
 
         } else if ($mediafile->isApp()) {
-            return $this->getAppPreview($mediafile, $location, $htmlAttributes);
+            return $this->getStubAppPreview($mediafile, $location, $htmlAttributes);
 
+        } else if ($mediafile->isText()) {
+            return $this->getStubTextPreview($location, $htmlAttributes);
+
+        } else {
+            return $this->getStubOtherPreview($location, $htmlAttributes);
         }
     }
 
-    public function getImagePreview(Mediafile $mediafile,  string $location, array $htmlAttributes = [], string $alias = SaveProcessor::THUMB_ALIAS_DEFAULT): string
+    /**
+     * @param Mediafile $mediafile
+     * @param string $location
+     * @param array $htmlAttributes
+     * @param string $alias
+     * @return string
+     */
+    public function getImagePreview(Mediafile $mediafile, string $location, array $htmlAttributes = [], string $alias = SaveProcessor::THUMB_ALIAS_DEFAULT): string
     {
         return view('uploader::preview.image', [
             'src' => $mediafile->getThumbUrl($alias),
@@ -57,7 +79,13 @@ class Previewer
         ]);
     }
 
-    public function getAudioPreview(Mediafile $mediafile,  string $location, array $htmlAttributes = []): string
+    /**
+     * @param Mediafile $mediafile
+     * @param string $location
+     * @param array $htmlAttributes
+     * @return string
+     */
+    public function getAudioPreview(Mediafile $mediafile, string $location, array $htmlAttributes = []): string
     {
         return view('uploader::preview.audio', [
             'src' => $mediafile->getViewUrl(),
@@ -66,7 +94,13 @@ class Previewer
         ]);
     }
 
-    public function getVideoPreview(Mediafile $mediafile,  string $location, array $htmlAttributes = []): string
+    /**
+     * @param Mediafile $mediafile
+     * @param string $location
+     * @param array $htmlAttributes
+     * @return string
+     */
+    public function getVideoPreview(Mediafile $mediafile, string $location, array $htmlAttributes = []): string
     {
         return view('uploader::preview.video', [
             'src' => $mediafile->getViewUrl(),
@@ -75,11 +109,63 @@ class Previewer
         ]);
     }
 
-    public function getAppPreview(Mediafile $mediafile,  string $location, array $htmlAttributes = []): string
+    /**
+     * @param Mediafile $mediafile
+     * @param string $location
+     * @param array $htmlAttributes
+     * @return string
+     */
+    public function getStubAppPreview(Mediafile $mediafile, string $location, array $htmlAttributes = []): string
     {
-
+        if ($mediafile->isWord()) {
+            return view('uploader::preview.stub.word', [
+                'htmlAttributes' => $this->getHtmlAttributes(SaveProcessor::FILE_TYPE_APP_WORD, $location, $htmlAttributes)
+            ]);
+        } else if ($mediafile->isExcel()) {
+            return view('uploader::preview.stub.excel', [
+                'htmlAttributes' => $this->getHtmlAttributes(SaveProcessor::FILE_TYPE_APP_EXCEL, $location, $htmlAttributes)
+            ]);
+        } else if ($mediafile->isPdf()) {
+            return view('uploader::preview.stub.pdf', [
+                'htmlAttributes' => $this->getHtmlAttributes(SaveProcessor::FILE_TYPE_APP_PDF, $location, $htmlAttributes)
+            ]);
+        } else {
+            return view('uploader::preview.stub.app', [
+                'htmlAttributes' => $this->getHtmlAttributes(SaveProcessor::FILE_TYPE_APP, $location, $htmlAttributes)
+            ]);
+        }
     }
 
+    /**
+     * @param string $location
+     * @param array $htmlAttributes
+     * @return string
+     */
+    public function getStubTextPreview(string $location, array $htmlAttributes = []): string
+    {
+        return view('uploader::preview.stub.text', [
+            'htmlAttributes' => $this->getHtmlAttributes(SaveProcessor::FILE_TYPE_TEXT, $location, $htmlAttributes)
+        ]);
+    }
+
+    /**
+     * @param string $location
+     * @param array $htmlAttributes
+     * @return string
+     */
+    public function getStubOtherPreview(string $location, array $htmlAttributes = []): string
+    {
+        return view('uploader::preview.stub.other', [
+            'htmlAttributes' => $this->getHtmlAttributes(SaveProcessor::FILE_TYPE_OTHER, $location, $htmlAttributes)
+        ]);
+    }
+
+    /**
+     * @param string $fileType
+     * @param string $location
+     * @param array $additional
+     * @return string
+     */
     private function getHtmlAttributes(string $fileType,  string $location, array $additional = []): string
     {
         $htmlAttributes = isset($this->config['htmlAttributes'])
