@@ -88,8 +88,8 @@ return [
             // For media display
             SaveProcessor::FILE_TYPE_IMAGE => [
                 Previewer::LOCATION_FILE_ITEM => [
-                    'width' => 200,
-                    'height' => 200
+                    'width' => 100,
+                    'height' => 100
                 ],
                 Previewer::LOCATION_FILE_INFO => [
                     'width' => 200,

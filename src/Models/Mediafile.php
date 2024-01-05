@@ -91,9 +91,9 @@ class Mediafile extends Model
 
     /**
      * @param string $alias
-     * @return array
+     * @return string
      */
-    public function getThumbPath(string $alias): array
+    public function getThumbPath(string $alias): string
     {
         if ($alias === SaveProcessor::THUMB_ALIAS_ORIGINAL) {
             return $this->getPath();
