@@ -1,36 +1,31 @@
 @extends('uploader::layouts.main')
 @section('title', 'File Manager')
 @section('content')
-    <div id="filemanager" role="filemanager" data-url-info="">
+    <div id="filemanager" role="filemanager" class="file-manager" data-url-info="">
 
-        <div class="items">
+        <div class="file-items">
             @php
                 $gridData = [
                     'dataProvider' => $dataProvider,
                     'paginatorOptions' => [
                         'pageName' => 'p',
+                        'onEachSide' => 1
                     ],
                     'rowsPerPage' => 5,
-                    'title' => 'Media files',
+                    'title' => '',
                     'columnFields' => [
                         [
                             'attribute' => 'id',
                             'filter' => false,
-                            'htmlAttributes' => [
-                                'width' => '5%',
-                            ],
                         ],
                         [
-                            'label' => 'Icon',
+                            'label' => 'Preview',
                             'value' => function ($mediafile) {
                                 return Itstructure\MFU\Facades\Previewer::getPreviewHtml($mediafile, 'fileitem');
                             },
                             'filter' => false,
                             'format' => [
                                 'class' => Itstructure\GridView\Formatters\HtmlFormatter::class,
-                                'htmlAttributes' => [
-                                    'width' => '100'
-                                ]
                             ]
                         ],
                         [
@@ -47,7 +42,7 @@
 
             @gridView($gridData)
         </div>
-        <div class="redactor">
+        <div class="file-redactor">
             <div id="fileinfo" role="fileinfo">
 
             </div>
