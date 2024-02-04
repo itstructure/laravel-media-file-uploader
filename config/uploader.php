@@ -79,6 +79,7 @@ return [
             ],
             'sub_dir' => 'nullable|string|max:64'
         ],
+        'visibility' => SaveProcessor::VISIBILITY_PUBLIC
     ],
     'routing' => [
         'middlewares' => ['auth'],

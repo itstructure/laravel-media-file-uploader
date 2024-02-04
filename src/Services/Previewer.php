@@ -39,12 +39,13 @@ class Previewer
      * @param Mediafile $mediafile
      * @param string $location
      * @param array $htmlAttributes
+     * @param string $thumbAlias
      * @return string
      */
-    public function getPreviewHtml(Mediafile $mediafile, string $location, array $htmlAttributes = []): string
+    public function getPreviewHtml(Mediafile $mediafile, string $location, array $htmlAttributes = [], string $thumbAlias = SaveProcessor::THUMB_ALIAS_SMALL): string
     {
         if ($mediafile->isImage()) {
-            return $this->getImagePreview($mediafile, $location, $htmlAttributes);
+            return $this->getImagePreview($mediafile, $location, $htmlAttributes, $thumbAlias);
 
         } else if ($mediafile->isAudio()) {
             return $this->getAudioPreview($mediafile, $location, $htmlAttributes);
@@ -70,7 +71,7 @@ class Previewer
      * @param string $alias
      * @return string
      */
-    public function getImagePreview(Mediafile $mediafile, string $location, array $htmlAttributes = [], string $alias = SaveProcessor::THUMB_ALIAS_DEFAULT): string
+    public function getImagePreview(Mediafile $mediafile, string $location, array $htmlAttributes = [], string $alias = SaveProcessor::THUMB_ALIAS_SMALL): string
     {
         return view('uploader::preview.image', [
             'src' => $mediafile->getThumbUrl($alias),

@@ -36,6 +36,10 @@
                             'label' => 'Created',
                             'attribute' => 'created_at'
                         ],
+                        [
+                            'label' => 'Updated',
+                            'attribute' => 'updated_at'
+                        ],
                     ],
                 ];
             @endphp

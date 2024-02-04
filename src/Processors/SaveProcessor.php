@@ -41,6 +41,9 @@ abstract class SaveProcessor extends BaseProcessor
     const DIR_LENGTH_FIRST = 2;
     const DIR_LENGTH_SECOND = 4;
 
+    const VISIBILITY_PUBLIC = 'public';
+    const VISIBILITY_PRIVARE = 'private';
+
     /************************* CONFIG ATTRIBUTES *************************/
     /**
      * @var string
@@ -86,6 +89,11 @@ abstract class SaveProcessor extends BaseProcessor
      * @var array
      */
     protected $metaDataValidationRules;
+
+    /**
+     * @var string
+     */
+    protected $visibility;
 
 
     /************************* PROCESS ATTRIBUTES *************************/
@@ -189,7 +197,7 @@ abstract class SaveProcessor extends BaseProcessor
      * @param array $baseUploadDirectories
      * @return $this
      */
-    public function setbaseUploadDirectories(array $baseUploadDirectories)
+    public function setBaseUploadDirectories(array $baseUploadDirectories)
     {
         $this->baseUploadDirectories = $baseUploadDirectories;
         return $this;
@@ -202,6 +210,16 @@ abstract class SaveProcessor extends BaseProcessor
     public function setMetaDataValidationRules(array $metaDataValidationRules)
     {
         $this->metaDataValidationRules = $metaDataValidationRules;
+        return $this;
+    }
+
+    /**
+     * @param string $visibility
+     * @return $this
+     */
+    public function setVisibility(string $visibility)
+    {
+        $this->visibility = $visibility;
         return $this;
     }
 
@@ -327,7 +345,9 @@ abstract class SaveProcessor extends BaseProcessor
      */
     protected function sendFile(): bool
     {
-        Storage::disk($this->currentDisk)->putFileAs($this->processDirectory, $this->file, $this->outFileName);
+        Storage::disk($this->currentDisk)->putFileAs($this->processDirectory, $this->file, $this->outFileName, [
+            'visibility' => $this->data['visibility'] ?? $this->visibility
+        ]);
 
         return Storage::disk($this->currentDisk)->fileExists($this->processDirectory . '/' . $this->outFileName);
     }
@@ -449,8 +469,8 @@ abstract class SaveProcessor extends BaseProcessor
 
     protected function setMediafileMetaData(): void
     {
-        $this->mediafileModel->alt = $this->data['alt'];
-        $this->mediafileModel->title = $this->data['title'];
-        $this->mediafileModel->description = $this->data['description'];
+        $this->mediafileModel->alt = $this->data['alt'] ?? '';
+        $this->mediafileModel->title = $this->data['title'] ?? '';
+        $this->mediafileModel->description = $this->data['description'] ?? '';
     }
 }

@@ -29,10 +29,10 @@ class FileManagerController extends BaseController
         if (count($requestParams) > 0) {
             $query = OwnerMediafile::getMediaFilesQuery($requestParams)->orWhereNotIn('mediafile_id', OwnerMediafile::pluck('mediafile_id')->toArray());
         } else {
-            $query = Mediafile::whereNotIn('mediafile_id', OwnerMediafile::pluck('mediafile_id')->toArray())->orderByDesc('id');
+            $query = Mediafile::whereNotIn('mediafile_id', OwnerMediafile::pluck('mediafile_id')->toArray());
         }
 
-        return view('uploader::managers.filemanager', [
+        return view('uploader::managers.file-manager', [
             'dataProvider' => new EloquentDataProvider($query)
         ]);
     }
