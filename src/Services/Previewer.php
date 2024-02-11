@@ -39,12 +39,14 @@ class Previewer
      * @param Mediafile $mediafile
      * @param string $location
      * @param array $htmlAttributes
-     * @param string $thumbAlias
      * @return string
      */
-    public function getPreviewHtml(Mediafile $mediafile, string $location, array $htmlAttributes = [], string $thumbAlias = SaveProcessor::THUMB_ALIAS_SMALL): string
+    public function getPreviewHtml(Mediafile $mediafile, string $location, array $htmlAttributes = []): string
     {
         if ($mediafile->isImage()) {
+            $thumbAlias = isset($this->config['thumbAlias']) && isset($this->config['thumbAlias'][$location])
+                ? $this->config['thumbAlias'][$location]
+                : SaveProcessor::THUMB_ALIAS_SMALL;
             return $this->getImagePreview($mediafile, $location, $htmlAttributes, $thumbAlias);
 
         } else if ($mediafile->isAudio()) {
@@ -170,10 +172,10 @@ class Previewer
     private function getHtmlAttributes(string $fileType,  string $location, array $additional = []): string
     {
         $htmlAttributes = isset($this->config['htmlAttributes'])
-        && isset($this->config['htmlAttributes'][$fileType])
-        && isset($this->config['htmlAttributes'][$fileType][$location])
-            ? $this->config['htmlAttributes'][$fileType][$location]
-            : [];
+            && isset($this->config['htmlAttributes'][$fileType])
+            && isset($this->config['htmlAttributes'][$fileType][$location])
+                ? $this->config['htmlAttributes'][$fileType][$location]
+                : [];
         $htmlAttributes = array_merge($htmlAttributes, $additional);
         return HtmlHelper::buildHtmlAttributes($htmlAttributes);
     }

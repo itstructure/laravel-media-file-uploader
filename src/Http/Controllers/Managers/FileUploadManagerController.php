@@ -5,13 +5,15 @@ namespace Itstructure\MFU\Http\Controllers\Managers;
 use Itstructure\MFU\Http\Controllers\BaseController;
 
 /**
- * Class UploadManagerController
+ * Class FileUploadManagerController
  * @package Itstructure\MFU\Http\Controllers\Managers
  */
-class UploadManagerController extends BaseController
+class FileUploadManagerController extends BaseController
 {
     public function index()
     {
-
+        return view('uploader::managers.file-upload', [
+            'manager' => 'file_upload'
+        ]);
     }
 }

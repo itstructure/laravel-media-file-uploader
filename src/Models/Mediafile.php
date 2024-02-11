@@ -95,19 +95,11 @@ class Mediafile extends Model
      */
     public function getThumbPath(string $alias): string
     {
-        if ($alias === SaveProcessor::THUMB_ALIAS_ORIGINAL) {
+        if ($alias == SaveProcessor::THUMB_ALIAS_ORIGINAL) {
             return $this->getPath();
-
-        } else {
-            $thumbs = $this->getThumbs();
-            $path = !empty($thumbs[$alias]) ? $thumbs[$alias] : '';
         }
-
-        if (empty($path)) {
-            return '';
-        }
-
-        return $this->getPath();
+        $thumbs = $this->getThumbs();
+        return !empty($thumbs[$alias]) ? $thumbs[$alias] : $this->getPath();
     }
 
     /**

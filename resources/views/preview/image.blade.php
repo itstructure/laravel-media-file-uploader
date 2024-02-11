@@ -1,1 +1,1 @@
-<img src="{{ $src }}" alt="{{ $alt }}" {!! $htmlAttributes !!}>
+<img src="{{ $src }}" alt="{{ $alt }}" {!! $htmlAttributes !!} />

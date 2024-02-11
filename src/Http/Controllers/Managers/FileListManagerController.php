@@ -8,10 +8,10 @@ use Itstructure\MFU\Http\Controllers\BaseController;
 use Itstructure\MFU\Models\{OwnerMediafile, Mediafile};
 
 /**
- * Class FileManagerController
+ * Class FileListManagerController
  * @package Itstructure\MFU\Http\Controllers\Managers
  */
-class FileManagerController extends BaseController
+class FileListManagerController extends BaseController
 {
     public function index(Request $request)
     {
@@ -32,8 +32,9 @@ class FileManagerController extends BaseController
             $query = Mediafile::whereNotIn('mediafile_id', OwnerMediafile::pluck('mediafile_id')->toArray());
         }
 
-        return view('uploader::managers.file-manager', [
-            'dataProvider' => new EloquentDataProvider($query)
+        return view('uploader::managers.file-list', [
+            'dataProvider' => new EloquentDataProvider($query),
+            'manager' => 'file_list'
         ]);
     }
 }

@@ -8,7 +8,7 @@ return [
     'processor' => [
         'baseUrl' => config('app.url'),
         'renameFiles' => true,
-        'checkExtensionByFileType' => true,
+        'checkExtensionByFileType' => false,
         'maxFileSize' => 100 * 1024,// Kilobytes
         'fileExtensions' => [
             SaveProcessor::FILE_TYPE_THUMB => [
@@ -24,7 +24,7 @@ return [
                 'mp4', 'ogg', 'ogv', 'oga', 'ogx', 'webm',
             ],
             SaveProcessor::FILE_TYPE_APP => [
-                'doc', 'docx', 'rtf', 'pdf', 'rar', 'zip', 'jar', 'mcd', 'xls',
+                'doc', 'docx', 'rtf', 'pdf', 'rar', 'zip', 'jar', 'mcd', 'xls', 'xlsx',
             ],
             SaveProcessor::FILE_TYPE_TEXT => [
                 'txt',
@@ -93,8 +93,8 @@ return [
                     'height' => 100
                 ],
                 Previewer::LOCATION_FILE_INFO => [
-                    'width' => 200,
-                    'height' => 200
+                    'width' => 400,
+                    'height' => 400
                 ],
                 Previewer::LOCATION_EXISTING => [
                     'width' => 400,
@@ -130,88 +130,93 @@ return [
             // For stubs
             SaveProcessor::FILE_TYPE_APP_WORD => [
                 Previewer::LOCATION_FILE_ITEM => [
-                    'width' => 50,
-                    'height' => 50
+                    'width' => 100 . 'px',
+                    'height' => 100 . 'px'
                 ],
                 Previewer::LOCATION_FILE_INFO => [
-                    'width' => 50,
-                    'height' => 50
+                    'width' => 300 . 'px',
+                    'height' => 300 . 'px'
                 ],
                 Previewer::LOCATION_EXISTING => [
-                    'width' => 50,
-                    'height' => 50
+                    'width' => 200 . 'px',
+                    'height' => 200 . 'px'
                 ],
             ],
             SaveProcessor::FILE_TYPE_APP_EXCEL => [
                 Previewer::LOCATION_FILE_ITEM => [
-                    'width' => 50,
-                    'height' => 50
+                    'width' => 100 . 'px',
+                    'height' => 100 . 'px'
                 ],
                 Previewer::LOCATION_FILE_INFO => [
-                    'width' => 50,
-                    'height' => 50
+                    'width' => 300 . 'px',
+                    'height' => 300 . 'px'
                 ],
                 Previewer::LOCATION_EXISTING => [
-                    'width' => 50,
-                    'height' => 50
+                    'width' => 200 . 'px',
+                    'height' => 200 . 'px'
                 ],
             ],
             SaveProcessor::FILE_TYPE_APP_PDF => [
                 Previewer::LOCATION_FILE_ITEM => [
-                    'width' => 50,
-                    'height' => 50
+                    'width' => 100 . 'px',
+                    'height' => 100 . 'px'
                 ],
                 Previewer::LOCATION_FILE_INFO => [
-                    'width' => 50,
-                    'height' => 50
+                    'width' => 300 . 'px',
+                    'height' => 300 . 'px'
                 ],
                 Previewer::LOCATION_EXISTING => [
-                    'width' => 50,
-                    'height' => 50
+                    'width' => 200 . 'px',
+                    'height' => 200 . 'px'
                 ],
             ],
             SaveProcessor::FILE_TYPE_APP => [
                 Previewer::LOCATION_FILE_ITEM => [
-                    'width' => 50,
-                    'height' => 50
+                    'width' => 100 . 'px',
+                    'height' => 100 . 'px'
                 ],
                 Previewer::LOCATION_FILE_INFO => [
-                    'width' => 50,
-                    'height' => 50
+                    'width' => 300 . 'px',
+                    'height' => 300 . 'px'
                 ],
                 Previewer::LOCATION_EXISTING => [
-                    'width' => 50,
-                    'height' => 50
+                    'width' => 200 . 'px',
+                    'height' => 200 . 'px'
                 ],
             ],
             SaveProcessor::FILE_TYPE_TEXT => [
                 Previewer::LOCATION_FILE_ITEM => [
-                    'width' => 50,
-                    'height' => 50
+                    'width' => 100 . 'px',
+                    'height' => 100 . 'px'
                 ],
                 Previewer::LOCATION_FILE_INFO => [
-                    'width' => 50,
-                    'height' => 50
+                    'width' => 300 . 'px',
+                    'height' => 300 . 'px'
                 ],
                 Previewer::LOCATION_EXISTING => [
-                    'width' => 50,
-                    'height' => 50
+                    'width' => 200 . 'px',
+                    'height' => 200 . 'px'
                 ],
             ],
             SaveProcessor::FILE_TYPE_OTHER => [
                 Previewer::LOCATION_FILE_ITEM => [
-                    'width' => 50,
-                    'height' => 50
+                    'width' => 100 . 'px',
+                    'height' => 100 . 'px'
                 ],
                 Previewer::LOCATION_FILE_INFO => [
-                    'width' => 50,
-                    'height' => 50
+                    'width' => 300 . 'px',
+                    'height' => 300 . 'px'
                 ],
                 Previewer::LOCATION_EXISTING => [
-                    'width' => 50,
-                    'height' => 50
+                    'width' => 200 . 'px',
+                    'height' => 200 . 'px'
                 ],
             ]
+        ],
+        'thumbAlias' => [
+            Previewer::LOCATION_FILE_ITEM => SaveProcessor::THUMB_ALIAS_SMALL,
+            Previewer::LOCATION_FILE_INFO => SaveProcessor::THUMB_ALIAS_MEDIUM,
+            Previewer::LOCATION_EXISTING => SaveProcessor::THUMB_ALIAS_MEDIUM,
         ]
     ]
 ];

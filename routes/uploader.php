@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Itstructure\MFU\Http\Controllers\{
-    UploadController, DownloadController, Managers\FileManagerController, Managers\UploadManagerController
+    UploadController, DownloadController
+};
+use Itstructure\MFU\Http\Controllers\Managers\{
+    FileListManagerController, FileUploadManagerController, FileEditManagerController
 };
 
 Route::group([
@@ -35,10 +38,13 @@ Route::group([
     /* MANAGERS */
     Route::group(['prefix' => 'managers'], function () {
 
-        Route::get('file-manager', [FileManagerController::class, 'index'])
-            ->name('uploader_managers_filemanager');
+        Route::get('file-list', [FileListManagerController::class, 'index'])
+            ->name('uploader_file_list_manager');
 
-        Route::get('upload-manager', [UploadManagerController::class, 'index'])
-            ->name('uploader_managers_uploadmanager');
+        Route::get('file-upload', [FileUploadManagerController::class, 'index'])
+            ->name('uploader_file_upload_manager');
+
+        Route::get('file-edit/{id}', [FileEditManagerController::class, 'index'])
+            ->name('uploader_file_edit_manager');
     });
 });
