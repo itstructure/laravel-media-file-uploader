@@ -32,6 +32,9 @@ Route::group([
 
         Route::get('download', [DownloadController::class, 'download'])
             ->name('uploader_file_download');
+
+        Route::post('preview', [UploadController::class, 'preview'])
+            ->name('uploader_file_preview');
     });
 
 

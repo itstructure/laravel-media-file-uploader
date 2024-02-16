@@ -90,15 +90,18 @@ return [
             SaveProcessor::FILE_TYPE_IMAGE => [
                 Previewer::LOCATION_FILE_ITEM => [
                     'width' => 100,
-                    'height' => 100
+                    'height' => 100,
+                    'class' => 'list-item'
                 ],
                 Previewer::LOCATION_FILE_INFO => [
-                    'width' => 400,
-                    'height' => 400
+                    //'width' => 400,//Optional
+                    //'height' => 400,//Optional
+                    //'class' => 'some-css-class',//Optional
                 ],
                 Previewer::LOCATION_EXISTING => [
-                    'width' => 400,
-                    'height' => 400
+                    //'width' => 400,//Optional
+                    //'height' => 400,//Optional
+                    //'class' => 'some-css-class',//Optional
                 ],
             ],
             SaveProcessor::FILE_TYPE_AUDIO => [
@@ -106,10 +109,10 @@ return [
                     'width' => 300
                 ],
                 Previewer::LOCATION_FILE_INFO => [
-                    'width' => 300
+                    'width' => 360
                 ],
                 Previewer::LOCATION_EXISTING => [
-                    'width' => 300
+                    'width' => 360
                 ],
             ],
             SaveProcessor::FILE_TYPE_VIDEO => [
@@ -118,12 +121,12 @@ return [
                     'height' => 240
                 ],
                 Previewer::LOCATION_FILE_INFO => [
-                    'width' => 300,
-                    'height' => 240
+                    'width' => 400,
+                    'height' => 320
                 ],
                 Previewer::LOCATION_EXISTING => [
-                    'width' => 300,
-                    'height' => 240
+                    'width' => 400,
+                    'height' => 320
                 ],
             ],
 

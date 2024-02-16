@@ -5,6 +5,8 @@ namespace Itstructure\MFU\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use Itstructure\MFU\Facades\Uploader;
+use Itstructure\MFU\Facades\Previewer;
+use Itstructure\MFU\Models\Mediafile;
 
 /**
  * Class UploadController
@@ -22,10 +24,12 @@ class UploadController extends BaseController
             $data = $request->post('data');
             $file = $request->file('file');
 
-            if (!Uploader::upload($data, $file) && Uploader::hasErrors()) {
+            if (!Uploader::upload($data, $file)) {
                 return response()->json([
                     'success' => false,
-                    'errors' => Uploader::getErrors()->getMessages(),
+                    'errors' => Uploader::hasErrors()
+                        ? Uploader::getErrors()->getMessages()
+                        : []
                 ]);
             }
             return response()->json([
@@ -48,10 +52,12 @@ class UploadController extends BaseController
             $data = $request->post('data');
             $file = $request->hasFile('file') ? $request->file('file') : null;
 
-            if (!Uploader::update($id, $data, $file) && Uploader::hasErrors()) {
+            if (!Uploader::update($id, $data, $file)) {
                 return response()->json([
                     'success' => false,
-                    'errors' => Uploader::getErrors()->getMessages(),
+                    'errors' => Uploader::hasErrors()
+                        ? Uploader::getErrors()->getMessages()
+                        : []
                 ]);
             }
             return response()->json([
@@ -80,6 +86,22 @@ class UploadController extends BaseController
             return response()->json([
                 'success' => true
             ]);
+
+        } catch (Exception $exception) {
+            abort($exception->getCode(), $exception->getMessage());
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function preview(Request $request)
+    {
+        try {
+            $id = $request->post('id');
+            $mediaFile = Mediafile::find($id);
+            return Previewer::getPreviewHtml($mediaFile, \Itstructure\MFU\Services\Previewer::LOCATION_FILE_INFO);
 
         } catch (Exception $exception) {
             abort($exception->getCode(), $exception->getMessage());

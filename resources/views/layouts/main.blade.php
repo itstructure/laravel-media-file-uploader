@@ -10,6 +10,7 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('vendor/uploader/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/uploader/css/main.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/uploader/css/preloader.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/uploader/css/file-manager.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/uploader/css/upload-manager.css') }}">
     </head>
@@ -44,6 +45,15 @@
         <div id="filemanager" role="filemanager" class="file-manager">
             @yield('content')
         </div>
+
+        <script>
+            var csrf_token = '{{ csrf_token() }}';
+            var route_file_upload = '{{ route('uploader_file_upload') }}';
+            var route_file_update = '{{ route('uploader_file_update') }}';
+            var route_file_delete = '{{ route('uploader_file_delete') }}';
+            var route_file_download = '{{ route('uploader_file_download') }}';
+            var route_file_preview = '{{ route('uploader_file_preview') }}';
+        </script>
 
         <!-- Scripts -->
         <script src="{{ asset('vendor/uploader/js/jquery.min.js') }}"></script>

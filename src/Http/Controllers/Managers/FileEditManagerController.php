@@ -2,10 +2,9 @@
 
 namespace Itstructure\MFU\Http\Controllers\Managers;
 
-use Illuminate\Http\Request;
 use Itstructure\MFU\Facades\Previewer;
 use Itstructure\MFU\Http\Controllers\BaseController;
-use Itstructure\MFU\Models\{OwnerMediafile, Mediafile};
+use Itstructure\MFU\Models\Mediafile;
 
 /**
  * Class FileEditManagerController
