@@ -100,8 +100,9 @@ class UploadController extends BaseController
     {
         try {
             $id = $request->post('id');
+            $location = $request->post('location') ?? \Itstructure\MFU\Services\Previewer::LOCATION_FILE_INFO;
             $mediaFile = Mediafile::find($id);
-            return Previewer::getPreviewHtml($mediaFile, \Itstructure\MFU\Services\Previewer::LOCATION_FILE_INFO);
+            return Previewer::getPreviewHtml($mediaFile, $location);
 
         } catch (Exception $exception) {
             abort($exception->getCode(), $exception->getMessage());

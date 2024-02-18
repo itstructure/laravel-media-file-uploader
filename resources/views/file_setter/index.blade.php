@@ -12,6 +12,8 @@
         @include('uploader::file_setter.clear_button', [
             'inputId' => $inputId,
             'mediafileContainerId' => $mediafileContainerId,
+            'titleContainerId' => $titleContainerId,
+            'descriptionContainerId' => $descriptionContainerId,
             'clearButtonName' => $clearButtonName
         ])
     </span>

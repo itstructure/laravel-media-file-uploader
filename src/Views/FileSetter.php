@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class FileSetter
 {
     const INSERTED_DATA_ID = 'id';
-    const INSERTED_DATA_PATH = 'path';
+    const INSERTED_DATA_URL = 'url';
 
     /************************* CONFIG ATTRIBUTES *************************/
     /**
@@ -158,6 +158,7 @@ class FileSetter
     {
         return view('uploader::file_setter.index', [
             'fileManagerRoute' => route('uploader_file_list_manager'),
+            'filePreviewRoute' => route('uploader_file_preview'),
             'attribute' => $this->attribute,
             'value' => !empty($this->model)
                 ? $this->model->{$this->attribute}

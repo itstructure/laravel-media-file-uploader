@@ -47,7 +47,7 @@
                                 'htmlAttributes' => [
                                     'style' => 'color: white; font-size: 16px;'
                                 ]
-                            ]
+                            ],
                         ],
                         'htmlAttributes' => [
                             'width' => '120'

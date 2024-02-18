@@ -1,1 +1,1 @@
-<button id="{{ $openButtonId }}" class="btn btn-default" role="file-manager-load">{{ $openButtonName }}</button>
+<button id="{{ $openButtonId }}" class="btn btn-default" role="load-file-manager">{{ $openButtonName }}</button>

@@ -91,7 +91,7 @@ class Previewer
     public function getAudioPreview(Mediafile $mediafile, string $location, array $htmlAttributes = []): string
     {
         return view('uploader::preview.audio', [
-            'src' => $mediafile->getViewUrl(),
+            'src' => $mediafile->getOriginalUrl(),
             'type' => $mediafile->getMimeType(),
             'htmlAttributes' => $this->getHtmlAttributes(SaveProcessor::FILE_TYPE_AUDIO, $location, $htmlAttributes)
         ]);
@@ -106,7 +106,7 @@ class Previewer
     public function getVideoPreview(Mediafile $mediafile, string $location, array $htmlAttributes = []): string
     {
         return view('uploader::preview.video', [
-            'src' => $mediafile->getViewUrl(),
+            'src' => $mediafile->getOriginalUrl(),
             'type' => $mediafile->getMimeType(),
             'htmlAttributes' => $this->getHtmlAttributes(SaveProcessor::FILE_TYPE_VIDEO, $location, $htmlAttributes)
         ]);

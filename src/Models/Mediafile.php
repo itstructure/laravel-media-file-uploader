@@ -114,7 +114,7 @@ class Mediafile extends Model
     /**
      * @return string
      */
-    public function getViewUrl(): string
+    public function getOriginalUrl(): string
     {
         return Storage::disk($this->getDisk())->url($this->getPath());
     }
