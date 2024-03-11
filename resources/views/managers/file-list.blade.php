@@ -16,8 +16,8 @@
                 'columnFields' => [
                     [
                         'label' => 'Preview',
-                        'value' => function ($mediafile) {
-                            return Itstructure\MFU\Facades\Previewer::getPreviewHtml($mediafile, Itstructure\MFU\Services\Previewer::LOCATION_FILE_ITEM);
+                        'value' => function ($row) {
+                            return Itstructure\MFU\Facades\Previewer::getPreviewHtml($row, Itstructure\MFU\Services\Previewer::LOCATION_FILE_ITEM);
                         },
                         'filter' => false,
                         'format' => [
@@ -37,21 +37,14 @@
                         'attribute' => 'updated_at'
                     ],
                     [
-                        'class' => Itstructure\GridView\Columns\ActionColumn::class,
-                        'actionTypes' => [
-                            [
-                                'class' => Itstructure\GridView\Actions\Edit::class,
-                                'url' => function ($row) {
-                                    return route('uploader_file_edit_manager', ['id' => $row->id]);
-                                },
-                                'htmlAttributes' => [
-                                    'style' => 'color: white; font-size: 16px;'
-                                ]
-                            ],
+                        'label' => 'Actions',
+                        'value' => function ($row) {
+                            return view('uploader::partials.list-actions', ['row' => $row]);
+                        },
+                        'filter' => false,
+                        'format' => [
+                            'class' => Itstructure\GridView\Formatters\HtmlFormatter::class,
                         ],
-                        'htmlAttributes' => [
-                            'width' => '120'
-                        ]
                     ],
                     [
                         'class' => Itstructure\GridView\Columns\CheckboxColumn::class,
