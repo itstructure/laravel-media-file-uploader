@@ -28,7 +28,6 @@
     @endif
 </div>
 @include('uploader::layouts.modal', [
-    'fileManagerRoute' => $fileManagerRoute,
     'inputId' => $inputId,
     'openButtonId' => $openButtonId,
     'mediafileContainerId' => $mediafileContainerId,
@@ -41,3 +40,8 @@
     'neededFileType' => $neededFileType,
     'subDir' => $subDir
 ])
+@if(!empty($callbackBeforeInsert))
+    <script>
+        //$("#{{ $inputId }}").on("beforeInsert", {!! $callbackBeforeInsert !!});
+    </script>
+@endif

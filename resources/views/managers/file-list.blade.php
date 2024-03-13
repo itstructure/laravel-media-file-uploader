@@ -1,7 +1,7 @@
 @extends('uploader::layouts.main')
 @section('title', 'File List')
 @section('content')
-    <div class="file-list">
+    <div id="file_list" class="file-list">
         @php
             $gridData = [
                 'dataProvider' => $dataProvider,

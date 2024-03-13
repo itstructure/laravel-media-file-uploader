@@ -6,8 +6,13 @@
         </svg>
     </a>&nbsp
 </div>
-<div class="col-lg-12">
-    <button class="btn btn-success" onclick="">
+<div class="col-lg-12" role="list-item-data"
+     data-file-id="{{ $row->id }}"
+     data-file-title="{{ $row->title }}"
+     data-file-description="{{ $row->description }}"
+     data-file-url="{{ $row->getOriginalUrl() }}"
+>
+    <button class="btn btn-success" role="insert-file">
         <svg width="1.2em" height="1.5em" viewBox="0 0 16 16" class="bi bi-check2-all" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0"/>
             <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708"/>

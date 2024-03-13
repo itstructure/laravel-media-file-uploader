@@ -83,7 +83,7 @@ class FileSetter
     /**
      * @var string
      */
-    private $callbackBeforeInsert;
+    private $callbackBeforeInsert = '';
 
     /**
      * @var string
@@ -157,8 +157,6 @@ class FileSetter
     public function render(): string
     {
         return view('uploader::file_setter.index', [
-            'fileManagerRoute' => route('uploader_file_list_manager'),
-            'filePreviewRoute' => route('uploader_file_preview'),
             'attribute' => $this->attribute,
             'value' => !empty($this->model)
                 ? $this->model->{$this->attribute}
@@ -174,12 +172,13 @@ class FileSetter
             'mediafileContainerId' => $this->mediafileContainerId,
             'titleContainerId' => $this->titleContainerId,
             'descriptionContainerId' => $this->descriptionContainerId,
+            'callbackBeforeInsert' => $this->callbackBeforeInsert,
             'insertedDataType' => $this->insertedDataType,
             'ownerName' => $this->ownerName,
             'ownerId' => $this->ownerId,
             'ownerAttribute' => $this->ownerAttribute,
             'neededFileType' => $this->neededFileType,
-            'subDir' => $this->subDir,
+            'subDir' => $this->subDir
         ])->render();
     }
 
