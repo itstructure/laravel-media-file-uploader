@@ -40,8 +40,21 @@
     'neededFileType' => $neededFileType,
     'subDir' => $subDir
 ])
+<script>
+    if (window.csrf_token === undefined) {
+        var csrf_token = '{{ csrf_token() }}';
+    }
+    if (window.route_file_preview === undefined) {
+        var route_file_list_manager = '{{ route('uploader_file_list_manager') }}';
+    }
+    if (window.route_file_preview === undefined) {
+        var route_file_preview = '{{ route('uploader_file_preview') }}';
+    }
+</script>
 @if(!empty($callbackBeforeInsert))
     <script>
-        //$("#{{ $inputId }}").on("beforeInsert", {!! $callbackBeforeInsert !!});
+        document.addEventListener("DOMContentLoaded", function() {
+            $("#{{ $inputId }}").on("beforeInsert", {!! $callbackBeforeInsert !!});
+        });
     </script>
 @endif

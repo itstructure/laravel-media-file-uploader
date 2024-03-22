@@ -14,8 +14,8 @@
     ],
     "require": {
         "php": ">=7.1.0",
-        "laravel/framework": "^10.0",
-        "itstructure/laravel-grid-view": "^1.1.0"
+        "laravel/framework": "^10.0|^11.0",
+        "itstructure/laravel-grid-view": "~1.1.1"
     },
     "autoload": {
         "psr-4": {

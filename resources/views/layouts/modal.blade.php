@@ -17,14 +17,3 @@
         </div>
     </div>
 </div>
-<script>
-    if (window.csrf_token === undefined) {
-        var csrf_token = '{{ csrf_token() }}';
-    }
-    if (window.route_file_preview === undefined) {
-        var route_file_list_manager = '{{ route('uploader_file_list_manager') }}';
-    }
-    if (window.route_file_preview === undefined) {
-        var route_file_preview = '{{ route('uploader_file_preview') }}';
-    }
-</script>
