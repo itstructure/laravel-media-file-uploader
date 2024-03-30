@@ -297,7 +297,9 @@ abstract class SaveProcessor extends BaseProcessor
      */
     protected function validate(): bool
     {
-        return $this->validateMetaData() && $this->validateFile();
+        $resultMetaData = $this->validateMetaData();
+        $resultFile = $this->validateFile();
+        return $resultMetaData && $resultFile;
     }
 
     protected function validateMetaData(): bool

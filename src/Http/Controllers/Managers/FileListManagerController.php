@@ -2,10 +2,12 @@
 
 namespace Itstructure\MFU\Http\Controllers\Managers;
 
+use Throwable;
 use Illuminate\Http\Request;
 use Itstructure\GridView\DataProviders\EloquentDataProvider;
 use Itstructure\MFU\Http\Controllers\BaseController;
 use Itstructure\MFU\Models\{OwnerMediafile, Mediafile};
+use Itstructure\MFU\Facades\Uploader;
 
 /**
  * Class FileListManagerController
@@ -13,6 +15,10 @@ use Itstructure\MFU\Models\{OwnerMediafile, Mediafile};
  */
 class FileListManagerController extends BaseController
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function index(Request $request)
     {
         $requestParams = [];
@@ -36,5 +42,20 @@ class FileListManagerController extends BaseController
             'dataProvider' => new EloquentDataProvider($query),
             'manager' => 'file_list'
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete(Request $request)
+    {
+        foreach ($request->items as $id) {
+            try {
+                Uploader::delete($id);
+            } catch (Throwable $e) {}
+        }
+
+        return back();
     }
 }

@@ -10,9 +10,10 @@
                     'onEachSide' => 1
                 ],
                 'rowsPerPage' => 5,
+                'rowsFormAction' => route('uploader_file_list_delete'),
+                'filtersFormAction' => route('uploader_file_list_manager'),
                 'title' => '',
-                 'strictFilters' => false,
-                'rowsFormAction' => route('admin_product_delete'),
+                'strictFilters' => false,
                 'columnFields' => [
                     [
                         'label' => 'Preview',

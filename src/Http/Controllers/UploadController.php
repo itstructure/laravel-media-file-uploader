@@ -2,7 +2,7 @@
 
 namespace Itstructure\MFU\Http\Controllers;
 
-use Exception;
+use Throwable;
 use Illuminate\Http\Request;
 use Itstructure\MFU\Facades\Uploader;
 use Itstructure\MFU\Facades\Previewer;
@@ -33,10 +33,11 @@ class UploadController extends BaseController
                 ]);
             }
             return response()->json([
-                'success' => true
+                'success' => true,
+                'id' => Uploader::getId()
             ]);
 
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             abort($exception->getCode(), $exception->getMessage());
         }
     }
@@ -64,7 +65,7 @@ class UploadController extends BaseController
                 'success' => true
             ]);
 
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             abort($exception->getCode(), $exception->getMessage());
         }
     }
@@ -87,7 +88,7 @@ class UploadController extends BaseController
                 'success' => true
             ]);
 
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             abort($exception->getCode(), $exception->getMessage());
         }
     }
@@ -104,7 +105,7 @@ class UploadController extends BaseController
             $mediaFile = Mediafile::find($id);
             return Previewer::getPreviewHtml($mediaFile, $location);
 
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             abort($exception->getCode(), $exception->getMessage());
         }
     }

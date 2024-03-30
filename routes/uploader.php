@@ -49,5 +49,8 @@ Route::group([
 
         Route::get('file-edit/{id}', [FileEditManagerController::class, 'index'])
             ->name('uploader_file_edit_manager');
+
+        Route::post('file-list/delete', [FileListManagerController::class, 'delete'])
+            ->name('uploader_file_list_delete');
     });
 });

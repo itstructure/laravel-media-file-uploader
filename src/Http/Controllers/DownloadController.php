@@ -11,6 +11,10 @@ use Itstructure\MFU\Models\Mediafile;
  */
 class DownloadController extends BaseController
 {
+    /**
+     * @param int $id
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     */
     public function download(int $id)
     {
         $fileModel = Mediafile::find($id);

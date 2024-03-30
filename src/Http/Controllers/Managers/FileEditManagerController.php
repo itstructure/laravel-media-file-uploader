@@ -12,6 +12,10 @@ use Itstructure\MFU\Models\Mediafile;
  */
 class FileEditManagerController extends BaseController
 {
+    /**
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function index(int $id)
     {
         $mediaFile = Mediafile::find($id);

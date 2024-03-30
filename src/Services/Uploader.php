@@ -99,6 +99,14 @@ class Uploader
     }
 
     /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->processor->getId();
+    }
+
+    /**
      * @param string|null $key
      * @return array
      */
