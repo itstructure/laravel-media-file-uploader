@@ -12,6 +12,7 @@
                 'rowsPerPage' => 5,
                 'rowsFormAction' => route('uploader_file_list_delete'),
                 'filtersFormAction' => route('uploader_file_list_manager'),
+                'sendButtonLabel' => trans('grid_view::grid.delete'),
                 'title' => '',
                 'strictFilters' => false,
                 'columnFields' => [

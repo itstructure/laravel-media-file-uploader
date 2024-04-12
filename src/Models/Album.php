@@ -4,8 +4,9 @@ namespace Itstructure\MFU\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Itstructure\MFU\Processors\SaveProcessor;
+use Itstructure\MFU\Interfaces\HasOwnerInterface;
 
-class Album extends Model
+class Album extends Model implements HasOwnerInterface
 {
     const ALBUM_TYPE_IMAGE = SaveProcessor::FILE_TYPE_IMAGE . '_album';
     const ALBUM_TYPE_AUDIO = SaveProcessor::FILE_TYPE_AUDIO . '_album';
@@ -17,4 +18,15 @@ class Album extends Model
     protected $table = 'albums';
 
     protected $fillable = ['title', 'description', 'type'];
+
+    /**
+     * @param int $ownerId
+     * @param string $ownerName
+     * @param string $ownerAttribute
+     * @return bool
+     */
+    public function addOwner(int $ownerId, string $ownerName, string $ownerAttribute): bool
+    {
+        return OwnerAlbum::addOwner($this->id, $ownerId, $ownerName, $ownerAttribute);
+    }
 }

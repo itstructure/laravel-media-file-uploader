@@ -91,7 +91,7 @@
                     <button type="button" class="btn btn-info" role="insert-file">
                         Insert
                     </button>
-                    <button type="button" class="btn btn-danger" onclick="deleteFile(event)">
+                    <button type="button" class="btn btn-danger" onclick="if (window.confirm('Sure to delete?')) {deleteFile(event)}">
                         Delete
                     </button>
                 </div>

@@ -5,8 +5,9 @@ namespace Itstructure\MFU\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Itstructure\MFU\Processors\SaveProcessor;
+use Itstructure\MFU\Interfaces\HasOwnerInterface;
 
-class Mediafile extends Model
+class Mediafile extends Model implements HasOwnerInterface
 {
     protected $table = 'mediafiles';
 

@@ -4,8 +4,8 @@ namespace Itstructure\MFU\Http\Controllers;
 
 use Throwable;
 use Illuminate\Http\Request;
-use Itstructure\MFU\Facades\Uploader;
-use Itstructure\MFU\Facades\Previewer;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Itstructure\MFU\Facades\{Uploader, Previewer};
 use Itstructure\MFU\Models\Mediafile;
 
 /**
@@ -17,6 +17,7 @@ class UploadController extends BaseController
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws HttpException
      */
     public function upload(Request $request)
     {
@@ -38,13 +39,14 @@ class UploadController extends BaseController
             ]);
 
         } catch (Throwable $exception) {
-            abort($exception->getCode(), $exception->getMessage());
+            return abort(400, $exception->getMessage());
         }
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws HttpException
      */
     public function update(Request $request)
     {
@@ -66,36 +68,31 @@ class UploadController extends BaseController
             ]);
 
         } catch (Throwable $exception) {
-            abort($exception->getCode(), $exception->getMessage());
+            return abort(400, $exception->getMessage());
         }
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws HttpException
      */
     public function delete(Request $request)
     {
         try {
-            $id = $request->post('id');
-
-            if (!Uploader::delete($id)) {
-                return response()->json([
-                    'success' => false
-                ]);
-            }
             return response()->json([
-                'success' => true
+                'success' => Uploader::delete($request->post('id'))
             ]);
 
         } catch (Throwable $exception) {
-            abort($exception->getCode(), $exception->getMessage());
+            return abort(400, $exception->getMessage());
         }
     }
 
     /**
      * @param Request $request
      * @return string
+     * @throws HttpException
      */
     public function preview(Request $request)
     {
@@ -106,7 +103,7 @@ class UploadController extends BaseController
             return Previewer::getPreviewHtml($mediaFile, $location);
 
         } catch (Throwable $exception) {
-            abort($exception->getCode(), $exception->getMessage());
+            return abort(400, $exception->getMessage());
         }
     }
 }

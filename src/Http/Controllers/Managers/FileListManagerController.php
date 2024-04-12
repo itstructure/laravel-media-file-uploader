@@ -50,7 +50,7 @@ class FileListManagerController extends BaseController
      */
     public function delete(Request $request)
     {
-        foreach ($request->items as $id) {
+        foreach ($request->items ?? [] as $id) {
             try {
                 Uploader::delete($id);
             } catch (Throwable $e) {}
