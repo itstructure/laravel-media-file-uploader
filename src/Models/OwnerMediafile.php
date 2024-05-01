@@ -33,17 +33,17 @@ class OwnerMediafile extends Owner
      * @param null|string $ownerAttribute
      * @return Collection|Mediafile[]
      */
-    public static function getMediaFiles(string $ownerName, int $ownerId, string $ownerAttribute = null)
+    public static function getMediaFiles(string $ownerName, int $ownerId, string $ownerAttribute = null): Collection
     {
         return static::getMediaFilesQuery(static::buildFilterOptions($ownerId, $ownerName, $ownerAttribute))->get();
     }
 
     /**
      * Get all mediafiles query by owner.
-     * @param array $args. It can be an array of the next params: owner{string}, ownerId{int}, ownerAttribute{string}.
+     * @param array $args. It can be an array of the next params: owner_name{string}, owner_id{int}, owner_attribute{string}.
      * @return EloquentBuilder
      */
-    public static function getMediaFilesQuery(array $args = [])
+    public static function getMediaFilesQuery(array $args = []): EloquentBuilder
     {
         return Mediafile::query()->whereIn('id', static::getEntityIdsQuery('mediafile_id', $args)->get()->pluck('mediafile_id'));
     }
@@ -54,7 +54,7 @@ class OwnerMediafile extends Owner
      * @param int    $ownerId
      * @return Mediafile|null
      */
-    public static function getOwnerThumbnail(string $ownerName, int $ownerId)
+    public static function getOwnerThumbnail(string $ownerName, int $ownerId): ?Mediafile
     {
         $ownerMediafileModel = static::getEntityIdsQuery('mediafile_id', [
             'owner_name' => $ownerName,
@@ -75,7 +75,7 @@ class OwnerMediafile extends Owner
      * @param int    $ownerId
      * @return Collection|Mediafile[]
      */
-    public static function getImageFiles(string $ownerName, int $ownerId)
+    public static function getImageFiles(string $ownerName, int $ownerId): Collection
     {
         return static::getMediaFiles($ownerName, $ownerId, SaveProcessor::FILE_TYPE_IMAGE);
     }
@@ -86,7 +86,7 @@ class OwnerMediafile extends Owner
      * @param int    $ownerId
      * @return Collection|Mediafile[]
      */
-    public static function getAudioFiles(string $ownerName, int $ownerId)
+    public static function getAudioFiles(string $ownerName, int $ownerId): Collection
     {
         return static::getMediaFiles($ownerName, $ownerId, SaveProcessor::FILE_TYPE_AUDIO);
     }
@@ -97,7 +97,7 @@ class OwnerMediafile extends Owner
      * @param int    $ownerId
      * @return Collection|Mediafile[]
      */
-    public static function getVideoFiles(string $ownerName, int $ownerId)
+    public static function getVideoFiles(string $ownerName, int $ownerId): Collection
     {
         return static::getMediaFiles($ownerName, $ownerId, SaveProcessor::FILE_TYPE_VIDEO);
     }
@@ -108,7 +108,7 @@ class OwnerMediafile extends Owner
      * @param int    $ownerId
      * @return Collection|Mediafile[]
      */
-    public static function getAppFiles(string $ownerName, int $ownerId)
+    public static function getAppFiles(string $ownerName, int $ownerId): Collection
     {
         return static::getMediaFiles($ownerName, $ownerId, SaveProcessor::FILE_TYPE_APP);
     }
@@ -119,7 +119,7 @@ class OwnerMediafile extends Owner
      * @param int    $ownerId
      * @return Collection|Mediafile[]
      */
-    public static function getTextFiles(string $ownerName, int $ownerId)
+    public static function getTextFiles(string $ownerName, int $ownerId): Collection
     {
         return static::getMediaFiles($ownerName, $ownerId, SaveProcessor::FILE_TYPE_TEXT);
     }
@@ -130,7 +130,7 @@ class OwnerMediafile extends Owner
      * @param int    $ownerId
      * @return Collection|Mediafile[]
      */
-    public static function getOtherFiles(string $ownerName, int $ownerId)
+    public static function getOtherFiles(string $ownerName, int $ownerId): Collection
     {
         return static::getMediaFiles($ownerName, $ownerId, SaveProcessor::FILE_TYPE_OTHER);
     }

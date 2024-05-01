@@ -32,17 +32,17 @@ class OwnerAlbum extends Owner
      * @param string|null $ownerAttribute
      * @return Collection|Album[]
      */
-    public static function getAlbums(string $ownerName, int $ownerId, string $ownerAttribute = null)
+    public static function getAlbums(string $ownerName, int $ownerId, string $ownerAttribute = null): Collection
     {
         return static::getAlbumsQuery(static::buildFilterOptions($ownerId, $ownerName, $ownerAttribute))->get();
     }
 
     /**
      * Get all albums query by owner.
-     * @param array $args. It can be an array of the next params: owner{string}, ownerId{int}, ownerAttribute{string}.
+     * @param array $args. It can be an array of the next params: owner_name{string}, owner_id{int}, owner_attribute{string}.
      * @return EloquentBuilder
      */
-    public static function getAlbumsQuery(array $args = [])
+    public static function getAlbumsQuery(array $args = []): EloquentBuilder
     {
         return Album::query()->whereIn('id', static::getEntityIdsQuery('album_id', $args)->get()->pluck('album_id'));
     }
@@ -53,7 +53,7 @@ class OwnerAlbum extends Owner
      * @param int    $ownerId
      * @return Collection|Album[]
      */
-    public static function getImageAlbums(string $ownerName, int $ownerId)
+    public static function getImageAlbums(string $ownerName, int $ownerId): Collection
     {
         return static::getAlbums($ownerName, $ownerId, Album::ALBUM_TYPE_IMAGE);
     }
@@ -64,7 +64,7 @@ class OwnerAlbum extends Owner
      * @param int    $ownerId
      * @return Collection|Album[]
      */
-    public static function getAudioAlbums(string $ownerName, int $ownerId)
+    public static function getAudioAlbums(string $ownerName, int $ownerId): Collection
     {
         return static::getAlbums($ownerName, $ownerId, Album::ALBUM_TYPE_AUDIO);
     }
@@ -75,7 +75,7 @@ class OwnerAlbum extends Owner
      * @param int    $ownerId
      * @return Collection|Album[]
      */
-    public static function getVideoAlbums(string $ownerName, int $ownerId)
+    public static function getVideoAlbums(string $ownerName, int $ownerId): Collection
     {
         return static::getAlbums($ownerName, $ownerId, Album::ALBUM_TYPE_VIDEO);
     }
@@ -86,18 +86,18 @@ class OwnerAlbum extends Owner
      * @param int    $ownerId
      * @return Collection|Album[]
      */
-    public static function getAppAlbums(string $ownerName, int $ownerId)
+    public static function getAppAlbums(string $ownerName, int $ownerId): Collection
     {
         return static::getAlbums($ownerName, $ownerId, Album::ALBUM_TYPE_APP);
     }
 
     /**
      * Get text albums by owner.
-     * @param string $owner
+     * @param string $ownerName
      * @param int    $ownerId
      * @return Collection|Album[]
      */
-    public static function getTextAlbums(string $ownerName, int $ownerId)
+    public static function getTextAlbums(string $ownerName, int $ownerId): Collection
     {
         return static::getAlbums($ownerName, $ownerId, Album::ALBUM_TYPE_TEXT);
     }
@@ -108,7 +108,7 @@ class OwnerAlbum extends Owner
      * @param int    $ownerId
      * @return Collection|Album[]
      */
-    public static function getOtherAlbums(string $ownerName, int $ownerId)
+    public static function getOtherAlbums(string $ownerName, int $ownerId): Collection
     {
         return static::getAlbums($ownerName, $ownerId, Album::ALBUM_TYPE_OTHER);
     }

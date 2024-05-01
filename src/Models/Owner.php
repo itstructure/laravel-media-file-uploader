@@ -3,7 +3,7 @@
 namespace Itstructure\MFU\Models;
 
 use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Database\Eloquent\{Model, Builder as EloquentBuilder};
+use Illuminate\Database\Eloquent\{Collection, Model, Builder as EloquentBuilder};
 
 abstract class Owner extends Model
 {
@@ -44,7 +44,7 @@ abstract class Owner extends Model
         $query = static::query();
         foreach (static::buildFilterOptions($ownerId, $ownerName, $ownerAttribute) as $attribute => $value) {
             /* @var QueryBuilder $q */
-            $query->where($attribute, $value);
+            $query->where($attribute, '=', $value);
         }
 
         return $query->delete() > 0;
@@ -55,12 +55,12 @@ abstract class Owner extends Model
      * @param string $ownerName
      * @param int $ownerId
      * @param array $entityIds
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return Collection|static[]
      */
-    public static function filterMultipliedEntityIds(string $ownerName, int $ownerId, array $entityIds)
+    public static function filterMultipliedEntityIds(string $ownerName, int $ownerId, array $entityIds): Collection
     {
         return static::query()->select(static::getExternalModelKeyName())
-            ->where([static::getExternalModelKeyName() => $entityIds])
+            ->whereIn(static::getExternalModelKeyName(), $entityIds)
             ->where(function ($q) use ($ownerId, $ownerName) {
                 /* @var QueryBuilder $q */
                 $q->where('owner_id', '!=', $ownerId)
@@ -72,7 +72,7 @@ abstract class Owner extends Model
     /**
      * Get Id's by owner.
      * @param string $nameId
-     * @param array $args It can be an array of the next params: owner{string}, ownerId{int}, ownerAttribute{string}.
+     * @param array $args It can be an array of the next params: owner_name{string}, owner_id{int}, owner_attribute{string}.
      * @return EloquentBuilder
      */
     protected static function getEntityIdsQuery(string $nameId, array $args): EloquentBuilder
