@@ -1,0 +1,60 @@
+@extends('adminlte::page')
+@section('title', 'Album List')
+@section('content')
+    @php
+        $gridData = [
+            'dataProvider' => $dataProvider,
+            'paginatorOptions' => [
+                'pageName' => 'p',
+                'onEachSide' => 1
+            ],
+            'rowsPerPage' => 5,
+            'rowsFormAction' => route('uploader_file_list_delete'),
+            'filtersFormAction' => route('uploader_file_list_manager'),
+            'sendButtonLabel' => trans('grid_view::grid.delete'),
+            'title' => '',
+            'strictFilters' => false,
+            'columnFields' => [
+                [
+                    'label' => 'Preview',
+                    'value' => function ($row) {
+                        return '';
+                    },
+                    'filter' => false,
+                    'format' => [
+                        'class' => Itstructure\GridView\Formatters\HtmlFormatter::class,
+                    ]
+                ],
+                [
+                    'label' => 'Title',
+                    'attribute' => 'title'
+                ],
+                [
+                    'label' => 'Created',
+                    'attribute' => 'created_at'
+                ],
+                [
+                    'label' => 'Updated',
+                    'attribute' => 'updated_at'
+                ],
+                [
+                    'label' => 'Actions',
+                    'value' => function ($row) {
+                        return view('uploader::partials.list-actions', ['row' => $row]);
+                    },
+                    'filter' => false,
+                    'format' => [
+                        'class' => Itstructure\GridView\Formatters\HtmlFormatter::class,
+                    ],
+                ],
+                [
+                    'class' => Itstructure\GridView\Columns\CheckboxColumn::class,
+                    'field' => 'items',
+                    'attribute' => 'id'
+                ],
+            ],
+        ];
+    @endphp
+
+    @gridView($gridData)
+@endsection

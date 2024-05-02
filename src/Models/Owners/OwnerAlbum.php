@@ -1,10 +1,15 @@
 <?php
 
-namespace Itstructure\MFU\Models;
+namespace Itstructure\MFU\Models\Owners;
 
 use Illuminate\Database\Eloquent\{Collection, Builder as EloquentBuilder};
 use Itstructure\MFU\Traits\HasCompositePrimaryKey;
+use Itstructure\MFU\Models\Albums\Album;
 
+/**
+ * Class OwnerAlbum
+ * @package Itstructure\MFU\Models\Owners
+ */
 class OwnerAlbum extends Owner
 {
     use HasCompositePrimaryKey;

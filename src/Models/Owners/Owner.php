@@ -1,10 +1,14 @@
 <?php
 
-namespace Itstructure\MFU\Models;
+namespace Itstructure\MFU\Models\Owners;
 
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\{Collection, Model, Builder as EloquentBuilder};
 
+/**
+ * Class Owner
+ * @package Itstructure\MFU\Models\Owners
+ */
 abstract class Owner extends Model
 {
     /**

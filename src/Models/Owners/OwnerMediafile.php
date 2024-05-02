@@ -1,11 +1,16 @@
 <?php
 
-namespace Itstructure\MFU\Models;
+namespace Itstructure\MFU\Models\Owners;
 
 use Illuminate\Database\Eloquent\{Collection, Builder as EloquentBuilder};
 use Itstructure\MFU\Traits\HasCompositePrimaryKey;
 use Itstructure\MFU\Processors\SaveProcessor;
+use Itstructure\MFU\Models\Mediafile;
 
+/**
+ * Class OwnerMediafile
+ * @package Itstructure\MFU\Models\Owners
+ */
 class OwnerMediafile extends Owner
 {
     use HasCompositePrimaryKey;
@@ -54,7 +59,7 @@ class OwnerMediafile extends Owner
      * @param int    $ownerId
      * @return Mediafile|null
      */
-    public static function getOwnerThumbnail(string $ownerName, int $ownerId): ?Mediafile
+    public static function getOwnerThumbnailModel(string $ownerName, int $ownerId): ?Mediafile
     {
         $ownerMediafileModel = static::getEntityIdsQuery('mediafile_id', [
             'owner_name' => $ownerName,

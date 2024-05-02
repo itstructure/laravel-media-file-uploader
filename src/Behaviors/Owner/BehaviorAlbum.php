@@ -3,7 +3,8 @@
 namespace Itstructure\MFU\Behaviors\Owner;
 
 use Itstructure\MFU\Interfaces\HasOwnerInterface;
-use Itstructure\MFU\Models\{Album, OwnerAlbum};
+use Itstructure\MFU\Models\Albums\Album;
+use Itstructure\MFU\Models\Owners\OwnerAlbum;
 
 /**
  * Class BehaviorAlbum

@@ -3,7 +3,8 @@
 namespace Itstructure\MFU\Behaviors\Owner;
 
 use Itstructure\MFU\Interfaces\HasOwnerInterface;
-use Itstructure\MFU\Models\{Mediafile, OwnerMediafile};
+use Itstructure\MFU\Models\Owners\OwnerMediafile;
+use Itstructure\MFU\Models\Mediafile;
 
 /**
  * Class BehaviorMediafile

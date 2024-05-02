@@ -3,9 +3,11 @@
 namespace Itstructure\MFU\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Itstructure\MFU\Processors\SaveProcessor;
 use Itstructure\MFU\Interfaces\HasOwnerInterface;
+use Itstructure\MFU\Models\Owners\OwnerMediafile;
 
 class Mediafile extends Model implements HasOwnerInterface
 {
@@ -19,9 +21,9 @@ class Mediafile extends Model implements HasOwnerInterface
 
     /**
      * @param array $mimeTypes
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
-    public static function findByMimeTypes(array $mimeTypes)
+    public static function findByMimeTypes(array $mimeTypes): Collection
     {
         return static::whereIn('mime_type', $mimeTypes)->get();
     }

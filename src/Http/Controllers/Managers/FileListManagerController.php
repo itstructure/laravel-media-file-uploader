@@ -5,9 +5,10 @@ namespace Itstructure\MFU\Http\Controllers\Managers;
 use Throwable;
 use Illuminate\Http\Request;
 use Itstructure\GridView\DataProviders\EloquentDataProvider;
-use Itstructure\MFU\Http\Controllers\BaseController;
-use Itstructure\MFU\Models\{OwnerMediafile, Mediafile};
 use Itstructure\MFU\Facades\Uploader;
+use Itstructure\MFU\Http\Controllers\BaseController;
+use Itstructure\MFU\Models\Owners\OwnerMediafile;
+use Itstructure\MFU\Models\Mediafile;
 
 /**
  * Class FileListManagerController
@@ -33,9 +34,9 @@ class FileListManagerController extends BaseController
         }
 
         if (count($requestParams) > 0) {
-            $query = OwnerMediafile::getMediaFilesQuery($requestParams)->orWhereNotIn('mediafile_id', OwnerMediafile::pluck('mediafile_id')->toArray());
+            $query = OwnerMediafile::getMediaFilesQuery($requestParams)->orWhereNotIn('id', OwnerMediafile::pluck('mediafile_id')->toArray());
         } else {
-            $query = Mediafile::whereNotIn('mediafile_id', OwnerMediafile::pluck('mediafile_id')->toArray());
+            $query = Mediafile::whereNotIn('id', OwnerMediafile::pluck('mediafile_id')->toArray());
         }
 
         return view('uploader::managers.file-list', [
