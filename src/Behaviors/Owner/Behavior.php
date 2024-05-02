@@ -1,21 +1,16 @@
 <?php
 
-namespace Itstructure\MFU\Behaviors;
+namespace Itstructure\MFU\Behaviors\Owner;
 
 use Illuminate\Database\Eloquent\Model;
 use Itstructure\MFU\Interfaces\HasOwnerInterface;
 
 /**
  * Class Behavior
- * @package Itstructure\MFU\Behaviors
+ * @package Itstructure\MFU\Behaviors\Owner
  */
 abstract class Behavior
 {
-    /**
-     * @var Model
-     */
-    protected $ownerModel;
-
     /**
      * @var array
      */
@@ -41,63 +36,61 @@ abstract class Behavior
     abstract protected function removeOwner(int $ownerId, string $ownerName, string $ownerAttribute): bool;
 
     /**
-     * @param Model $ownerModel
      * @param array $attributes
      * @param string $findChildModelKey
      * @return static
      */
-    public static function getInstance(Model $ownerModel, array $attributes, string $findChildModelKey = 'id')
+    public static function getInstance(array $attributes, string $findChildModelKey = 'id')
     {
-        return new static($ownerModel, $attributes, $findChildModelKey);
+        return new static($attributes, $findChildModelKey);
     }
 
     /**
      * Behavior constructor.
-     * @param Model $ownerModel
      * @param array $attributes
      * @param string $findChildModelKey
      */
-    protected function __construct(Model $ownerModel, array $attributes, string $findChildModelKey)
+    protected function __construct(array $attributes, string $findChildModelKey)
     {
-        $this->ownerModel = $ownerModel;
         $this->attributes = $attributes;
         $this->findChildModelKey = $findChildModelKey;
     }
 
-    public function addOwners(): void
+    public function link(Model $ownerModel): void
     {
         foreach ($this->attributes as $attributeName) {
-            $this->linkChildWithOwner($attributeName, $this->ownerModel->{$attributeName});
+            $this->linkChildWithOwner($ownerModel, $attributeName, $ownerModel->{$attributeName});
         }
     }
 
-    public function updateOwners(): void
+    public function refresh(Model $ownerModel): void
     {
         foreach ($this->attributes as $attributeName) {
-            $this->removeOwner($this->ownerModel->getKey(), $this->ownerModel->getTable(), $attributeName);
-            $this->linkChildWithOwner($attributeName, $this->ownerModel->{$attributeName});
+            $this->removeOwner($ownerModel->getKey(), $ownerModel->getTable(), $attributeName);
+            $this->linkChildWithOwner($ownerModel, $attributeName, $ownerModel->{$attributeName});
         }
     }
 
-    public function deleteOwners(): void
+    public function clear(Model $ownerModel): void
     {
         foreach ($this->attributes as $attributeName) {
-            $this->removeOwner($this->ownerModel->getKey(), $this->ownerModel->getTable(), $attributeName);
+            $this->removeOwner($ownerModel->getKey(), $ownerModel->getTable(), $attributeName);
         }
     }
 
     /**
+     * @param Model $ownerModel
      * @param $attributeName
      * @param $attributeValue
      */
-    protected function linkChildWithOwner($attributeName, $attributeValue): void
+    protected function linkChildWithOwner(Model $ownerModel, $attributeName, $attributeValue): void
     {
         if (is_array($attributeValue)) {
             foreach ($attributeValue as $item) {
                 if (empty($item)) {
                     continue;
                 }
-                $this->linkChildWithOwner($attributeName, $item);
+                $this->linkChildWithOwner($ownerModel, $attributeName, $item);
             }
 
         } else if (!empty($attributeValue)) {
@@ -105,7 +98,7 @@ abstract class Behavior
             if (empty($childModel)) {
                 return;
             }
-            $childModel->addOwner($this->ownerModel->getKey(), $this->ownerModel->getTable(), $attributeName);
+            $childModel->addOwner($ownerModel->getKey(), $ownerModel->getTable(), $attributeName);
         }
     }
 }

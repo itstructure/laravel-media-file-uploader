@@ -1,13 +1,13 @@
 <?php
 
-namespace Itstructure\MFU\Behaviors;
+namespace Itstructure\MFU\Behaviors\Owner;
 
 use Itstructure\MFU\Interfaces\HasOwnerInterface;
 use Itstructure\MFU\Models\{Album, OwnerAlbum};
 
 /**
  * Class BehaviorAlbum
- * @package Itstructure\MFU\Behaviors
+ * @package Itstructure\MFU\Behaviors\Owner
  */
 class BehaviorAlbum extends Behavior
 {
