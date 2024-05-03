@@ -48,6 +48,14 @@ abstract class Album extends Model implements HasOwnerInterface
     abstract protected static function getBehaviorAttributes(): array;
 
     /**
+     * @return array
+     */
+    public static function getAllBehaviorAttributes(): array
+    {
+        return array_merge(static::getBehaviorAttributes(), ['thumbnail']);
+    }
+
+    /**
      * @param int $ownerId
      * @param string $ownerName
      * @param string $ownerAttribute
@@ -130,17 +138,17 @@ abstract class Album extends Model implements HasOwnerInterface
 
     protected static function booted(): void
     {
-        $behavior = BehaviorMediafile::getInstance(array_merge(static::getBehaviorAttributes(), ['thumbnail']));
+        $behavior = BehaviorMediafile::getInstance(static::getAllBehaviorAttributes());
 
-        static::created(function (ImageAlbum $ownerModel) use ($behavior) {
+        static::created(function (Album $ownerModel) use ($behavior) {
             $behavior->link($ownerModel);
         });
 
-        static::updated(function (ImageAlbum $ownerModel) use ($behavior) {
+        static::updated(function (Album $ownerModel) use ($behavior) {
             $behavior->refresh($ownerModel);
         });
 
-        static::deleted(function (ImageAlbum $ownerModel) use ($behavior) {
+        static::deleted(function (Album $ownerModel) use ($behavior) {
             $behavior->clear($ownerModel);
         });
     }

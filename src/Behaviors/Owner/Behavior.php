@@ -59,7 +59,7 @@ abstract class Behavior
     public function link(Model $ownerModel): void
     {
         foreach ($this->attributes as $attributeName) {
-            $this->linkChildWithOwner($ownerModel, $attributeName, $ownerModel->{$attributeName});
+            $this->linkOwner($ownerModel, $attributeName, $ownerModel->{$attributeName});
         }
     }
 
@@ -67,7 +67,7 @@ abstract class Behavior
     {
         foreach ($this->attributes as $attributeName) {
             $this->removeOwner($ownerModel->getKey(), $ownerModel->getTable(), $attributeName);
-            $this->linkChildWithOwner($ownerModel, $attributeName, $ownerModel->{$attributeName});
+            $this->linkOwner($ownerModel, $attributeName, $ownerModel->{$attributeName});
         }
     }
 
@@ -83,14 +83,14 @@ abstract class Behavior
      * @param $attributeName
      * @param $attributeValue
      */
-    protected function linkChildWithOwner(Model $ownerModel, $attributeName, $attributeValue): void
+    protected function linkOwner(Model $ownerModel, $attributeName, $attributeValue): void
     {
         if (is_array($attributeValue)) {
             foreach ($attributeValue as $item) {
                 if (empty($item)) {
                     continue;
                 }
-                $this->linkChildWithOwner($ownerModel, $attributeName, $item);
+                $this->linkOwner($ownerModel, $attributeName, $item);
             }
 
         } else if (!empty($attributeValue)) {
@@ -98,7 +98,17 @@ abstract class Behavior
             if (empty($childModel)) {
                 return;
             }
-            $childModel->addOwner($ownerModel->getKey(), $ownerModel->getTable(), $attributeName);
+            $this->addOwner($childModel, $ownerModel, $attributeName);
         }
+    }
+
+    /**
+     * @param HasOwnerInterface $childModel
+     * @param Model $ownerModel
+     * @param $attributeName
+     */
+    protected function addOwner(HasOwnerInterface $childModel, Model $ownerModel, $attributeName): void
+    {
+        $childModel->addOwner($ownerModel->getKey(), $ownerModel->getTable(), $attributeName);
     }
 }

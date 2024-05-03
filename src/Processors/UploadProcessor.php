@@ -3,6 +3,7 @@
 namespace Itstructure\MFU\Processors;
 
 use Exception;
+use Itstructure\MFU\Interfaces\HasOwnerInterface;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -56,7 +57,18 @@ class UploadProcessor extends SaveProcessor
     protected function afterProcess(): void
     {
         if (!empty($this->data['owner_id']) && !empty($this->data['owner_name']) && !empty($this->data['owner_attribute'])) {
-            $this->mediafileModel->addOwner($this->data['owner_id'], $this->data['owner_name'], $this->data['owner_attribute']);
+            $this->addOwner($this->mediafileModel, $this->data['owner_id'], $this->data['owner_name'], $this->data['owner_attribute']);
         }
+    }
+
+    /**
+     * @param HasOwnerInterface $mediafileModel
+     * @param int $ownerId
+     * @param string $ownerName
+     * @param string $ownerAttribute
+     */
+    protected function addOwner(HasOwnerInterface $mediafileModel, int $ownerId, string $ownerName, string $ownerAttribute): void
+    {
+        $mediafileModel->addOwner($ownerId, $ownerName, $ownerAttribute);
     }
 }
