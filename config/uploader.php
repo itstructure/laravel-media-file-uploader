@@ -221,5 +221,8 @@ return [
             Previewer::LOCATION_FILE_INFO => SaveProcessor::THUMB_ALIAS_MEDIUM,
             Previewer::LOCATION_EXISTING => SaveProcessor::THUMB_ALIAS_MEDIUM,
         ]
+    ],
+    'albums' => [
+        'layout' => 'adminlte::page', // You must set it. Example: 'layout' => 'adminlte::page'
     ]
 ];

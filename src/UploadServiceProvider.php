@@ -64,6 +64,9 @@ class UploadServiceProvider extends ServiceProvider
         $this->publishViews();
         $this->publishTranslations();
         $this->publishMigrations();
+
+        // Global view's params
+        View::share('albumsLayout', config('uploader.albums.layout'));
     }
 
 

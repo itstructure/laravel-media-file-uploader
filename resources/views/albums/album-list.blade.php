@@ -1,5 +1,5 @@
-@extends('adminlte::page')
-@section('title', 'Album List')
+@extends($albumsLayout)
+@section('title', $title)
 @section('content')
     @php
         $gridData = [
@@ -9,10 +9,10 @@
                 'onEachSide' => 1
             ],
             'rowsPerPage' => 5,
-            'rowsFormAction' => route('uploader_file_list_delete'),
-            'filtersFormAction' => route('uploader_file_list_manager'),
+            'rowsFormAction' => $rowsFormAction,
+            'filtersFormAction' => $filtersFormAction,
             'sendButtonLabel' => trans('grid_view::grid.delete'),
-            'title' => '',
+            'title' => $title,
             'strictFilters' => false,
             'columnFields' => [
                 [

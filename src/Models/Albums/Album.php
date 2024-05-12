@@ -67,12 +67,20 @@ abstract class Album extends Model implements HasOwnerInterface
     }
 
     /**
-     * @param string|null $key
-     * @return array|mixed
+     * @param string $type
+     * @return null|string
      */
-    public static function getAlbumTypes(string $key = null)
+    public static function getAlbumTitle(string $type): ?string
     {
-        $types = [
+        return static::getAlbumTypes()[$type] ?? '';
+    }
+
+    /**
+     * @return array
+     */
+    public static function getAlbumTypes(): array
+    {
+        return [
             self::ALBUM_TYPE_IMAGE => 'Image album',
             self::ALBUM_TYPE_AUDIO => 'Audio album',
             self::ALBUM_TYPE_VIDEO => 'Video album',
@@ -80,10 +88,6 @@ abstract class Album extends Model implements HasOwnerInterface
             self::ALBUM_TYPE_TEXT  => 'Text files',
             self::ALBUM_TYPE_OTHER => 'Other files'
         ];
-        if (null !== $key) {
-            return array_key_exists($key, $types) ? $types[$key] : [];
-        }
-        return $types;
     }
 
     /**
