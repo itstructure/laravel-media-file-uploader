@@ -9,8 +9,8 @@
                 'onEachSide' => 1
             ],
             'rowsPerPage' => 5,
-            'rowsFormAction' => $rowsFormAction,
-            'filtersFormAction' => $filtersFormAction,
+            'rowsFormAction' => route('uploader_' . $type . '_delete'),
+            'filtersFormAction' => route('uploader_' . $type . '_list'),
             'sendButtonLabel' => trans('grid_view::grid.delete'),
             'title' => $title,
             'strictFilters' => false,
@@ -39,12 +39,14 @@
                 ],
                 [
                     'label' => 'Actions',
-                    'value' => function ($row) {
-                        return view('uploader::partials.list-actions', ['row' => $row]);
-                    },
-                    'filter' => false,
-                    'format' => [
-                        'class' => Itstructure\GridView\Formatters\HtmlFormatter::class,
+                    'class' => Itstructure\GridView\Columns\ActionColumn::class,
+                    'actionTypes' => [
+                        'view' => function ($data) {
+                            return route('uploader_' . $data->type . '_view', ['id' => $data->id]);
+                        },
+                        'edit' => function ($data) {
+                            return route('uploader_' . $data->type . '_edit', ['id' => $data->id]);
+                        },
                     ],
                 ],
                 [

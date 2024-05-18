@@ -185,10 +185,10 @@ class FileSetter
 
     /************************* CONFIG SETTERS *****************************/
     /**
-     * @param Model $model
+     * @param Model|null $model
      * @return FileSetter
      */
-    public function setModel(Model $model): self
+    public function setModel(?Model $model): self
     {
         $this->model = $model;
         return $this;
@@ -385,10 +385,10 @@ class FileSetter
     }
 
     /**
-     * @param string $subDir
+     * @param null|string $subDir
      * @return FileSetter
      */
-    public function setSubDir(string $subDir): self
+    public function setSubDir(?string $subDir): self
     {
         $this->subDir = $subDir;
         return $this;
