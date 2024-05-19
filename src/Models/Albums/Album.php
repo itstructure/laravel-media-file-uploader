@@ -140,6 +140,20 @@ abstract class Album extends Model implements HasOwnerInterface
         return OwnerMediafile::getOwnerThumbnailModel($this->type, $this->id);
     }
 
+    /**
+     * @param array $attributes
+     * @return Model
+     */
+    public function fill(array $attributes)
+    {
+        foreach (static::getAllBehaviorAttributes() as $behaviorAttribute) {
+            if (isset($attributes[$behaviorAttribute])) {
+                $this->{$behaviorAttribute} = $attributes[$behaviorAttribute];
+            }
+        }
+        return parent::fill($attributes);
+    }
+
     protected static function booted(): void
     {
         $behavior = BehaviorMediafile::getInstance(static::getAllBehaviorAttributes());
