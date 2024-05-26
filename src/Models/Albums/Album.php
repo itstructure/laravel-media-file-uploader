@@ -5,7 +5,7 @@ namespace Itstructure\MFU\Models\Albums;
 use Illuminate\Database\Eloquent\{Collection, Model, Builder as EloquentBuilder};
 use Itstructure\MFU\Processors\SaveProcessor;
 use Itstructure\MFU\Behaviors\Owner\BehaviorMediafile;
-use Itstructure\MFU\Interfaces\HasOwnerInterface;
+use Itstructure\MFU\Interfaces\{HasOwnerInterface, BeingOwnerInterface};
 use Itstructure\MFU\Models\Owners\{OwnerAlbum, OwnerMediafile};
 use Itstructure\MFU\Models\Mediafile;
 
@@ -13,7 +13,7 @@ use Itstructure\MFU\Models\Mediafile;
  * Class Album
  * @package Itstructure\MFU\Models\Albums
  */
-abstract class Album extends Model implements HasOwnerInterface
+abstract class Album extends Model implements HasOwnerInterface, BeingOwnerInterface
 {
     const ALBUM_TYPE_IMAGE = SaveProcessor::FILE_TYPE_IMAGE . '_album';
     const ALBUM_TYPE_AUDIO = SaveProcessor::FILE_TYPE_AUDIO . '_album';
@@ -158,15 +158,11 @@ abstract class Album extends Model implements HasOwnerInterface
     {
         $behavior = BehaviorMediafile::getInstance(static::getAllBehaviorAttributes());
 
-        static::created(function (Album $ownerModel) use ($behavior) {
-            $behavior->link($ownerModel);
-        });
-
-        static::updated(function (Album $ownerModel) use ($behavior) {
+        static::saved(function (BeingOwnerInterface $ownerModel) use ($behavior) {
             $behavior->refresh($ownerModel);
         });
 
-        static::deleted(function (Album $ownerModel) use ($behavior) {
+        static::deleted(function (BeingOwnerInterface $ownerModel) use ($behavior) {
             $behavior->clear($ownerModel);
         });
     }

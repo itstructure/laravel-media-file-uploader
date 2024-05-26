@@ -1,6 +1,18 @@
-<div id="{{ isset($model) ? 'thumbnail_container_' . $model->id : 'thumbnail_container' }}"></div>
-<div id="{{ isset($model) ? 'thumbnail_title_' . $model->id : 'thumbnail_title' }}"></div>
-<div id="{{ isset($model) ? 'thumbnail_description_' . $model->id : 'thumbnail_description' }}"></div>
+<div id="{{ isset($model) ? 'thumbnail_container_' . $model->id : 'thumbnail_container' }}">
+    @if(isset($model) && !empty($thumbModel = $model->getThumbnailModel()))
+        {!! \Itstructure\MFU\Facades\Previewer::getPreviewHtml($thumbModel, \Itstructure\MFU\Services\Previewer::LOCATION_FILE_INFO) !!}
+    @endif
+</div>
+<div id="{{ isset($model) ? 'thumbnail_title_' . $model->id : 'thumbnail_title' }}">
+    @if(isset($model) && !empty($thumbModel = $model->getThumbnailModel()))
+        {{ $thumbModel->title }}
+    @endif
+</div>
+<div id="{{ isset($model) ? 'thumbnail_description_' . $model->id : 'thumbnail_description' }}">
+    @if(isset($model) && !empty($thumbModel = $model->getThumbnailModel()))
+        {{ $thumbModel->description }}
+    @endif
+</div>
 @php
     $fileSetterConfig = [
         'model' => $model ?? null,

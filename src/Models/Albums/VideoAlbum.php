@@ -33,6 +33,22 @@ class VideoAlbum extends Album
     }
 
     /**
+     * @return string
+     */
+    public function getItsName(): string
+    {
+        return static::getAlbumType();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrimaryKey()
+    {
+        return $this->getKey();
+    }
+
+    /**
      * @return array
      */
     protected static function getBehaviorAttributes(): array

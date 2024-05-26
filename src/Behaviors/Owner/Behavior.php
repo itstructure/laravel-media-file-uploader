@@ -2,8 +2,7 @@
 
 namespace Itstructure\MFU\Behaviors\Owner;
 
-use Illuminate\Database\Eloquent\Model;
-use Itstructure\MFU\Interfaces\HasOwnerInterface;
+use Itstructure\MFU\Interfaces\{HasOwnerInterface, BeingOwnerInterface};
 
 /**
  * Class Behavior
@@ -56,34 +55,43 @@ abstract class Behavior
         $this->findChildModelKey = $findChildModelKey;
     }
 
-    public function link(Model $ownerModel): void
+    /**
+     * @param BeingOwnerInterface $ownerModel
+     */
+    public function link(BeingOwnerInterface $ownerModel): void
     {
         foreach ($this->attributes as $attributeName) {
             $this->linkOwner($ownerModel, $attributeName, $ownerModel->{$attributeName});
-        }
-    }
-
-    public function refresh(Model $ownerModel): void
-    {
-        foreach ($this->attributes as $attributeName) {
-            $this->removeOwner($ownerModel->getKey(), $ownerModel->getTable(), $attributeName);
-            $this->linkOwner($ownerModel, $attributeName, $ownerModel->{$attributeName});
-        }
-    }
-
-    public function clear(Model $ownerModel): void
-    {
-        foreach ($this->attributes as $attributeName) {
-            $this->removeOwner($ownerModel->getKey(), $ownerModel->getTable(), $attributeName);
         }
     }
 
     /**
-     * @param Model $ownerModel
+     * @param BeingOwnerInterface $ownerModel
+     */
+    public function refresh(BeingOwnerInterface $ownerModel): void
+    {
+        foreach ($this->attributes as $attributeName) {
+            $this->removeOwner($ownerModel->getPrimaryKey(), $ownerModel->getItsName(), $attributeName);
+            $this->linkOwner($ownerModel, $attributeName, $ownerModel->{$attributeName});
+        }
+    }
+
+    /**
+     * @param BeingOwnerInterface $ownerModel
+     */
+    public function clear(BeingOwnerInterface $ownerModel): void
+    {
+        foreach ($this->attributes as $attributeName) {
+            $this->removeOwner($ownerModel->getPrimaryKey(), $ownerModel->getItsName(), $attributeName);
+        }
+    }
+
+    /**
+     * @param BeingOwnerInterface $ownerModel
      * @param $attributeName
      * @param $attributeValue
      */
-    protected function linkOwner(Model $ownerModel, $attributeName, $attributeValue): void
+    protected function linkOwner(BeingOwnerInterface $ownerModel, $attributeName, $attributeValue): void
     {
         if (is_array($attributeValue)) {
             foreach ($attributeValue as $item) {
@@ -98,17 +106,7 @@ abstract class Behavior
             if (empty($childModel)) {
                 return;
             }
-            $this->addOwner($childModel, $ownerModel, $attributeName);
+            $childModel->addOwner($ownerModel->getPrimaryKey(), $ownerModel->getItsName(), $attributeName);
         }
-    }
-
-    /**
-     * @param HasOwnerInterface $childModel
-     * @param Model $ownerModel
-     * @param $attributeName
-     */
-    protected function addOwner(HasOwnerInterface $childModel, Model $ownerModel, $attributeName): void
-    {
-        $childModel->addOwner($ownerModel->getKey(), $ownerModel->getTable(), $attributeName);
     }
 }
