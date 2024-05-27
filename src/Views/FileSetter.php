@@ -2,19 +2,16 @@
 
 namespace Itstructure\MFU\Views;
 
-use Illuminate\Database\Eloquent\Model;
-
+/**
+ * Class FileSetter
+ * @package Itstructure\MFU\Views
+ */
 class FileSetter
 {
     const INSERTED_DATA_ID = 'id';
     const INSERTED_DATA_URL = 'url';
 
     /************************* CONFIG ATTRIBUTES *************************/
-    /**
-     * @var Model
-     */
-    private $model;
-
     /**
      * @var string
      */
@@ -158,9 +155,7 @@ class FileSetter
     {
         return view('uploader::file_setter.index', [
             'attribute' => $this->attribute,
-            'value' => !empty($this->model)
-                ? $this->model->{$this->attribute}
-                : $this->value,
+            'value' => $this->value,
             'inputId' => $this->getInputId(),
             'openButtonId' => $this->getOpenButtonId(),
             'openButtonName' => $this->openButtonName,
@@ -184,16 +179,6 @@ class FileSetter
 
 
     /************************* CONFIG SETTERS *****************************/
-    /**
-     * @param Model|null $model
-     * @return FileSetter
-     */
-    public function setModel(?Model $model): self
-    {
-        $this->model = $model;
-        return $this;
-    }
-
     /**
      * @param string $attribute
      * @return FileSetter
@@ -402,20 +387,9 @@ class FileSetter
     private function getInputId(): string
     {
         if (empty($this->inputId)) {
-            $this->inputId = !empty($this->model)
-                ? $this->getInputIdByModel()
-                : $this->getInputIdGenerated();
+            $this->inputId = $this->getInputIdGenerated();
         }
         return $this->inputId;
-    }
-
-    /**
-     * @return string
-     */
-    private function getInputIdByModel(): string
-    {
-        return $this->model->getTable() . '-' . $this->attribute
-        . (!empty($this->model->getKey()) ? '-' . $this->model->getKey() : '');
     }
 
     /**

@@ -1,22 +1,25 @@
+@php
+    $thumbModel = isset($model) ? $model->getThumbnailModel() : null;
+@endphp
 <div id="{{ isset($model) ? 'thumbnail_container_' . $model->id : 'thumbnail_container' }}">
-    @if(isset($model) && !empty($thumbModel = $model->getThumbnailModel()))
+    @if(!empty($thumbModel))
         {!! \Itstructure\MFU\Facades\Previewer::getPreviewHtml($thumbModel, \Itstructure\MFU\Services\Previewer::LOCATION_FILE_INFO) !!}
     @endif
 </div>
 <div id="{{ isset($model) ? 'thumbnail_title_' . $model->id : 'thumbnail_title' }}">
-    @if(isset($model) && !empty($thumbModel = $model->getThumbnailModel()))
+    @if(!empty($thumbModel))
         {{ $thumbModel->title }}
     @endif
 </div>
 <div id="{{ isset($model) ? 'thumbnail_description_' . $model->id : 'thumbnail_description' }}">
-    @if(isset($model) && !empty($thumbModel = $model->getThumbnailModel()))
+    @if(!empty($thumbModel))
         {{ $thumbModel->description }}
     @endif
 </div>
 @php
     $fileSetterConfig = [
-        'model' => $model ?? null,
         'attribute' => Itstructure\MFU\Processors\SaveProcessor::FILE_TYPE_THUMB,
+        'value' => !empty($thumbModel) ? $thumbModel->{Itstructure\MFU\Views\FileSetter::INSERTED_DATA_ID} : null,
         'openButtonName' => 'Set thumbnail',
         'clearButtonName' => 'Clear',
         'mediafileContainerId' => isset($model) ? 'thumbnail_container_' . $model->id : 'thumbnail_container',
