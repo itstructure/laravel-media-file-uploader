@@ -158,11 +158,13 @@ abstract class Album extends Model implements HasOwnerInterface, BeingOwnerInter
     {
         $behavior = BehaviorMediafile::getInstance(static::getAllBehaviorAttributes());
 
-        static::saved(function (BeingOwnerInterface $ownerModel) use ($behavior) {
-            $behavior->refresh($ownerModel);
+        static::saved(function (Model $ownerModel) use ($behavior) {
+            $ownerModel->wasRecentlyCreated
+                ? $behavior->link($ownerModel)
+                : $behavior->refresh($ownerModel);
         });
 
-        static::deleted(function (BeingOwnerInterface $ownerModel) use ($behavior) {
+        static::deleted(function (Model $ownerModel) use ($behavior) {
             $behavior->clear($ownerModel);
         });
     }

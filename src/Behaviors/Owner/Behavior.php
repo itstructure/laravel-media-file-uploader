@@ -2,6 +2,7 @@
 
 namespace Itstructure\MFU\Behaviors\Owner;
 
+use Illuminate\Database\Eloquent\Model;
 use Itstructure\MFU\Interfaces\{HasOwnerInterface, BeingOwnerInterface};
 
 /**
@@ -56,7 +57,7 @@ abstract class Behavior
     }
 
     /**
-     * @param BeingOwnerInterface $ownerModel
+     * @param BeingOwnerInterface|Model $ownerModel
      */
     public function link(BeingOwnerInterface $ownerModel): void
     {
@@ -66,7 +67,7 @@ abstract class Behavior
     }
 
     /**
-     * @param BeingOwnerInterface $ownerModel
+     * @param BeingOwnerInterface|Model $ownerModel
      */
     public function refresh(BeingOwnerInterface $ownerModel): void
     {
@@ -77,7 +78,7 @@ abstract class Behavior
     }
 
     /**
-     * @param BeingOwnerInterface $ownerModel
+     * @param BeingOwnerInterface|Model $ownerModel
      */
     public function clear(BeingOwnerInterface $ownerModel): void
     {
@@ -87,7 +88,7 @@ abstract class Behavior
     }
 
     /**
-     * @param BeingOwnerInterface $ownerModel
+     * @param BeingOwnerInterface|Model $ownerModel
      * @param $attributeName
      * @param $attributeValue
      */
