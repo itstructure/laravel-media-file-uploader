@@ -21,7 +21,7 @@ class ImageAlbum extends Album
      */
     public function getImageFiles(): Collection
     {
-        return $this->getMediaFiles(static::getFileType(static::getAlbumType()));
+        return $this->getMediaFiles(static::getFileType());
     }
 
     /**

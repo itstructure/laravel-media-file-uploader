@@ -4,10 +4,12 @@ namespace Itstructure\MFU\Http\Controllers\Albums;
 
 use Throwable;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 use Itstructure\GridView\DataProviders\EloquentDataProvider;
 use Itstructure\MFU\Http\Controllers\BaseController;
 use Itstructure\MFU\Http\Requests\{StoreAlbum, UpdateAlbum, Delete};
 use Itstructure\MFU\Models\Albums\Album;
+use Itstructure\MFU\Models\Mediafile;
 
 /**
  * Class AlbumController
@@ -60,10 +62,13 @@ abstract class AlbumController extends BaseController
      */
     public function edit(int $id)
     {
+        $model = ($this->getModelClass())::findOrFail($id);
+
         return view('uploader::albums.edit', [
             'title' => 'Update ' . strtolower($this->getAlbumTitle()),
             'type' => $this->getAlbumType(),
-            'model' => ($this->getModelClass())::findOrFail($id)
+            'model' => $model,
+            'mediaFiles' => $this->getMediaFiles($model)
         ]);
     }
 
@@ -74,7 +79,7 @@ abstract class AlbumController extends BaseController
      */
     public function update(int $id, UpdateAlbum $request)
     {
-        ($this->getModelClass())::findOrFail($id)->fill($request->all())->save();
+        ($this->getModelClass())::findOrFail($id)->update($request->all());
 
         return redirect()->route('uploader_' . $this->getAlbumType() . '_view', ['id' => $id]);
     }
@@ -124,5 +129,14 @@ abstract class AlbumController extends BaseController
     protected function getAlbumType(): string
     {
         return ($this->getModelClass())::getAlbumType();
+    }
+
+    /**
+     * @param Album $model
+     * @return Collection|Mediafile[]
+     */
+    protected function getMediaFiles(Album $model): Collection
+    {
+        return $model->getMediaFiles(($this->getModelClass())::getFileType());
     }
 }

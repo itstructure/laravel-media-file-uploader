@@ -21,7 +21,7 @@ class VideoAlbum extends Album
      */
     public function getVideoFiles(): Collection
     {
-        return $this->getMediaFiles(static::getFileType(static::getAlbumType()));
+        return $this->getMediaFiles(static::getFileType());
     }
 
     /**

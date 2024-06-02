@@ -94,7 +94,7 @@ abstract class Album extends Model implements HasOwnerInterface, BeingOwnerInter
      * @param string $albumType
      * @return null|string
      */
-    public static function getFileType(string $albumType): ?string
+    public static function getFileType(string $albumType = null): ?string
     {
         $albumTypes = [
             self::ALBUM_TYPE_IMAGE => SaveProcessor::FILE_TYPE_IMAGE,
@@ -104,7 +104,9 @@ abstract class Album extends Model implements HasOwnerInterface, BeingOwnerInter
             self::ALBUM_TYPE_TEXT  => SaveProcessor::FILE_TYPE_TEXT,
             self::ALBUM_TYPE_OTHER => SaveProcessor::FILE_TYPE_OTHER
         ];
-        return array_key_exists($albumType, $albumTypes) ? $albumTypes[$albumType] : null;
+        return array_key_exists($albumType ?? static::getAlbumType(), $albumTypes)
+            ? $albumTypes[$albumType ?? static::getAlbumType()]
+            : null;
     }
 
     /**

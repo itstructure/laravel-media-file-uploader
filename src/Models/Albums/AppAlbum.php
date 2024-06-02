@@ -21,7 +21,7 @@ class AppAlbum extends Album
      */
     public function getAppFiles(): Collection
     {
-        return $this->getMediaFiles(static::getFileType(static::getAlbumType()));
+        return $this->getMediaFiles(static::getFileType());
     }
 
     /**

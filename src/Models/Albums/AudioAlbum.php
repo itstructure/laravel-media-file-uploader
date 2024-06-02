@@ -21,7 +21,7 @@ class AudioAlbum extends Album
      */
     public function getAudioFiles(): Collection
     {
-        return $this->getMediaFiles(static::getFileType(static::getAlbumType()));
+        return $this->getMediaFiles(static::getFileType());
     }
 
     /**

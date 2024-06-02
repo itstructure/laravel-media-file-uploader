@@ -21,7 +21,7 @@ class TextAlbum extends Album
      */
     public function getOtherFiles(): Collection
     {
-        return $this->getMediaFiles(static::getFileType(static::getAlbumType()));
+        return $this->getMediaFiles(static::getFileType());
     }
 
     /**
