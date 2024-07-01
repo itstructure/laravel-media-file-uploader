@@ -68,25 +68,27 @@ abstract class Album extends Model implements HasOwnerInterface, BeingOwnerInter
 
     /**
      * @param string $type
+     * @param bool $plural
      * @return null|string
      */
-    public static function getAlbumTitle(string $type): ?string
+    public static function getAlbumTitle(string $type, bool $plural = false): ?string
     {
-        return static::getAlbumTypes()[$type] ?? '';
+        return static::getAlbumTypes($plural)[$type] ?? '';
     }
 
     /**
+     * @param bool $plural
      * @return array
      */
-    public static function getAlbumTypes(): array
+    public static function getAlbumTypes(bool $plural = false): array
     {
         return [
-            self::ALBUM_TYPE_IMAGE => 'Image album',
-            self::ALBUM_TYPE_AUDIO => 'Audio album',
-            self::ALBUM_TYPE_VIDEO => 'Video album',
-            self::ALBUM_TYPE_APP   => 'Applications',
-            self::ALBUM_TYPE_TEXT  => 'Text files',
-            self::ALBUM_TYPE_OTHER => 'Other files'
+            self::ALBUM_TYPE_IMAGE => trans('uploader::main.image_album' . ($plural ? 's' : '')),
+            self::ALBUM_TYPE_AUDIO => trans('uploader::main.audio_album' . ($plural ? 's' : '')),
+            self::ALBUM_TYPE_VIDEO => trans('uploader::main.video_album' . ($plural ? 's' : '')),
+            self::ALBUM_TYPE_APP   => trans('uploader::main.applications'),
+            self::ALBUM_TYPE_TEXT  => trans('uploader::main.text_files'),
+            self::ALBUM_TYPE_OTHER => trans('uploader::main.other_files')
         ];
     }
 

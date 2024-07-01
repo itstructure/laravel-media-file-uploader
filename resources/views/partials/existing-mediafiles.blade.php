@@ -12,8 +12,8 @@
                 $fileSetterConfig = [
                     'attribute' => $fileType . '[]',
                     'value' => $mediaFile->{Itstructure\MFU\Views\FileSetter::INSERTED_DATA_ID},
-                    'openButtonName' => 'Set file',
-                    'clearButtonName' => 'Clear',
+                    'openButtonName' => trans('uploader::main.set_file'),
+                    'clearButtonName' => trans('uploader::main.clear'),
                     'mediafileContainerId' => 'mediafile_container_existing_' . $key,
                     'titleContainerId' => 'title_container_existing_' . $key,
                     'descriptionContainerId' => 'description_container_existing_' . $key,

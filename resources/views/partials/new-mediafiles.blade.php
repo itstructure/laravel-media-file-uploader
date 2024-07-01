@@ -10,8 +10,8 @@
             @php
                 $fileSetterConfig = [
                     'attribute' => $fileType . '[]',
-                    'openButtonName' => 'Set file',
-                    'clearButtonName' => 'Clear',
+                    'openButtonName' => trans('uploader::main.set_file'),
+                    'clearButtonName' => trans('uploader::main.clear'),
                     'mediafileContainerId' => 'mediafile_container_new_' . $i,
                     'titleContainerId' => 'title_container_new_' . $i,
                     'descriptionContainerId' => 'description_container_new_' . $i,

@@ -20,8 +20,8 @@
     $fileSetterConfig = [
         'attribute' => Itstructure\MFU\Processors\SaveProcessor::FILE_TYPE_THUMB,
         'value' => !empty($thumbModel) ? $thumbModel->{Itstructure\MFU\Views\FileSetter::INSERTED_DATA_ID} : null,
-        'openButtonName' => 'Set thumbnail',
-        'clearButtonName' => 'Clear',
+        'openButtonName' => trans('uploader::main.set_thumbnail'),
+        'clearButtonName' => trans('uploader::main.clear'),
         'mediafileContainerId' => isset($model) ? 'thumbnail_container_' . $model->id : 'thumbnail_container',
         'titleContainerId' => isset($model) ? 'thumbnail_title_' . $model->id : 'thumbnail_title',
         'descriptionContainerId' => isset($model) ? 'thumbnail_description_' . $model->id : 'thumbnail_description',

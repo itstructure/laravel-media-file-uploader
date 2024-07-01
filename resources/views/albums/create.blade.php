@@ -4,7 +4,7 @@
 
     <section class="content container-fluid">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 pt-2 pb-4">
 
                 <h1>{{ $title }}</h1>
 
@@ -12,7 +12,7 @@
 
                     @include('uploader::albums._fields')
 
-                    <button class="btn btn-primary" type="submit">Create</button>
+                    <button class="btn btn-primary" type="submit">{{ trans('uploader::main.create') }}</button>
 
                 </form>
 

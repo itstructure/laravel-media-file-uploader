@@ -2,7 +2,6 @@
 
 namespace Itstructure\MFU\Http\Controllers\Albums;
 
-use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 use Itstructure\GridView\DataProviders\EloquentDataProvider;
@@ -28,7 +27,7 @@ abstract class AlbumController extends BaseController
     public function index()
     {
         return view('uploader::albums.index', [
-            'title' => $this->getAlbumTitle() . 's',
+            'title' => $this->getAlbumTitle(true),
             'type' => $this->getAlbumType(),
             'dataProvider' => new EloquentDataProvider(($this->getModelClass())::query()->where('type', '=', $this->getAlbumType()))
         ]);
@@ -40,7 +39,7 @@ abstract class AlbumController extends BaseController
     public function create()
     {
         return view('uploader::albums.create', [
-            'title' => 'Create ' . strtolower($this->getAlbumTitle()),
+            'title' => trans('uploader::main.create') . ' ' . strtolower($this->getAlbumTitle()),
             'type' => $this->getAlbumType()
         ]);
     }
@@ -65,7 +64,7 @@ abstract class AlbumController extends BaseController
         $model = ($this->getModelClass())::findOrFail($id);
 
         return view('uploader::albums.edit', [
-            'title' => 'Update ' . strtolower($this->getAlbumTitle()),
+            'title' => trans('uploader::main.edit') . ' ' . strtolower($this->getAlbumTitle()),
             'type' => $this->getAlbumType(),
             'model' => $model,
             'mediaFiles' => $this->getMediaFiles($model)
@@ -109,18 +108,19 @@ abstract class AlbumController extends BaseController
     public function view(int $id)
     {
         return view('uploader::albums.view', [
-            'title' => 'View ' . strtolower($this->getAlbumTitle()),
+            'title' => trans('uploader::main.view') . ' ' . strtolower($this->getAlbumTitle()),
             'type' => $this->getAlbumType(),
             'model' => ($this->getModelClass())::findOrFail($id)
         ]);
     }
 
     /**
+     * @param bool $plural
      * @return string
      */
-    protected function getAlbumTitle(): string
+    protected function getAlbumTitle(bool $plural = false): string
     {
-        return ($this->getModelClass())::getAlbumTitle($this->getAlbumType());
+        return ($this->getModelClass())::getAlbumTitle($this->getAlbumType(), $plural);
     }
 
     /**

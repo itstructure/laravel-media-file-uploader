@@ -11,12 +11,12 @@
             'rowsPerPage' => 5,
             'rowsFormAction' => route('uploader_' . $type . '_delete'),
             'filtersFormAction' => route('uploader_' . $type . '_list'),
-            'sendButtonLabel' => trans('grid_view::grid.delete'),
+            'sendButtonLabel' => trans('uploader::main.delete'),
             'title' => $title,
             'strictFilters' => false,
             'columnFields' => [
                 [
-                    'label' => 'Preview',
+                    'label' => trans('uploader::main.thumbnail'),
                     'value' => function ($data) {
                         $thumbModel = $data->getThumbnailModel();
                         return !empty($thumbModel)
@@ -29,19 +29,19 @@
                     ]
                 ],
                 [
-                    'label' => 'Title',
+                    'label' => trans('uploader::main.title'),
                     'attribute' => 'title'
                 ],
                 [
-                    'label' => 'Created',
+                    'label' => trans('uploader::main.created'),
                     'attribute' => 'created_at'
                 ],
                 [
-                    'label' => 'Updated',
+                    'label' => trans('uploader::main.updated'),
                     'attribute' => 'updated_at'
                 ],
                 [
-                    'label' => 'Actions',
+                    'label' => trans('uploader::main.actions'),
                     'class' => Itstructure\GridView\Columns\ActionColumn::class,
                     'actionTypes' => [
                         'view' => function ($data) {

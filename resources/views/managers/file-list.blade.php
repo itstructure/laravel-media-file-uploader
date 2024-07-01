@@ -1,5 +1,5 @@
 @extends('uploader::layouts.main')
-@section('title', 'File List')
+@section('title', trans('uploader::main.files'))
 @section('content')
     <div id="file_list" class="file-list">
         @php
@@ -12,12 +12,12 @@
                 'rowsPerPage' => 5,
                 'rowsFormAction' => route('uploader_file_list_delete'),
                 'filtersFormAction' => route('uploader_file_list_manager'),
-                'sendButtonLabel' => trans('grid_view::grid.delete'),
+                'sendButtonLabel' => trans('uploader::main.delete'),
                 'title' => '',
                 'strictFilters' => false,
                 'columnFields' => [
                     [
-                        'label' => 'Preview',
+                        'label' => trans('uploader::main.thumbnail'),
                         'value' => function ($row) {
                             return Itstructure\MFU\Facades\Previewer::getPreviewHtml($row, Itstructure\MFU\Services\Previewer::LOCATION_FILE_ITEM);
                         },
@@ -27,19 +27,19 @@
                         ]
                     ],
                     [
-                        'label' => 'Title',
+                        'label' => trans('uploader::main.title'),
                         'attribute' => 'title'
                     ],
                     [
-                        'label' => 'Created',
+                        'label' => trans('uploader::main.created'),
                         'attribute' => 'created_at'
                     ],
                     [
-                        'label' => 'Updated',
+                        'label' => trans('uploader::main.updated'),
                         'attribute' => 'updated_at'
                     ],
                     [
-                        'label' => 'Actions',
+                        'label' => trans('uploader::main.actions'),
                         'value' => function ($row) {
                             return view('uploader::partials.list-actions', ['row' => $row]);
                         },

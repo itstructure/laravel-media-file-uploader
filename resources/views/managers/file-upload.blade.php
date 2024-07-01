@@ -1,5 +1,5 @@
 @extends('uploader::layouts.main')
-@section('title', 'File Upload')
+@section('title', trans('uploader::main.upload'))
 @section('content')
     <script type="html/tpl" id="upload_block">
         @include('uploader::partials.upload-block')
