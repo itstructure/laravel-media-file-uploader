@@ -28,8 +28,36 @@ class UpdateAlbum extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|regex:/^[\w\s\-\.]+$/|min:3|max:64',
-            'description' => 'required|string|regex:/^[\w\s\-\.]+$/|min:3|max:191'
+            'title' => 'required|string|min:3|max:64',
+            'description' => 'required|string|min:3|max:2048'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'required' => __('uploader::validation.required'),
+            'string' => __('uploader::validation.string'),
+            'min' => __('uploader::validation.min'),
+            'max' => __('uploader::validation.max'),
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'title' => __('uploader::main.title'),
+            'description' => __('uploader::main.description'),
         ];
     }
 }

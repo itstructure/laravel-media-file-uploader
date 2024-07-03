@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\{
     Storage, Validator
 };
-use Illuminate\Validation\Rules\File;
 use Itstructure\MFU\Classes\ThumbConfig;
 use Itstructure\MFU\Helpers\{
     ImageHelper, ThumbHelper
@@ -88,7 +87,27 @@ abstract class SaveProcessor extends BaseProcessor
     /**
      * @var array
      */
-    protected $metaDataValidationRules;
+    protected $metaDataValidationRules = [];
+
+    /**
+     * @var array
+     */
+    protected $metaDataValidationMessageTranslations = [];
+
+    /**
+     * @var array
+     */
+    protected $metaDataValidationAttributeTranslations = [];
+
+    /**
+     * @var array
+     */
+    protected $fileValidationMessageTranslations = [];
+
+    /**
+     * @var array
+     */
+    protected $fileValidationAttributeTranslations = [];
 
     /**
      * @var string
@@ -214,6 +233,46 @@ abstract class SaveProcessor extends BaseProcessor
     }
 
     /**
+     * @param array $metaDataValidationMessageTranslations
+     * @return $this
+     */
+    public function setMetaDataValidationMessageTranslations(array $metaDataValidationMessageTranslations)
+    {
+        $this->metaDataValidationMessageTranslations = $metaDataValidationMessageTranslations;
+        return $this;
+    }
+
+    /**
+     * @param array $metaDataValidationAttributeTranslations
+     * @return $this
+     */
+    public function setMetaDataValidationAttributeTranslations(array $metaDataValidationAttributeTranslations)
+    {
+        $this->metaDataValidationAttributeTranslations = $metaDataValidationAttributeTranslations;
+        return $this;
+    }
+
+    /**
+     * @param array $fileValidationMessageTranslations
+     * @return $this
+     */
+    public function setFileValidationMessageTranslations(array $fileValidationMessageTranslations)
+    {
+        $this->fileValidationMessageTranslations = $fileValidationMessageTranslations;
+        return $this;
+    }
+
+    /**
+     * @param array $fileValidationAttributeTranslations
+     * @return $this
+     */
+    public function setFileValidationAttributeTranslations(array $fileValidationAttributeTranslations)
+    {
+        $this->fileValidationAttributeTranslations = $fileValidationAttributeTranslations;
+        return $this;
+    }
+
+    /**
      * @param string $visibility
      * @return $this
      */
@@ -304,7 +363,12 @@ abstract class SaveProcessor extends BaseProcessor
 
     protected function validateMetaData(): bool
     {
-        $metaDataValidator = Validator::make($this->data, $this->metaDataValidationRules);
+        $metaDataValidator = Validator::make(
+            $this->data,
+            $this->metaDataValidationRules,
+            $this->prepareValidationTranslations($this->metaDataValidationMessageTranslations),
+            $this->prepareValidationTranslations($this->metaDataValidationAttributeTranslations)
+        );
         if ($this->checkExtensionByFileType) {
             $metaDataValidator->addRules(['needed_file_type' => 'required']);
         }
@@ -320,15 +384,18 @@ abstract class SaveProcessor extends BaseProcessor
     protected function validateFile(): bool
     {
         $fileValidator = Validator::make(['file' => $this->file], [
-            'file' => [
-                $this->isFileRequired() ? 'required' : 'nullable',
-                'max:' . $this->maxFileSize
-            ]
-        ]);
+                'file' => [
+                    $this->isFileRequired() ? 'required' : 'nullable',
+                    'max:' . $this->maxFileSize
+                ]
+            ],
+            $this->prepareValidationTranslations($this->fileValidationMessageTranslations),
+            $this->prepareValidationTranslations($this->fileValidationAttributeTranslations)
+        );
         if ($this->checkExtensionByFileType && !empty($this->fileExtensions[$this->data['needed_file_type']])) {
             $fileValidator->addRules([
                 'file' => [
-                    File::types($this->fileExtensions[$this->data['needed_file_type']]),
+                    'mimes:' . implode(',', $this->fileExtensions[$this->data['needed_file_type']]),
                 ]
             ]);
         }
@@ -339,6 +406,14 @@ abstract class SaveProcessor extends BaseProcessor
             return false;
         }
         return true;
+    }
+
+    protected function prepareValidationTranslations(array $translations): array
+    {
+        foreach ($translations as $key => $value) {
+            $translations[$key] = __($value);
+        }
+        return $translations;
     }
 
 
@@ -362,7 +437,7 @@ abstract class SaveProcessor extends BaseProcessor
     protected function getBaseUploadDirectory(string $fileType): string
     {
         if (!is_array($this->baseUploadDirectories) || empty($this->baseUploadDirectories)) {
-            throw new Exception('The baseUploadDirectories is not defined correctly.');
+            throw new Exception('The baseUploadDirectories attribute is not defined correctly.');
         }
 
         if (str_contains($fileType, self::FILE_TYPE_IMAGE)) {

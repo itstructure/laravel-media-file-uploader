@@ -8,7 +8,7 @@ return [
     'processor' => [
         'baseUrl' => config('app.url'),
         'renameFiles' => true,
-        //'checkExtensionByFileType' => true,
+        'checkExtensionByFileType' => true,
         'maxFileSize' => 100 * 1024,// Kilobytes
         'fileExtensions' => [
             SaveProcessor::FILE_TYPE_THUMB => [
@@ -78,6 +78,30 @@ return [
                 ])
             ],
             'sub_dir' => 'nullable|string|max:64'
+        ],
+        'metaDataValidationMessageTranslations' => [//It is very important to set without __() or trans().
+            //It will be configured in a SaveProcessor by prepareValidationTranslations() method later.
+            'required' => 'uploader::validation.required',
+            'string' => 'uploader::validation.string',
+            'numeric' => 'uploader::validation.numeric',
+            'min' => 'uploader::validation.min',
+            'max' => 'uploader::validation.max',
+        ],
+        'metaDataValidationAttributeTranslations' => [//It is very important to set without __() or trans().
+            //It will be configured in a SaveProcessor by prepareValidationTranslations() method later.
+            'alt' => 'uploader::main.alt',
+            'title' => 'uploader::main.title',
+            'description' => 'uploader::main.description',
+        ],
+        'fileValidationMessageTranslations' => [//It is very important to set without __() or trans().
+            //It will be configured in a SaveProcessor by prepareValidationTranslations() method later.
+            'required' => 'uploader::validation.required',
+            'max' => 'uploader::validation.max_file_size',
+            'mimes' => 'uploader::validation.mimes',
+        ],
+        'fileValidationAttributeTranslations' => [//It is very important to set without __() or trans().
+            //It will be configured in a SaveProcessor by prepareValidationTranslations() method later.
+            'file' => 'uploader::main.file',
         ],
         'visibility' => SaveProcessor::VISIBILITY_PUBLIC
     ],
