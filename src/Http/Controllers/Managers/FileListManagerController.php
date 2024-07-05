@@ -41,7 +41,8 @@ class FileListManagerController extends BaseController
 
         return view('uploader::managers.file-list', [
             'dataProvider' => new EloquentDataProvider($query),
-            'manager' => 'file_list'
+            'manager' => 'file_list',
+            'fromFileSetter' => !empty($request->get('from_file_setter'))
         ]);
     }
 

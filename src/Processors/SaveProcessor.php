@@ -392,7 +392,8 @@ abstract class SaveProcessor extends BaseProcessor
             $this->prepareValidationTranslations($this->fileValidationMessageTranslations),
             $this->prepareValidationTranslations($this->fileValidationAttributeTranslations)
         );
-        if ($this->checkExtensionByFileType && !empty($this->fileExtensions[$this->data['needed_file_type']])) {
+        if ($this->checkExtensionByFileType && !empty($this->data['needed_file_type'])
+            && !empty($this->fileExtensions[$this->data['needed_file_type']])) {
             $fileValidator->addRules([
                 'file' => [
                     'mimes:' . implode(',', $this->fileExtensions[$this->data['needed_file_type']]),

@@ -51,6 +51,7 @@
         'mediaFiles' => $mediaFiles ?? []]
     )
 </div>
+<hr />
 
 <input type="hidden" value="{{ $type }}" name="type">
 

@@ -16,6 +16,7 @@ return [
     'edit' => 'Edit',
     'update' => 'Update',
     'insert' => 'Insert',
+    'download' => 'Download',
     'delete' => 'Delete',
     'delete_confirm' => 'Are you sure you want to delete?',
     'deleted_file' => 'File has been deleted',

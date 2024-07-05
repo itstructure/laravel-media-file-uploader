@@ -98,7 +98,7 @@ $(document).ready(function() {
             ownerId = modal.attr('data-owner-id'),
             ownerAttribute = modal.attr('data-owner-attribute');
 
-        let paramsData = {};
+        let paramsData = {from_file_setter: 1};
         let paramsQuery = '';
 
         if (ownerName) {

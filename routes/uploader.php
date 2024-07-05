@@ -29,7 +29,7 @@ Route::group([
         Route::post('upload', [UploadController::class, 'upload'])->name('uploader_file_upload');
         Route::post('update', [UploadController::class, 'update'])->name('uploader_file_update');
         Route::post('delete', [UploadController::class, 'delete'])->name('uploader_file_delete');
-        Route::get('download', [DownloadController::class, 'download'])->name('uploader_file_download');
+        Route::get('download/{id}', [DownloadController::class, 'download'])->name('uploader_file_download')->where('id','\d+');
         Route::post('preview', [UploadController::class, 'preview'])->name('uploader_file_preview');
     });
 

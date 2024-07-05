@@ -88,12 +88,17 @@
                     <button type="submit" class="btn btn-primary">
                         {{ trans('uploader::main.update') }}
                     </button>
-                    <button type="button" class="btn btn-info" role="insert-file">
-                        {{ trans('uploader::main.insert') }}
-                    </button>
+                    @if(!empty($fromFileSetter))
+                        <button type="button" class="btn btn-info" role="insert-file">
+                            {{ trans('uploader::main.insert') }}
+                        </button>
+                    @endif
                     <button type="button" class="btn btn-danger" onclick="if (window.confirm('{{ trans('uploader::main.delete_confirm') }}')) {deleteFile(event)}">
                         {{ trans('uploader::main.delete') }}
                     </button>
+                    <a class="btn btn-secondary" href="{!! route('uploader_file_download', ['id' => $mediaFile->id]) !!}">
+                        {{ trans('uploader::main.download') }}
+                    </a>
                 </div>
             </form>
         </div>

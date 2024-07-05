@@ -2,6 +2,7 @@
 
 namespace Itstructure\MFU\Http\Controllers\Managers;
 
+use Illuminate\Http\Request;
 use Itstructure\MFU\Http\Controllers\BaseController;
 
 /**
@@ -11,13 +12,15 @@ use Itstructure\MFU\Http\Controllers\BaseController;
 class FileUploadManagerController extends BaseController
 {
     /**
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         return view('uploader::managers.file-upload', [
             'manager' => 'file_upload',
-            'referer' => url()->previous()
+            'referer' => url()->previous(),
+            'fromFileSetter' => !empty($request->get('from_file_setter'))
         ]);
     }
 }

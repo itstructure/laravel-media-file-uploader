@@ -39,7 +39,7 @@ abstract class AlbumController extends BaseController
     public function create()
     {
         return view('uploader::albums.create', [
-            'title' => trans('uploader::main.create') . ' ' . strtolower($this->getAlbumTitle()),
+            'title' => trans('uploader::main.create') . ' ' . mb_strtolower($this->getAlbumTitle()),
             'type' => $this->getAlbumType()
         ]);
     }
@@ -64,7 +64,7 @@ abstract class AlbumController extends BaseController
         $model = ($this->getModelClass())::findOrFail($id);
 
         return view('uploader::albums.edit', [
-            'title' => trans('uploader::main.edit') . ' ' . strtolower($this->getAlbumTitle()),
+            'title' => trans('uploader::main.edit') . ' ' . mb_strtolower($this->getAlbumTitle()),
             'type' => $this->getAlbumType(),
             'model' => $model,
             'mediaFiles' => $this->getMediaFiles($model)
@@ -108,7 +108,7 @@ abstract class AlbumController extends BaseController
     public function view(int $id)
     {
         return view('uploader::albums.view', [
-            'title' => trans('uploader::main.view') . ' ' . strtolower($this->getAlbumTitle()),
+            'title' => trans('uploader::main.view') . ' ' . mb_strtolower($this->getAlbumTitle()),
             'type' => $this->getAlbumType(),
             'model' => ($this->getModelClass())::findOrFail($id)
         ]);

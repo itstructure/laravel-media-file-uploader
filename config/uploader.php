@@ -8,7 +8,7 @@ return [
     'processor' => [
         'baseUrl' => config('app.url'),
         'renameFiles' => true,
-        'checkExtensionByFileType' => true,
+        'checkExtensionByFileType' => false,
         'maxFileSize' => 100 * 1024,// Kilobytes
         'fileExtensions' => [
             SaveProcessor::FILE_TYPE_THUMB => [

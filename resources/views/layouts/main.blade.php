@@ -25,7 +25,7 @@
                     </a>
                 @endif
                 <a class="btn @if($manager == 'file_list') btn-outline-secondary disabled @else btn-success @endif" @if($manager == 'file_list') aria-disabled="true" @endif
-                href="{{ route('uploader_file_list_manager') }}">
+                href="{{ route('uploader_file_list_manager') . (!empty($fromFileSetter) ? '?from_file_setter=1' : '') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ul" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
                     </svg>
@@ -33,7 +33,7 @@
                 </a>
                 @if($manager != 'file_edit')
                     <a class="btn @if($manager == 'file_upload') btn-outline-secondary disabled @else btn-success @endif" @if($manager == 'file_upload') aria-disabled="true" @endif
-                    href="{{ route('uploader_file_upload_manager') }}">
+                    href="{{ route('uploader_file_upload_manager') . (!empty($fromFileSetter) ? '?from_file_setter=1' : '') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
                             <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"></path>
                             <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"></path>
@@ -78,7 +78,6 @@
             var route_file_upload = '{{ route('uploader_file_upload') }}';
             var route_file_update = '{{ route('uploader_file_update') }}';
             var route_file_delete = '{{ route('uploader_file_delete') }}';
-            var route_file_download = '{{ route('uploader_file_download') }}';
             var route_file_preview = '{{ route('uploader_file_preview') }}';
         </script>
 
