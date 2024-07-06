@@ -33,7 +33,6 @@
     'mediafileContainerId' => $mediafileContainerId,
     'titleContainerId' => $titleContainerId,
     'descriptionContainerId' => $descriptionContainerId,
-    'insertedDataType' => $insertedDataType,
     'ownerName' => $ownerName,
     'ownerId' => $ownerId,
     'ownerAttribute' => $ownerAttribute,

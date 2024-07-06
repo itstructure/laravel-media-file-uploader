@@ -8,9 +8,6 @@ namespace Itstructure\MFU\Views;
  */
 class FileSetter
 {
-    const INSERTED_DATA_ID = 'id';
-    const INSERTED_DATA_URL = 'url';
-
     /************************* CONFIG ATTRIBUTES *************************/
     /**
      * @var string
@@ -81,11 +78,6 @@ class FileSetter
      * @var string
      */
     private $callbackBeforeInsert = '';
-
-    /**
-     * @var string
-     */
-    private $insertedDataType = self::INSERTED_DATA_ID;
 
     /**
      * @var string
@@ -168,7 +160,6 @@ class FileSetter
             'titleContainerId' => $this->titleContainerId,
             'descriptionContainerId' => $this->descriptionContainerId,
             'callbackBeforeInsert' => $this->callbackBeforeInsert,
-            'insertedDataType' => $this->insertedDataType,
             'ownerName' => $this->ownerName,
             'ownerId' => $this->ownerId,
             'ownerAttribute' => $this->ownerAttribute,
@@ -316,16 +307,6 @@ class FileSetter
     public function setCallbackBeforeInsert(string $callbackBeforeInsert): self
     {
         $this->callbackBeforeInsert = $callbackBeforeInsert;
-        return $this;
-    }
-
-    /**
-     * @param string $insertedDataType
-     * @return FileSetter
-     */
-    public function setInsertedDataType(string $insertedDataType): self
-    {
-        $this->insertedDataType = $insertedDataType;
         return $this;
     }
 

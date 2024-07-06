@@ -36,7 +36,7 @@ class FileListManagerController extends BaseController
         if (count($requestParams) > 0) {
             $query = OwnerMediafile::getMediaFilesQuery($requestParams)->orWhereNotIn('id', OwnerMediafile::pluck('mediafile_id')->toArray());
         } else {
-            $query = Mediafile::whereNotIn('id', OwnerMediafile::pluck('mediafile_id')->toArray());
+            $query = Mediafile::query();
         }
 
         return view('uploader::managers.file-list', [

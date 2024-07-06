@@ -107,10 +107,13 @@ abstract class AlbumController extends BaseController
      */
     public function view(int $id)
     {
+        $model = ($this->getModelClass())::findOrFail($id);
+
         return view('uploader::albums.view', [
             'title' => trans('uploader::main.view') . ' ' . mb_strtolower($this->getAlbumTitle()),
             'type' => $this->getAlbumType(),
-            'model' => ($this->getModelClass())::findOrFail($id)
+            'model' => $model,
+            'mediaFiles' => $this->getMediaFiles($model)
         ]);
     }
 

@@ -19,9 +19,11 @@
                     'label' => trans('uploader::main.thumbnail'),
                     'value' => function ($data) {
                         $thumbModel = $data->getThumbnailModel();
-                        return !empty($thumbModel)
-                            ? \Itstructure\MFU\Facades\Previewer::getPreviewHtml($thumbModel, \Itstructure\MFU\Services\Previewer::LOCATION_FILE_ITEM)
-                            : '';
+                        if (!empty($thumbModel)) {
+                            $html = \Itstructure\MFU\Facades\Previewer::getPreviewHtml($thumbModel, \Itstructure\MFU\Services\Previewer::LOCATION_FILE_ITEM);
+                            return '<a href="' . route('uploader_' . $data->type . '_view', ['id' => $data->id]) . '">' . $html . '</a>';
+                        }
+                        return '';
                     },
                     'filter' => false,
                     'format' => [

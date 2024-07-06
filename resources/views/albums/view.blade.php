@@ -35,7 +35,9 @@
                             <td>{{ trans('uploader::main.thumbnail') }}</td>
                             <td>
                                 @if(!empty($thumbModel = $model->getThumbnailModel()))
-                                    {!! \Itstructure\MFU\Facades\Previewer::getPreviewHtml($thumbModel, \Itstructure\MFU\Services\Previewer::LOCATION_FILE_INFO) !!}
+                                    <a href="{{ $thumbModel->getOriginalUrl() }}" target="_blank">
+                                        {!! \Itstructure\MFU\Facades\Previewer::getPreviewHtml($thumbModel, \Itstructure\MFU\Services\Previewer::LOCATION_FILE_INFO) !!}
+                                    </a>
                                 @endif
                             </td>
                         </tr>
@@ -50,6 +52,10 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+
+        <div class="row mb-3">
+            @include('uploader::partials.existing-mediafiles', ['mediaFiles' => $mediaFiles ?? []])
         </div>
     </section>
 

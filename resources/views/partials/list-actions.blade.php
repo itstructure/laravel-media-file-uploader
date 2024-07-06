@@ -11,7 +11,6 @@
          data-file-id="{{ $row->id }}"
          data-file-title="{{ $row->title }}"
          data-file-description="{{ $row->description }}"
-         data-file-url="{{ $row->getOriginalUrl() }}"
     >
         <button class="btn btn-info" role="insert-file">
             <svg width="1.2em" height="1.5em" viewBox="0 0 16 16" class="bi bi-check2-all" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

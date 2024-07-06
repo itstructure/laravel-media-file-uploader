@@ -23,7 +23,6 @@ Route::group([
         )
     ], function () {
 
-
     /* UPLOADING */
     Route::group(['prefix' => 'file'], function () {
         Route::post('upload', [UploadController::class, 'upload'])->name('uploader_file_upload');
@@ -33,7 +32,6 @@ Route::group([
         Route::post('preview', [UploadController::class, 'preview'])->name('uploader_file_preview');
     });
 
-
     /* MANAGERS */
     Route::group(['prefix' => 'managers'], function () {
         Route::get('file-list', [FileListManagerController::class, 'index'])->name('uploader_file_list_manager');
@@ -42,7 +40,7 @@ Route::group([
         Route::post('file-list/delete', [FileListManagerController::class, 'delete'])->name('uploader_file_list_delete');
     });
 
-    /* MANAGERS */
+    /* ALBUMS */
     Route::group(['prefix' => 'albums'], function () {
         Route::group(['prefix' => SaveProcessor::FILE_TYPE_IMAGE], function () {
             Route::get('list', [ImageAlbumController::class, 'index'])->name('uploader_' . Album::ALBUM_TYPE_IMAGE . '_list');

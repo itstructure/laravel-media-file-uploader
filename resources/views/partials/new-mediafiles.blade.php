@@ -16,7 +16,6 @@
                     'titleContainerId' => 'title_container_new_' . $i,
                     'descriptionContainerId' => 'description_container_new_' . $i,
                     //'callbackBeforeInsert' => 'function (e, v) {console.log(e, v);}',//Custom
-                    'insertedDataType' => Itstructure\MFU\Views\FileSetter::INSERTED_DATA_ID,
                     'neededFileType' => $fileType,
                     'subDir' => null
                 ];

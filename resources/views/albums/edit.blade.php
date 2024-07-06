@@ -6,7 +6,18 @@
         <div class="row">
             <div class="col-12 pt-2 pb-4">
 
-                <h2>{{ $model->title }} | <a href="{{route('uploader_' . $type . '_view', ['id' => $model->id])}}">{{ trans('uploader::main.view') }} >></a></h2>
+                <h2>{{ $model->title }}</h2>
+
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <a class="btn btn-warning" href="{{ url()->previous() }}" title="{{ trans('uploader::main.back') }}">
+                            << {{ trans('uploader::main.back') }}
+                        </a>
+                        <a class="btn btn-primary" href="{{ route('uploader_' . $type . '_view', ['id' => $model->id]) }}" title="{{ trans('uploader::main.view') }}">
+                            {{ trans('uploader::main.view') }}
+                        </a>
+                    </div>
+                </div>
 
                 <form action="{{ route('uploader_' . $type . '_update', ['id' => $model->id]) }}" method="post">
 

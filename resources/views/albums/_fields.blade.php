@@ -46,6 +46,7 @@
 
 <div class="row mb-3">
     @include('uploader::partials.existing-mediafiles', [
+        'edition' => true,
         'fileType' => \Itstructure\MFU\Models\Albums\Album::getFileType($type),
         'ownerParams' => $ownerParams ?? null,
         'mediaFiles' => $mediaFiles ?? []]
