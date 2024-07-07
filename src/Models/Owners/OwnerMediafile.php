@@ -3,6 +3,7 @@
 namespace Itstructure\MFU\Models\Owners;
 
 use Illuminate\Database\Eloquent\{Collection, Builder as EloquentBuilder};
+use Itstructure\MFU\Facades\Uploader;
 use Itstructure\MFU\Traits\HasCompositePrimaryKey;
 use Itstructure\MFU\Processors\SaveProcessor;
 use Itstructure\MFU\Models\Mediafile;
@@ -144,8 +145,17 @@ class OwnerMediafile extends Owner
      * Get model mediafile primary key name.
      * @return string
      */
-    protected static function getExternalModelKeyName(): string
+    protected static function getDependencyKeyName(): string
     {
         return 'mediafile_id';
+    }
+
+    /**
+     * @param int $mediafileId
+     * @return bool
+     */
+    protected static function removeDependency(int $mediafileId): bool
+    {
+        return Uploader::delete($mediafileId);
     }
 }

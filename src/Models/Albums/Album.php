@@ -28,6 +28,11 @@ abstract class Album extends Model implements HasOwnerInterface, BeingOwnerInter
     public $thumbnail;
 
     /**
+     * @var bool
+     */
+    protected $removeDependencies = false;
+
+    /**
      * @var string
      */
     protected $table = 'albums';
@@ -109,6 +114,32 @@ abstract class Album extends Model implements HasOwnerInterface, BeingOwnerInter
         return array_key_exists($albumType ?? static::getAlbumType(), $albumTypes)
             ? $albumTypes[$albumType ?? static::getAlbumType()]
             : null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrimaryKey()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * @param bool $removeDependencies
+     * @return $this
+     */
+    public function setRemoveDependencies(bool $removeDependencies)
+    {
+        $this->removeDependencies = $removeDependencies;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getRemoveDependencies(): bool
+    {
+        return $this->removeDependencies;
     }
 
     /**

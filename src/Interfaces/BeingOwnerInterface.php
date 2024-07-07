@@ -17,4 +17,15 @@ interface BeingOwnerInterface
      * @return mixed
      */
     public function getPrimaryKey();
+
+    /**
+     * @param bool $removeDependencies
+     * @return $this
+     */
+    public function setRemoveDependencies(bool $removeDependencies);
+
+    /**
+     * @return bool
+     */
+    public function getRemoveDependencies(): bool;
 }

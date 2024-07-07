@@ -25,10 +25,11 @@ class BehaviorAlbum extends Behavior
      * @param int $ownerId
      * @param string $ownerName
      * @param string $ownerAttribute
+     * @param bool $removeDependencies
      * @return bool
      */
-    protected function removeOwner(int $ownerId, string $ownerName, string $ownerAttribute): bool
+    protected function removeOwner(int $ownerId, string $ownerName, string $ownerAttribute, bool $removeDependencies = false): bool
     {
-        return OwnerAlbum::removeOwner($ownerId, $ownerName, $ownerAttribute);
+        return OwnerAlbum::removeOwner($ownerId, $ownerName, $ownerAttribute, $removeDependencies);
     }
 }

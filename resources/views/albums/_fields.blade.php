@@ -36,22 +36,23 @@
 
 <hr />
 <h5>{{ trans('uploader::main.new_files') }}</h5>
-
 <div class="row mb-3">
     @include('uploader::partials.new-mediafiles', ['fileType' => \Itstructure\MFU\Models\Albums\Album::getFileType($type), 'ownerParams' => $ownerParams ?? null])
 </div>
 
-<hr />
-<h5>{{ trans('uploader::main.existing_files') }}</h5>
+@if(!empty($edition))
+    <hr />
+    <h5>{{ trans('uploader::main.existing_files') }}</h5>
+    <div class="row mb-3">
+        @include('uploader::partials.existing-mediafiles', [
+            'edition' => true,
+            'fileType' => \Itstructure\MFU\Models\Albums\Album::getFileType($type),
+            'ownerParams' => $ownerParams ?? null,
+            'mediaFiles' => $mediaFiles ?? []]
+        )
+    </div>
+@endif
 
-<div class="row mb-3">
-    @include('uploader::partials.existing-mediafiles', [
-        'edition' => true,
-        'fileType' => \Itstructure\MFU\Models\Albums\Album::getFileType($type),
-        'ownerParams' => $ownerParams ?? null,
-        'mediaFiles' => $mediaFiles ?? []]
-    )
-</div>
 <hr />
 
 <input type="hidden" value="{{ $type }}" name="type">

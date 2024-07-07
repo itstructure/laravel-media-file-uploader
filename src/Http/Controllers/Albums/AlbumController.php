@@ -2,7 +2,6 @@
 
 namespace Itstructure\MFU\Http\Controllers\Albums;
 
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 use Itstructure\GridView\DataProviders\EloquentDataProvider;
 use Itstructure\MFU\Http\Controllers\BaseController;
@@ -89,13 +88,15 @@ abstract class AlbumController extends BaseController
      */
     public function delete(Delete $request)
     {
-        foreach ($request->items as $item) {
+        foreach ($request->items as $id) {
 
-            if (!is_numeric($item)) {
+            if (!is_numeric($id)) {
                 continue;
             }
 
-            ($this->getModelClass())::destroy($item);
+            ($this->getModelClass())::find($id)
+                ->setRemoveDependencies(!empty($request->get('remove_dependencies')))
+                ->delete();
         }
 
         return redirect()->route('uploader_' . $this->getAlbumType() . '_list');

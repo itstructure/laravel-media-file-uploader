@@ -31,9 +31,10 @@ abstract class Behavior
      * @param int $ownerId
      * @param string $ownerName
      * @param string $ownerAttribute
+     * @param bool $removeDependencies
      * @return bool
      */
-    abstract protected function removeOwner(int $ownerId, string $ownerName, string $ownerAttribute): bool;
+    abstract protected function removeOwner(int $ownerId, string $ownerName, string $ownerAttribute, bool $removeDependencies = false): bool;
 
     /**
      * @param array $attributes
@@ -83,7 +84,7 @@ abstract class Behavior
     public function clear(BeingOwnerInterface $ownerModel): void
     {
         foreach ($this->attributes as $attributeName) {
-            $this->removeOwner($ownerModel->getPrimaryKey(), $ownerModel->getItsName(), $attributeName);
+            $this->removeOwner($ownerModel->getPrimaryKey(), $ownerModel->getItsName(), $attributeName, $ownerModel->getRemoveDependencies());
         }
     }
 

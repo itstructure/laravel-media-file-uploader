@@ -21,7 +21,7 @@
 
                 <form action="{{ route('uploader_' . $type . '_update', ['id' => $model->id]) }}" method="post">
 
-                    @include('uploader::albums._fields', ['ownerParams' => ['ownerName' => $type, 'ownerId' => $model->id]])
+                    @include('uploader::albums._fields', ['edition' => true, 'ownerParams' => ['ownerName' => $type, 'ownerId' => $model->id]])
 
                     <button class="btn btn-primary" type="submit">{{ trans('uploader::main.update') }}</button>
 

@@ -122,8 +122,19 @@ class OwnerAlbum extends Owner
      * Get model album primary key name.
      * @return string
      */
-    protected static function getExternalModelKeyName(): string
+    protected static function getDependencyKeyName(): string
     {
         return 'album_id';
+    }
+
+    /**
+     * @param int $albumId
+     * @return bool
+     */
+    protected static function removeDependency(int $albumId): bool
+    {
+        return Album::find($albumId)
+            ->setRemoveDependencies(true)
+            ->delete();
     }
 }

@@ -41,14 +41,6 @@ class AppAlbum extends Album
     }
 
     /**
-     * @return mixed
-     */
-    public function getPrimaryKey()
-    {
-        return $this->getKey();
-    }
-
-    /**
      * @return array
      */
     protected static function getBehaviorAttributes(): array
