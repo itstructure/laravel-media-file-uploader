@@ -3,7 +3,7 @@
 namespace Itstructure\MFU\Behaviors\Owner;
 
 use Itstructure\MFU\Interfaces\HasOwnerInterface;
-use Itstructure\MFU\Models\Albums\Album;
+use Itstructure\MFU\Models\Albums\AlbumBase;
 use Itstructure\MFU\Models\Owners\OwnerAlbum;
 
 /**
@@ -18,7 +18,7 @@ class BehaviorAlbum extends Behavior
      */
     protected function getChildModel($attributeValue): ?HasOwnerInterface
     {
-        return Album::where($this->findChildModelKey, '=', $attributeValue)->first();
+        return AlbumBase::where($this->findChildModelKey, '=', $attributeValue)->first();
     }
 
     /**

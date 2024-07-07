@@ -9,7 +9,7 @@ use Itstructure\MFU\Models\Mediafile;
  * Class OtherAlbum
  * @package Itstructure\MFU\Models\Albums
  */
-class OtherAlbum extends Album
+class OtherAlbum extends AlbumTyped
 {
     /**
      * @var array

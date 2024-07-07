@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Itstructure\GridView\DataProviders\EloquentDataProvider;
 use Itstructure\MFU\Http\Controllers\BaseController;
 use Itstructure\MFU\Http\Requests\{StoreAlbum, UpdateAlbum, Delete};
-use Itstructure\MFU\Models\Albums\Album;
+use Itstructure\MFU\Models\Albums\AlbumTyped;
 use Itstructure\MFU\Models\Mediafile;
 
 /**
@@ -16,7 +16,7 @@ use Itstructure\MFU\Models\Mediafile;
 abstract class AlbumController extends BaseController
 {
     /**
-     * @return string|Album
+     * @return string|AlbumTyped
      */
     abstract protected function getModelClass(): string;
 
@@ -136,10 +136,10 @@ abstract class AlbumController extends BaseController
     }
 
     /**
-     * @param Album $model
+     * @param AlbumTyped $model
      * @return Collection|Mediafile[]
      */
-    protected function getMediaFiles(Album $model): Collection
+    protected function getMediaFiles(AlbumTyped $model): Collection
     {
         return $model->getMediaFiles(($this->getModelClass())::getFileType());
     }

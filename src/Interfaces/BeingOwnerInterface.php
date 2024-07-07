@@ -11,7 +11,7 @@ interface BeingOwnerInterface
     /**
      * @return string
      */
-    public function getItsName(): string ;
+    public function getItsName(): string;
 
     /**
      * @return mixed

@@ -4,7 +4,7 @@ namespace Itstructure\MFU\Models\Owners;
 
 use Illuminate\Database\Eloquent\{Collection, Builder as EloquentBuilder};
 use Itstructure\MFU\Traits\HasCompositePrimaryKey;
-use Itstructure\MFU\Models\Albums\Album;
+use Itstructure\MFU\Models\Albums\{AlbumBase, AlbumTyped};
 
 /**
  * Class OwnerAlbum
@@ -27,7 +27,7 @@ class OwnerAlbum extends Owner
      */
     public function getAlbum()
     {
-        return $this->hasOne(Album::class, 'album_id', 'id');
+        return $this->hasOne(AlbumBase::class, 'album_id', 'id');
     }
 
     /**
@@ -35,7 +35,7 @@ class OwnerAlbum extends Owner
      * @param string $ownerName
      * @param int $ownerId
      * @param string|null $ownerAttribute
-     * @return Collection|Album[]
+     * @return Collection|AlbumBase[]
      */
     public static function getAlbums(string $ownerName, int $ownerId, string $ownerAttribute = null): Collection
     {
@@ -49,73 +49,73 @@ class OwnerAlbum extends Owner
      */
     public static function getAlbumsQuery(array $args = []): EloquentBuilder
     {
-        return Album::query()->whereIn('id', static::getEntityIdsQuery('album_id', $args)->get()->pluck('album_id'));
+        return AlbumBase::query()->whereIn('id', static::getEntityIdsQuery('album_id', $args)->get()->pluck('album_id'));
     }
 
     /**
      * Get image albums by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return Collection|Album[]
+     * @return Collection|AlbumBase[]
      */
     public static function getImageAlbums(string $ownerName, int $ownerId): Collection
     {
-        return static::getAlbums($ownerName, $ownerId, Album::ALBUM_TYPE_IMAGE);
+        return static::getAlbums($ownerName, $ownerId, AlbumTyped::ALBUM_TYPE_IMAGE);
     }
 
     /**
      * Get audio albums by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return Collection|Album[]
+     * @return Collection|AlbumBase[]
      */
     public static function getAudioAlbums(string $ownerName, int $ownerId): Collection
     {
-        return static::getAlbums($ownerName, $ownerId, Album::ALBUM_TYPE_AUDIO);
+        return static::getAlbums($ownerName, $ownerId, AlbumTyped::ALBUM_TYPE_AUDIO);
     }
 
     /**
      * Get video albums by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return Collection|Album[]
+     * @return Collection|AlbumBase[]
      */
     public static function getVideoAlbums(string $ownerName, int $ownerId): Collection
     {
-        return static::getAlbums($ownerName, $ownerId, Album::ALBUM_TYPE_VIDEO);
+        return static::getAlbums($ownerName, $ownerId, AlbumTyped::ALBUM_TYPE_VIDEO);
     }
 
     /**
      * Get application albums by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return Collection|Album[]
+     * @return Collection|AlbumBase[]
      */
     public static function getAppAlbums(string $ownerName, int $ownerId): Collection
     {
-        return static::getAlbums($ownerName, $ownerId, Album::ALBUM_TYPE_APP);
+        return static::getAlbums($ownerName, $ownerId, AlbumTyped::ALBUM_TYPE_APP);
     }
 
     /**
      * Get text albums by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return Collection|Album[]
+     * @return Collection|AlbumBase[]
      */
     public static function getTextAlbums(string $ownerName, int $ownerId): Collection
     {
-        return static::getAlbums($ownerName, $ownerId, Album::ALBUM_TYPE_TEXT);
+        return static::getAlbums($ownerName, $ownerId, AlbumTyped::ALBUM_TYPE_TEXT);
     }
 
     /**
      * Get other albums by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return Collection|Album[]
+     * @return Collection|AlbumBase[]
      */
     public static function getOtherAlbums(string $ownerName, int $ownerId): Collection
     {
-        return static::getAlbums($ownerName, $ownerId, Album::ALBUM_TYPE_OTHER);
+        return static::getAlbums($ownerName, $ownerId, AlbumTyped::ALBUM_TYPE_OTHER);
     }
 
     /**
@@ -133,7 +133,7 @@ class OwnerAlbum extends Owner
      */
     protected static function removeDependency(int $albumId): bool
     {
-        return Album::find($albumId)
+        return AlbumBase::find($albumId)
             ->setRemoveDependencies(true)
             ->delete();
     }

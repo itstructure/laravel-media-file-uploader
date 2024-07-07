@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\{Collection, Model, Builder as EloquentBuilder}
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Itstructure\MFU\Processors\SaveProcessor;
 use Itstructure\MFU\Behaviors\Owner\BehaviorMediafile;
-use Itstructure\MFU\Interfaces\{HasOwnerInterface, BeingOwnerInterface};
-use Itstructure\MFU\Models\Owners\{OwnerAlbum, OwnerMediafile};
+use Itstructure\MFU\Interfaces\BeingOwnerInterface;
+use Itstructure\MFU\Models\Owners\OwnerMediafile;
 use Itstructure\MFU\Models\Mediafile;
 
 /**
  * Class Album
  * @package Itstructure\MFU\Models\Albums
  */
-abstract class Album extends Model implements HasOwnerInterface, BeingOwnerInterface
+abstract class AlbumTyped extends AlbumBase implements BeingOwnerInterface
 {
     const ALBUM_TYPE_IMAGE = SaveProcessor::FILE_TYPE_IMAGE . '_album';
     const ALBUM_TYPE_AUDIO = SaveProcessor::FILE_TYPE_AUDIO . '_album';
@@ -34,16 +34,6 @@ abstract class Album extends Model implements HasOwnerInterface, BeingOwnerInter
     protected $removeDependencies = false;
 
     /**
-     * @var string
-     */
-    protected $table = 'albums';
-
-    /**
-     * @var array
-     */
-    protected $fillable = ['title', 'description', 'type'];
-
-    /**
      * @return string
      */
     abstract public static function getAlbumType(): string;
@@ -59,17 +49,6 @@ abstract class Album extends Model implements HasOwnerInterface, BeingOwnerInter
     public static function getAllBehaviorAttributes(): array
     {
         return array_merge(static::getBehaviorAttributes(), ['thumbnail']);
-    }
-
-    /**
-     * @param int $ownerId
-     * @param string $ownerName
-     * @param string $ownerAttribute
-     * @return bool
-     */
-    public function addOwner(int $ownerId, string $ownerName, string $ownerAttribute): bool
-    {
-        return OwnerAlbum::addOwner($this->id, $ownerId, $ownerName, $ownerAttribute);
     }
 
     /**
@@ -166,17 +145,6 @@ abstract class Album extends Model implements HasOwnerInterface, BeingOwnerInter
     }
 
     /**
-     * @return Mediafile|null
-     */
-    public function getThumbnailModel(): ?Mediafile
-    {
-        if (null === $this->type || null === $this->id) {
-            return null;
-        }
-        return OwnerMediafile::getOwnerThumbnailModel($this->type, $this->id);
-    }
-
-    /**
      * @param array $attributes
      * @return Model
      */
@@ -204,14 +172,6 @@ abstract class Album extends Model implements HasOwnerInterface, BeingOwnerInter
     public static function getAllEntries(): Collection
     {
         return static::getAllQuery()->get();
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function owners(): HasMany
-    {
-        return $this->hasMany(OwnerAlbum::class, 'album_id', 'id');
     }
 
     protected static function booted(): void
