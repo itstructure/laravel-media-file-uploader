@@ -36,6 +36,7 @@ return [
     'existing_files' => 'Existing files',
     'set_thumbnail' => 'Set thumbnail',
     'set_file' => 'Set file',
+    'albums' => 'Albums',
     'image_album' => 'Image album',
     'image_albums' => 'Image albums',
     'audio_album' => 'Audio album',

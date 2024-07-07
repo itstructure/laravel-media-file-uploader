@@ -3,6 +3,7 @@
 namespace Itstructure\MFU\Models\Albums;
 
 use Illuminate\Database\Eloquent\{Collection, Model, Builder as EloquentBuilder};
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Itstructure\MFU\Processors\SaveProcessor;
 use Itstructure\MFU\Behaviors\Owner\BehaviorMediafile;
 use Itstructure\MFU\Interfaces\{HasOwnerInterface, BeingOwnerInterface};
@@ -187,6 +188,30 @@ abstract class Album extends Model implements HasOwnerInterface, BeingOwnerInter
             }
         }
         return parent::fill($attributes);
+    }
+
+    /**
+     * @return EloquentBuilder
+     */
+    public static function getAllQuery(): EloquentBuilder
+    {
+        return static::where('type', '=', static::getAlbumType());
+    }
+
+    /**
+     * @return Collection
+     */
+    public static function getAllEntries(): Collection
+    {
+        return static::getAllQuery()->get();
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function owners(): HasMany
+    {
+        return $this->hasMany(OwnerAlbum::class, 'album_id', 'id');
     }
 
     protected static function booted(): void

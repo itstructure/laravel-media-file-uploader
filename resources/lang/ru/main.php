@@ -36,6 +36,7 @@ return [
     'existing_files' => 'Существующие файлы',
     'set_thumbnail' => 'Установить миниатюру',
     'set_file' => 'Установить файл',
+    'albums' => 'Альбомы',
     'image_album' => 'Фото альбом',
     'image_albums' => 'Фото альбомы',
     'audio_album' => 'Аудио альбом',
