@@ -2,7 +2,7 @@
 
 namespace Itstructure\MFU\Models\Owners;
 
-use Illuminate\Database\Eloquent\{Collection, Builder as EloquentBuilder};
+use Illuminate\Database\Eloquent\{Collection as EloquentCollection, Builder as EloquentBuilder};
 use Itstructure\MFU\Traits\HasCompositePrimaryKey;
 use Itstructure\MFU\Models\Albums\{AlbumBase, AlbumTyped};
 
@@ -35,9 +35,9 @@ class OwnerAlbum extends Owner
      * @param string $ownerName
      * @param int $ownerId
      * @param string|null $ownerAttribute
-     * @return Collection|AlbumBase[]
+     * @return EloquentCollection|AlbumBase[]
      */
-    public static function getAlbums(string $ownerName, int $ownerId, string $ownerAttribute = null): Collection
+    public static function getAlbums(string $ownerName, int $ownerId, string $ownerAttribute = null): EloquentCollection
     {
         return static::getAlbumsQuery(static::buildFilterOptions($ownerId, $ownerName, $ownerAttribute))->get();
     }
@@ -56,9 +56,9 @@ class OwnerAlbum extends Owner
      * Get image albums by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return Collection|AlbumBase[]
+     * @return EloquentCollection|AlbumBase[]
      */
-    public static function getImageAlbums(string $ownerName, int $ownerId): Collection
+    public static function getImageAlbums(string $ownerName, int $ownerId): EloquentCollection
     {
         return static::getAlbums($ownerName, $ownerId, AlbumTyped::ALBUM_TYPE_IMAGE);
     }
@@ -67,9 +67,9 @@ class OwnerAlbum extends Owner
      * Get audio albums by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return Collection|AlbumBase[]
+     * @return EloquentCollection|AlbumBase[]
      */
-    public static function getAudioAlbums(string $ownerName, int $ownerId): Collection
+    public static function getAudioAlbums(string $ownerName, int $ownerId): EloquentCollection
     {
         return static::getAlbums($ownerName, $ownerId, AlbumTyped::ALBUM_TYPE_AUDIO);
     }
@@ -78,9 +78,9 @@ class OwnerAlbum extends Owner
      * Get video albums by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return Collection|AlbumBase[]
+     * @return EloquentCollection|AlbumBase[]
      */
-    public static function getVideoAlbums(string $ownerName, int $ownerId): Collection
+    public static function getVideoAlbums(string $ownerName, int $ownerId): EloquentCollection
     {
         return static::getAlbums($ownerName, $ownerId, AlbumTyped::ALBUM_TYPE_VIDEO);
     }
@@ -89,9 +89,9 @@ class OwnerAlbum extends Owner
      * Get application albums by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return Collection|AlbumBase[]
+     * @return EloquentCollection|AlbumBase[]
      */
-    public static function getAppAlbums(string $ownerName, int $ownerId): Collection
+    public static function getAppAlbums(string $ownerName, int $ownerId): EloquentCollection
     {
         return static::getAlbums($ownerName, $ownerId, AlbumTyped::ALBUM_TYPE_APP);
     }
@@ -100,9 +100,9 @@ class OwnerAlbum extends Owner
      * Get text albums by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return Collection|AlbumBase[]
+     * @return EloquentCollection|AlbumBase[]
      */
-    public static function getTextAlbums(string $ownerName, int $ownerId): Collection
+    public static function getTextAlbums(string $ownerName, int $ownerId): EloquentCollection
     {
         return static::getAlbums($ownerName, $ownerId, AlbumTyped::ALBUM_TYPE_TEXT);
     }
@@ -111,9 +111,9 @@ class OwnerAlbum extends Owner
      * Get other albums by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return Collection|AlbumBase[]
+     * @return EloquentCollection|AlbumBase[]
      */
-    public static function getOtherAlbums(string $ownerName, int $ownerId): Collection
+    public static function getOtherAlbums(string $ownerName, int $ownerId): EloquentCollection
     {
         return static::getAlbums($ownerName, $ownerId, AlbumTyped::ALBUM_TYPE_OTHER);
     }

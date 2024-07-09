@@ -21,6 +21,7 @@ return [
     'delete_confirm' => 'Are you sure you want to delete?',
     'deleted_file' => 'File has been deleted',
     'new' => 'New',
+    'select' => 'Select',
     'clear' => 'Clear',
     'upload' => 'Upload',
     'cancel' => 'Cancel',

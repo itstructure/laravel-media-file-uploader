@@ -78,6 +78,22 @@ abstract class Owner extends Model
     }
 
     /**
+     * @return int
+     */
+    public function getOwnerId(): int
+    {
+        return $this->owner_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOwnerName(): string
+    {
+        return $this->owner_name;
+    }
+
+    /**
      * Getting entity id's which are related with Other owners too.
      * @param int $ownerId
      * @param string $ownerName

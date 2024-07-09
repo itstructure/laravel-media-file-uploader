@@ -2,9 +2,11 @@
 
 namespace Itstructure\MFU\Models\Albums;
 
-use Illuminate\Database\Eloquent\{Collection, Model, Builder as EloquentBuilder};
+use Illuminate\Support\Collection as SupportCollection;
+use Illuminate\Database\Eloquent\{Model, Builder as EloquentBuilder, Collection as EloquentCollection};
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Itstructure\MFU\Interfaces\HasOwnerInterface;
+use Itstructure\MFU\Interfaces\{HasOwnerInterface, BeingOwnerInterface};
+use Itstructure\MFU\Behaviors\Owner\BehaviorMediafile;
 use Itstructure\MFU\Models\Owners\{OwnerAlbum, OwnerMediafile};
 use Itstructure\MFU\Models\Mediafile;
 
@@ -12,8 +14,18 @@ use Itstructure\MFU\Models\Mediafile;
  * Class AlbumBase
  * @package Itstructure\MFU\Models\Albums
  */
-class AlbumBase extends Model implements HasOwnerInterface
+class AlbumBase extends Model implements HasOwnerInterface, BeingOwnerInterface
 {
+    /**
+     * @var string|int
+     */
+    public $thumbnail;
+
+    /**
+     * @var bool
+     */
+    protected $removeDependencies = false;
+
     /**
      * @var string
      */
@@ -23,6 +35,56 @@ class AlbumBase extends Model implements HasOwnerInterface
      * @var array
      */
     protected $fillable = ['title', 'description', 'type'];
+
+    /**
+     * @return array
+     */
+    protected static function getBehaviorAttributes(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array
+     */
+    public static function getAllBehaviorAttributes(): array
+    {
+        return array_merge(static::getBehaviorAttributes(), ['thumbnail']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getItsName(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrimaryKey()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * @param bool $removeDependencies
+     * @return $this
+     */
+    public function setRemoveDependencies(bool $removeDependencies)
+    {
+        $this->removeDependencies = $removeDependencies;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getRemoveDependencies(): bool
+    {
+        return $this->removeDependencies;
+    }
 
     /**
      * @param int $ownerId
@@ -36,10 +98,24 @@ class AlbumBase extends Model implements HasOwnerInterface
     }
 
     /**
-     * @param string|null $ownerAttribute
-     * @return Collection|Mediafile[]
+     * @param array $attributes
+     * @return Model
      */
-    public function getMediaFiles(string $ownerAttribute = null): Collection
+    public function fill(array $attributes)
+    {
+        foreach (static::getAllBehaviorAttributes() as $behaviorAttribute) {
+            if (isset($attributes[$behaviorAttribute])) {
+                $this->{$behaviorAttribute} = $attributes[$behaviorAttribute];
+            }
+        }
+        return parent::fill($attributes);
+    }
+
+    /**
+     * @param string|null $ownerAttribute
+     * @return EloquentCollection|Mediafile[]
+     */
+    public function getMediaFiles(string $ownerAttribute = null): EloquentCollection
     {
         return OwnerMediafile::getMediaFiles($this->type, $this->id, $ownerAttribute);
     }
@@ -74,5 +150,54 @@ class AlbumBase extends Model implements HasOwnerInterface
     public function owners(): HasMany
     {
         return $this->hasMany(OwnerAlbum::class, 'album_id', 'id');
+    }
+
+    /**
+     * @param bool $withOwners
+     * @return EloquentBuilder
+     */
+    public static function getAllQuery(bool $withOwners = false): EloquentBuilder
+    {
+        return static::query()->when($withOwners, function ($q) {
+            $q->with('owners');
+        });
+    }
+
+    /**
+     * @param bool $withOwners
+     * @return EloquentCollection
+     */
+    public static function getAll(bool $withOwners = false): EloquentCollection
+    {
+        return static::getAllQuery($withOwners)->get();
+    }
+
+    public static function getAllForOwner(BeingOwnerInterface $ownerModel): SupportCollection
+    {
+        return static::getAll(true)->map(function ($album) use ($ownerModel) {
+            $album->relates = false;
+            $album->owners->map(function (OwnerAlbum $ownerAlbum) use ($album, $ownerModel) {
+                if ($ownerModel->getItsName() == $ownerAlbum->getOwnerName() && $ownerModel->getPrimaryKey() == $ownerAlbum->getOwnerId()) {
+                    $album->relates = true;
+                    return;
+                }
+            });
+            return $album;
+        });
+    }
+
+    protected static function booted(): void
+    {
+        $behavior = BehaviorMediafile::getInstance(static::getAllBehaviorAttributes());
+
+        static::saved(function (Model $ownerModel) use ($behavior) {
+            $ownerModel->wasRecentlyCreated
+                ? $behavior->link($ownerModel)
+                : $behavior->refresh($ownerModel);
+        });
+
+        static::deleted(function (Model $ownerModel) use ($behavior) {
+            $behavior->clear($ownerModel);
+        });
     }
 }

@@ -33,14 +33,6 @@ class VideoAlbum extends AlbumTyped
     }
 
     /**
-     * @return string
-     */
-    public function getItsName(): string
-    {
-        return static::getAlbumType();
-    }
-
-    /**
      * @return array
      */
     protected static function getBehaviorAttributes(): array
