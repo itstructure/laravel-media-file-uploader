@@ -341,10 +341,10 @@ class FileSetter
     }
 
     /**
-     * @param string $neededFileType
+     * @param string|null $neededFileType
      * @return FileSetter
      */
-    public function setNeededFileType(string $neededFileType): self
+    public function setNeededFileType(?string $neededFileType): self
     {
         $this->neededFileType = $neededFileType;
         return $this;

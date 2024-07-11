@@ -5,7 +5,6 @@ namespace Itstructure\MFU\Models\Albums;
 use Illuminate\Database\Eloquent\{Collection, Builder as EloquentBuilder};
 use Itstructure\MFU\Processors\SaveProcessor;
 use Itstructure\MFU\Models\Owners\OwnerMediafile;
-use Itstructure\MFU\Models\Mediafile;
 
 /**
  * Class Album
@@ -72,7 +71,7 @@ abstract class AlbumTyped extends AlbumBase
 
     /**
      * @param string|null $ownerAttribute
-     * @return Collection|Mediafile[]
+     * @return Collection
      */
     public function getMediaFiles(string $ownerAttribute = null): Collection
     {

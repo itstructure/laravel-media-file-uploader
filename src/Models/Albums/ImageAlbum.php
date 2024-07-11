@@ -3,7 +3,7 @@
 namespace Itstructure\MFU\Models\Albums;
 
 use Illuminate\Database\Eloquent\Collection;
-use Itstructure\MFU\Models\Mediafile;
+use Itstructure\MFU\Processors\SaveProcessor;
 
 /**
  * Class ImageAlbum
@@ -12,12 +12,7 @@ use Itstructure\MFU\Models\Mediafile;
 class ImageAlbum extends AlbumTyped
 {
     /**
-     * @var array
-     */
-    public $image;
-
-    /**
-     * @return Collection|Mediafile[]
+     * @return Collection
      */
     public function getImageFiles(): Collection
     {
@@ -35,8 +30,8 @@ class ImageAlbum extends AlbumTyped
     /**
      * @return array
      */
-    protected static function getBehaviorAttributes(): array
+    public static function getBehaviorAttributes(): array
     {
-        return ['image'];
+        return [SaveProcessor::FILE_TYPE_IMAGE, SaveProcessor::FILE_TYPE_THUMB];
     }
 }

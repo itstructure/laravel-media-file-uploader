@@ -35,7 +35,7 @@ class OwnerAlbum extends Owner
      * @param string $ownerName
      * @param int $ownerId
      * @param string|null $ownerAttribute
-     * @return EloquentCollection|AlbumBase[]
+     * @return EloquentCollection
      */
     public static function getAlbums(string $ownerName, int $ownerId, string $ownerAttribute = null): EloquentCollection
     {
@@ -56,7 +56,7 @@ class OwnerAlbum extends Owner
      * Get image albums by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return EloquentCollection|AlbumBase[]
+     * @return EloquentCollection
      */
     public static function getImageAlbums(string $ownerName, int $ownerId): EloquentCollection
     {
@@ -67,7 +67,7 @@ class OwnerAlbum extends Owner
      * Get audio albums by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return EloquentCollection|AlbumBase[]
+     * @return EloquentCollection
      */
     public static function getAudioAlbums(string $ownerName, int $ownerId): EloquentCollection
     {
@@ -78,7 +78,7 @@ class OwnerAlbum extends Owner
      * Get video albums by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return EloquentCollection|AlbumBase[]
+     * @return EloquentCollection
      */
     public static function getVideoAlbums(string $ownerName, int $ownerId): EloquentCollection
     {
@@ -89,7 +89,7 @@ class OwnerAlbum extends Owner
      * Get application albums by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return EloquentCollection|AlbumBase[]
+     * @return EloquentCollection
      */
     public static function getAppAlbums(string $ownerName, int $ownerId): EloquentCollection
     {
@@ -100,7 +100,7 @@ class OwnerAlbum extends Owner
      * Get text albums by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return EloquentCollection|AlbumBase[]
+     * @return EloquentCollection
      */
     public static function getTextAlbums(string $ownerName, int $ownerId): EloquentCollection
     {
@@ -111,7 +111,7 @@ class OwnerAlbum extends Owner
      * Get other albums by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return EloquentCollection|AlbumBase[]
+     * @return EloquentCollection
      */
     public static function getOtherAlbums(string $ownerName, int $ownerId): EloquentCollection
     {

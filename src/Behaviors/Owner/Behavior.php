@@ -30,11 +30,11 @@ abstract class Behavior
     /**
      * @param int $ownerId
      * @param string $ownerName
-     * @param string $ownerAttribute
+     * @param string|null $ownerAttribute
      * @param bool $removeDependencies
      * @return bool
      */
-    abstract protected function removeOwner(int $ownerId, string $ownerName, string $ownerAttribute, bool $removeDependencies = false): bool;
+    abstract protected function removeOwner(int $ownerId, string $ownerName, string $ownerAttribute = null, bool $removeDependencies = false): bool;
 
     /**
      * @param array $attributes
@@ -63,7 +63,7 @@ abstract class Behavior
     public function link(BeingOwnerInterface $ownerModel): void
     {
         foreach ($this->attributes as $attributeName) {
-            $this->linkOwner($ownerModel, $attributeName, $ownerModel->{$attributeName});
+            $this->linkOwner($ownerModel, $attributeName, $ownerModel->getBehaviorValue($attributeName));
         }
     }
 
@@ -74,7 +74,7 @@ abstract class Behavior
     {
         foreach ($this->attributes as $attributeName) {
             $this->removeOwner($ownerModel->getPrimaryKey(), $ownerModel->getItsName(), $attributeName);
-            $this->linkOwner($ownerModel, $attributeName, $ownerModel->{$attributeName});
+            $this->linkOwner($ownerModel, $attributeName, $ownerModel->getBehaviorValue($attributeName));
         }
     }
 
@@ -83,9 +83,7 @@ abstract class Behavior
      */
     public function clear(BeingOwnerInterface $ownerModel): void
     {
-        foreach ($this->attributes as $attributeName) {
-            $this->removeOwner($ownerModel->getPrimaryKey(), $ownerModel->getItsName(), $attributeName, $ownerModel->getRemoveDependencies());
-        }
+        $this->removeOwner($ownerModel->getPrimaryKey(), $ownerModel->getItsName(), null, $ownerModel->getRemoveDependencies());
     }
 
     /**

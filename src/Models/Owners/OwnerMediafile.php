@@ -37,7 +37,7 @@ class OwnerMediafile extends Owner
      * @param string $ownerName
      * @param int    $ownerId
      * @param null|string $ownerAttribute
-     * @return Collection|Mediafile[]
+     * @return Collection
      */
     public static function getMediaFiles(string $ownerName, int $ownerId, string $ownerAttribute = null): Collection
     {
@@ -79,7 +79,7 @@ class OwnerMediafile extends Owner
      * Get image files by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return Collection|Mediafile[]
+     * @return Collection
      */
     public static function getImageFiles(string $ownerName, int $ownerId): Collection
     {
@@ -90,7 +90,7 @@ class OwnerMediafile extends Owner
      * Get audio files by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return Collection|Mediafile[]
+     * @return Collection
      */
     public static function getAudioFiles(string $ownerName, int $ownerId): Collection
     {
@@ -101,7 +101,7 @@ class OwnerMediafile extends Owner
      * Get video files by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return Collection|Mediafile[]
+     * @return Collection
      */
     public static function getVideoFiles(string $ownerName, int $ownerId): Collection
     {
@@ -112,7 +112,7 @@ class OwnerMediafile extends Owner
      * Get app files by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return Collection|Mediafile[]
+     * @return Collection
      */
     public static function getAppFiles(string $ownerName, int $ownerId): Collection
     {
@@ -123,7 +123,7 @@ class OwnerMediafile extends Owner
      * Get text files by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return Collection|Mediafile[]
+     * @return Collection
      */
     public static function getTextFiles(string $ownerName, int $ownerId): Collection
     {
@@ -134,7 +134,7 @@ class OwnerMediafile extends Owner
      * Get other files by owner.
      * @param string $ownerName
      * @param int    $ownerId
-     * @return Collection|Mediafile[]
+     * @return Collection
      */
     public static function getOtherFiles(string $ownerName, int $ownerId): Collection
     {

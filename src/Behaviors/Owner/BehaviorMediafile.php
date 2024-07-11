@@ -24,11 +24,11 @@ class BehaviorMediafile extends Behavior
     /**
      * @param int $ownerId
      * @param string $ownerName
-     * @param string $ownerAttribute
+     * @param string|null $ownerAttribute
      * @param bool $removeDependencies
      * @return bool
      */
-    protected function removeOwner(int $ownerId, string $ownerName, string $ownerAttribute, bool $removeDependencies = false): bool
+    protected function removeOwner(int $ownerId, string $ownerName, string $ownerAttribute = null, bool $removeDependencies = false): bool
     {
         return OwnerMediafile::removeOwner($ownerId, $ownerName, $ownerAttribute, $removeDependencies);
     }
