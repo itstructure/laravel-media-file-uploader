@@ -128,6 +128,14 @@ class Previewer
             return view('uploader::preview.stub.excel', [
                 'htmlAttributes' => $this->getHtmlAttributes(SaveProcessor::FILE_TYPE_APP_EXCEL, $location, $htmlAttributes)
             ]);
+        } else if ($mediafile->isVisio()) {
+            return view('uploader::preview.stub.visio', [
+                'htmlAttributes' => $this->getHtmlAttributes(SaveProcessor::FILE_TYPE_APP_VISIO, $location, $htmlAttributes)
+            ]);
+        } else if ($mediafile->isPowerPoint()) {
+            return view('uploader::preview.stub.ppt', [
+                'htmlAttributes' => $this->getHtmlAttributes(SaveProcessor::FILE_TYPE_APP_PPT, $location, $htmlAttributes)
+            ]);
         } else if ($mediafile->isPdf()) {
             return view('uploader::preview.stub.pdf', [
                 'htmlAttributes' => $this->getHtmlAttributes(SaveProcessor::FILE_TYPE_APP_PDF, $location, $htmlAttributes)

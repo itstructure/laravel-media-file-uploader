@@ -26,6 +26,8 @@ abstract class SaveProcessor extends BaseProcessor
     const FILE_TYPE_APP = 'application';
     const FILE_TYPE_APP_WORD = 'word';
     const FILE_TYPE_APP_EXCEL = 'excel';
+    const FILE_TYPE_APP_VISIO = 'visio';
+    const FILE_TYPE_APP_PPT = 'powerpoint';
     const FILE_TYPE_APP_PDF = 'pdf';
     const FILE_TYPE_TEXT = 'text';
     const FILE_TYPE_OTHER = 'other';
@@ -42,6 +44,8 @@ abstract class SaveProcessor extends BaseProcessor
 
     const VISIBILITY_PUBLIC = 'public';
     const VISIBILITY_PRIVARE = 'private';
+
+    const DEFAULT_BASE_UPLOAD_DIRECTORY = 'default';
 
     /************************* CONFIG ATTRIBUTES *************************/
     /**
@@ -349,6 +353,98 @@ abstract class SaveProcessor extends BaseProcessor
         return $this->mediafileModel->save();
     }
 
+    /**
+     * @param string $mimeType
+     * @return bool
+     */
+    public static function isImage(string $mimeType): bool
+    {
+        return strpos($mimeType, self::FILE_TYPE_IMAGE) !== false;
+    }
+
+    /**
+     * @param string $mimeType
+     * @return bool
+     */
+    public static function isAudio(string $mimeType): bool
+    {
+        return strpos($mimeType, self::FILE_TYPE_AUDIO) !== false;
+    }
+
+    /**
+     * @param string $mimeType
+     * @return bool
+     */
+    public static function isVideo(string $mimeType): bool
+    {
+        return strpos($mimeType, self::FILE_TYPE_VIDEO) !== false;
+    }
+
+    /**
+     * @param string $mimeType
+     * @return bool
+     */
+    public static function isText(string $mimeType): bool
+    {
+        return strpos($mimeType, self::FILE_TYPE_TEXT) !== false;
+    }
+
+    /**
+     * @param string $mimeType
+     * @return bool
+     */
+    public static function isApp(string $mimeType): bool
+    {
+        return strpos($mimeType, self::FILE_TYPE_APP) !== false;
+    }
+
+    /**
+     * @param string $mimeType
+     * @return bool
+     */
+    public static function isWord(string $mimeType): bool
+    {
+        return strpos($mimeType, self::FILE_TYPE_APP_WORD) !== false;
+    }
+
+    /**
+     * @param string $mimeType
+     * @return bool
+     */
+    public static function isExcel(string $mimeType): bool
+    {
+        return strpos($mimeType, self::FILE_TYPE_APP_EXCEL) !== false
+        || strpos($mimeType, 'spreadsheet') !== false;
+    }
+
+    /**
+     * @param string $mimeType
+     * @return bool
+     */
+    public static function isVisio(string $mimeType): bool
+    {
+        return strpos($mimeType, self::FILE_TYPE_APP_VISIO) !== false;
+    }
+
+    /**
+     * @param string $mimeType
+     * @return bool
+     */
+    public static function isPowerPoint(string $mimeType): bool
+    {
+        return strpos($mimeType, self::FILE_TYPE_APP_PPT) !== false
+        || strpos($mimeType, 'presentation') !== false;
+    }
+
+    /**
+     * @param string $mimeType
+     * @return bool
+     */
+    public static function isPdf(string $mimeType): bool
+    {
+        return strpos($mimeType, self::FILE_TYPE_APP_PDF) !== false;
+    }
+
 
     /********************** PROCESS INTERNAL METHODS *********************/
     /**
@@ -431,33 +527,50 @@ abstract class SaveProcessor extends BaseProcessor
     }
 
     /**
-     * @param string $fileType
+     * @param string $mimeType
      * @throws Exception
      * @return string
      */
-    protected function getBaseUploadDirectory(string $fileType): string
+    protected function getBaseUploadDirectory(string $mimeType): string
     {
         if (!is_array($this->baseUploadDirectories) || empty($this->baseUploadDirectories)) {
             throw new Exception('The baseUploadDirectories attribute is not defined correctly.');
         }
 
-        if (str_contains($fileType, self::FILE_TYPE_IMAGE)) {
-            return $this->baseUploadDirectories[self::FILE_TYPE_IMAGE];
+        if (self::isImage($mimeType)) {
+            return $this->baseUploadDirectories[self::FILE_TYPE_IMAGE] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
 
-        } elseif (str_contains($fileType, self::FILE_TYPE_AUDIO)) {
-            return $this->baseUploadDirectories[self::FILE_TYPE_AUDIO];
+        } elseif (self::isAudio($mimeType)) {
+            return $this->baseUploadDirectories[self::FILE_TYPE_AUDIO] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
 
-        } elseif (str_contains($fileType, self::FILE_TYPE_VIDEO)) {
-            return $this->baseUploadDirectories[self::FILE_TYPE_VIDEO];
+        } elseif (self::isVideo($mimeType)) {
+            return $this->baseUploadDirectories[self::FILE_TYPE_VIDEO] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
 
-        } elseif (str_contains($fileType, self::FILE_TYPE_APP)) {
-            return $this->baseUploadDirectories[self::FILE_TYPE_APP];
+        } elseif (self::isApp($mimeType)) {
+            if (self::isWord($mimeType)) {
+                return $this->baseUploadDirectories[self::FILE_TYPE_APP_WORD] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
 
-        } elseif (str_contains($fileType, self::FILE_TYPE_TEXT)) {
-            return $this->baseUploadDirectories[self::FILE_TYPE_TEXT];
+            } elseif (self::isExcel($mimeType)) {
+                return $this->baseUploadDirectories[self::FILE_TYPE_APP_EXCEL] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
+
+            } elseif (self::isVisio($mimeType)) {
+                return $this->baseUploadDirectories[self::FILE_TYPE_APP_VISIO] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
+
+            } elseif (self::isPowerPoint($mimeType)) {
+                return $this->baseUploadDirectories[self::FILE_TYPE_APP_PPT] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
+
+            } elseif (self::isPdf($mimeType)) {
+                return $this->baseUploadDirectories[self::FILE_TYPE_APP_PDF] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
+
+            } else {
+                return $this->baseUploadDirectories[self::FILE_TYPE_APP] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
+            }
+
+        } elseif (self::isText($mimeType)) {
+            return $this->baseUploadDirectories[self::FILE_TYPE_TEXT] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
 
         } else {
-            return $this->baseUploadDirectories[self::FILE_TYPE_OTHER];
+            return $this->baseUploadDirectories[self::FILE_TYPE_OTHER] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
         }
     }
 

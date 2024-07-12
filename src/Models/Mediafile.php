@@ -147,7 +147,7 @@ class Mediafile extends Model implements HasOwnerInterface
      */
     public function isImage(): bool
     {
-        return strpos($this->mime_type, SaveProcessor::FILE_TYPE_IMAGE) !== false;
+        return SaveProcessor::isImage($this->mime_type);
     }
 
     /**
@@ -156,7 +156,7 @@ class Mediafile extends Model implements HasOwnerInterface
      */
     public function isAudio(): bool
     {
-        return strpos($this->mime_type, SaveProcessor::FILE_TYPE_AUDIO) !== false;
+        return SaveProcessor::isAudio($this->mime_type);
     }
 
     /**
@@ -165,7 +165,7 @@ class Mediafile extends Model implements HasOwnerInterface
      */
     public function isVideo(): bool
     {
-        return strpos($this->mime_type, SaveProcessor::FILE_TYPE_VIDEO) !== false;
+        return SaveProcessor::isVideo($this->mime_type);
     }
 
     /**
@@ -174,7 +174,7 @@ class Mediafile extends Model implements HasOwnerInterface
      */
     public function isText(): bool
     {
-        return strpos($this->mime_type, SaveProcessor::FILE_TYPE_TEXT) !== false;
+        return SaveProcessor::isText($this->mime_type);
     }
 
     /**
@@ -183,25 +183,7 @@ class Mediafile extends Model implements HasOwnerInterface
      */
     public function isApp(): bool
     {
-        return strpos($this->mime_type, SaveProcessor::FILE_TYPE_APP) !== false;
-    }
-
-    /**
-     * Check if the file is excel.
-     * @return bool
-     */
-    public function isExcel(): bool
-    {
-        return strpos($this->mime_type, SaveProcessor::FILE_TYPE_APP_EXCEL) !== false;
-    }
-
-    /**
-     * Check if the file is pdf.
-     * @return bool
-     */
-    public function isPdf(): bool
-    {
-        return strpos($this->mime_type, SaveProcessor::FILE_TYPE_APP_PDF) !== false;
+        return SaveProcessor::isApp($this->mime_type);
     }
 
     /**
@@ -210,6 +192,42 @@ class Mediafile extends Model implements HasOwnerInterface
      */
     public function isWord(): bool
     {
-        return strpos($this->mime_type, SaveProcessor::FILE_TYPE_APP_WORD) !== false;
+        return SaveProcessor::isWord($this->mime_type);
+    }
+
+    /**
+     * Check if the file is excel.
+     * @return bool
+     */
+    public function isExcel(): bool
+    {
+        return SaveProcessor::isExcel($this->mime_type);
+    }
+
+    /**
+     * Check if the file is visio.
+     * @return bool
+     */
+    public function isVisio(): bool
+    {
+        return SaveProcessor::isVisio($this->mime_type);
+    }
+
+    /**
+     * Check if the file is PowerPoint.
+     * @return bool
+     */
+    public function isPowerPoint(): bool
+    {
+        return SaveProcessor::isPowerPoint($this->mime_type);
+    }
+
+    /**
+     * Check if the file is pdf.
+     * @return bool
+     */
+    public function isPdf(): bool
+    {
+        return SaveProcessor::isPdf($this->mime_type);
     }
 }

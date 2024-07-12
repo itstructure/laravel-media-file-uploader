@@ -24,7 +24,23 @@ return [
                 'mp4', 'ogg', 'ogv', 'oga', 'ogx', 'webm',
             ],
             SaveProcessor::FILE_TYPE_APP => [
-                'doc', 'docx', 'rtf', 'pdf', 'rar', 'zip', 'jar', 'mcd', 'xls', 'xlsx',
+                'doc', 'docx', 'rtf', 'pdf', 'xls', 'xlsx', 'vsd', 'vsdx', 'ppt', 'pptx',
+                'rar', 'zip', 'jar', 'mcd', 'exe',
+            ],
+            SaveProcessor::FILE_TYPE_APP_WORD => [
+                'doc', 'docx', 'rtf',
+            ],
+            SaveProcessor::FILE_TYPE_APP_EXCEL => [
+                'xls', 'xlsx',
+            ],
+            SaveProcessor::FILE_TYPE_APP_VISIO => [
+                'vsd', 'vsdx',
+            ],
+            SaveProcessor::FILE_TYPE_APP_PPT => [
+                'ppt', 'pptx',
+            ],
+            SaveProcessor::FILE_TYPE_APP_PDF => [
+                'pdf',
             ],
             SaveProcessor::FILE_TYPE_TEXT => [
                 'txt',
@@ -54,7 +70,12 @@ return [
             SaveProcessor::FILE_TYPE_IMAGE => 'images',
             SaveProcessor::FILE_TYPE_AUDIO => 'audio',
             SaveProcessor::FILE_TYPE_VIDEO => 'video',
-            SaveProcessor::FILE_TYPE_APP => 'application',
+            SaveProcessor::FILE_TYPE_APP => 'applications',
+            SaveProcessor::FILE_TYPE_APP_WORD => 'word',
+            SaveProcessor::FILE_TYPE_APP_EXCEL => 'excel',
+            SaveProcessor::FILE_TYPE_APP_VISIO => 'visio',
+            SaveProcessor::FILE_TYPE_APP_PPT => 'powerpoint',
+            SaveProcessor::FILE_TYPE_APP_PDF => 'pdf',
             SaveProcessor::FILE_TYPE_TEXT => 'text',
             SaveProcessor::FILE_TYPE_OTHER => 'other',
         ],
@@ -73,6 +94,11 @@ return [
                     SaveProcessor::FILE_TYPE_AUDIO,
                     SaveProcessor::FILE_TYPE_VIDEO,
                     SaveProcessor::FILE_TYPE_APP,
+                    SaveProcessor::FILE_TYPE_APP_WORD,
+                    SaveProcessor::FILE_TYPE_APP_EXCEL,
+                    SaveProcessor::FILE_TYPE_APP_VISIO,
+                    SaveProcessor::FILE_TYPE_APP_PPT,
+                    SaveProcessor::FILE_TYPE_APP_PDF,
                     SaveProcessor::FILE_TYPE_TEXT,
                     SaveProcessor::FILE_TYPE_OTHER
                 ])
@@ -155,6 +181,20 @@ return [
             ],
 
             // For stubs
+            SaveProcessor::FILE_TYPE_APP => [
+                Previewer::LOCATION_FILE_ITEM => [
+                    'width' => 100 . 'px',
+                    'height' => 100 . 'px'
+                ],
+                Previewer::LOCATION_FILE_INFO => [
+                    'width' => 300 . 'px',
+                    'height' => 300 . 'px'
+                ],
+                Previewer::LOCATION_EXISTING => [
+                    'width' => 200 . 'px',
+                    'height' => 200 . 'px'
+                ],
+            ],
             SaveProcessor::FILE_TYPE_APP_WORD => [
                 Previewer::LOCATION_FILE_ITEM => [
                     'width' => 100 . 'px',
@@ -183,7 +223,7 @@ return [
                     'height' => 200 . 'px'
                 ],
             ],
-            SaveProcessor::FILE_TYPE_APP_PDF => [
+            SaveProcessor::FILE_TYPE_APP_VISIO => [
                 Previewer::LOCATION_FILE_ITEM => [
                     'width' => 100 . 'px',
                     'height' => 100 . 'px'
@@ -197,7 +237,21 @@ return [
                     'height' => 200 . 'px'
                 ],
             ],
-            SaveProcessor::FILE_TYPE_APP => [
+            SaveProcessor::FILE_TYPE_APP_PPT => [
+                Previewer::LOCATION_FILE_ITEM => [
+                    'width' => 100 . 'px',
+                    'height' => 100 . 'px'
+                ],
+                Previewer::LOCATION_FILE_INFO => [
+                    'width' => 300 . 'px',
+                    'height' => 300 . 'px'
+                ],
+                Previewer::LOCATION_EXISTING => [
+                    'width' => 200 . 'px',
+                    'height' => 200 . 'px'
+                ],
+            ],
+            SaveProcessor::FILE_TYPE_APP_PDF => [
                 Previewer::LOCATION_FILE_ITEM => [
                     'width' => 100 . 'px',
                     'height' => 100 . 'px'

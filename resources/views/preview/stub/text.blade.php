@@ -1,10 +1,8 @@
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
 <!-- https://www.svgrepo.com/svg/5103/txt -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-15.16 -15.16 333.51 333.51" xml:space="preserve" fill="#000000" {!! $htmlAttributes !!}>
-<g id="SVGRepo_bgCarrier" stroke-width="0">
-    <rect x="-15.16" y="-15.16" width="333.51" height="333.51" rx="0" fill="#BCE7F9" strokewidth="0"/>
-</g>
+    <g id="SVGRepo_bgCarrier" stroke-width="0">
+        <rect x="-15.16" y="-15.16" width="333.51" height="333.51" rx="0" fill="#BCE7F9" strokewidth="0"/>
+    </g>
     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
     <g id="SVGRepo_iconCarrier"> <g> <polygon style="fill:#E8E8E8;" points="219.821,0 32.842,0 32.842,303.188 270.346,303.188 270.346,50.525 "/> <g> <rect x="92.817" y="166.37" style="fill:#D1D3D3;" width="49.543" height="12.865"/> <rect x="92.817" y="141.729" style="fill:#D1D3D3;" width="107.543" height="12.865"/> <rect x="92.817" y="117.087" style="fill:#D1D3D3;" width="117.551" height="12.865"/> <rect x="92.817" y="92.445" style="fill:#D1D3D3;" width="82.209" height="12.865"/> <rect x="92.817" y="67.804" style="fill:#D1D3D3;" width="117.551" height="12.865"/> </g> <g> <path style="fill:#A4A9AD;" d="M113.189,273.871h-12.963v-37.379H88.511v-10.6h36.361v10.6h-11.683V273.871z"/> <path style="fill:#A4A9AD;" d="M174.952,273.871h-14.998l-9.352-14.998l-9.256,14.998h-14.669l15.917-24.547l-14.965-23.433 h14.373l8.664,14.834l8.336-14.834h14.801l-15.195,24.449L174.952,273.871z"/> <path style="fill:#A4A9AD;" d="M201.502,273.871h-12.963v-37.379h-11.716v-10.6h36.361v10.6h-11.683v37.379H201.502z"/> </g> <polygon style="fill:#A4A9AD;" points="227.64,25.263 32.842,25.263 32.842,0 219.821,0 "/> <polygon style="fill:#D1D3D3;" points="219.821,50.525 270.346,50.525 219.821,0 "/> </g> </g>
 </svg>

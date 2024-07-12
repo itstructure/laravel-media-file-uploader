@@ -9,6 +9,7 @@ use Itstructure\MFU\Http\Controllers\Managers\{
 };
 use Itstructure\MFU\Http\Controllers\Albums\{
     ImageAlbumController, AudioAlbumController, VideoAlbumController, AppAlbumController,
+    AppWordAlbumController, AppExcelAlbumController, AppVisioAlbumController, AppPptAlbumController, AppPdfAlbumController,
     TextAlbumController, OtherAlbumController
 };
 use Itstructure\MFU\Processors\SaveProcessor;
@@ -77,6 +78,51 @@ Route::group([
             Route::post('update/{id}', [AppAlbumController::class, 'update'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP . '_update')->where('id','\d+');
             Route::post('delete', [AppAlbumController::class, 'delete'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP . '_delete');
             Route::get('view/{id}', [AppAlbumController::class, 'view'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP . '_view')->where('id','\d+');
+        });
+        Route::group(['prefix' => SaveProcessor::FILE_TYPE_APP_WORD], function () {
+            Route::get('list', [AppWordAlbumController::class, 'index'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_WORD . '_list');
+            Route::get('create', [AppWordAlbumController::class, 'create'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_WORD . '_create');
+            Route::post('store', [AppWordAlbumController::class, 'store'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_WORD . '_store');
+            Route::get('edit/{id}', [AppWordAlbumController::class, 'edit'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_WORD . '_edit')->where('id','\d+');
+            Route::post('update/{id}', [AppWordAlbumController::class, 'update'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_WORD . '_update')->where('id','\d+');
+            Route::post('delete', [AppWordAlbumController::class, 'delete'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_WORD . '_delete');
+            Route::get('view/{id}', [AppWordAlbumController::class, 'view'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_WORD . '_view')->where('id','\d+');
+        });
+        Route::group(['prefix' => SaveProcessor::FILE_TYPE_APP_EXCEL], function () {
+            Route::get('list', [AppExcelAlbumController::class, 'index'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_EXCEL . '_list');
+            Route::get('create', [AppExcelAlbumController::class, 'create'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_EXCEL . '_create');
+            Route::post('store', [AppExcelAlbumController::class, 'store'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_EXCEL . '_store');
+            Route::get('edit/{id}', [AppExcelAlbumController::class, 'edit'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_EXCEL . '_edit')->where('id','\d+');
+            Route::post('update/{id}', [AppExcelAlbumController::class, 'update'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_EXCEL . '_update')->where('id','\d+');
+            Route::post('delete', [AppExcelAlbumController::class, 'delete'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_EXCEL . '_delete');
+            Route::get('view/{id}', [AppExcelAlbumController::class, 'view'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_EXCEL . '_view')->where('id','\d+');
+        });
+        Route::group(['prefix' => SaveProcessor::FILE_TYPE_APP_VISIO], function () {
+            Route::get('list', [AppVisioAlbumController::class, 'index'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_VISIO . '_list');
+            Route::get('create', [AppVisioAlbumController::class, 'create'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_VISIO . '_create');
+            Route::post('store', [AppVisioAlbumController::class, 'store'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_VISIO . '_store');
+            Route::get('edit/{id}', [AppVisioAlbumController::class, 'edit'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_VISIO . '_edit')->where('id','\d+');
+            Route::post('update/{id}', [AppVisioAlbumController::class, 'update'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_VISIO . '_update')->where('id','\d+');
+            Route::post('delete', [AppVisioAlbumController::class, 'delete'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_VISIO . '_delete');
+            Route::get('view/{id}', [AppVisioAlbumController::class, 'view'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_VISIO . '_view')->where('id','\d+');
+        });
+        Route::group(['prefix' => SaveProcessor::FILE_TYPE_APP_PPT], function () {
+            Route::get('list', [AppPptAlbumController::class, 'index'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_PPT . '_list');
+            Route::get('create', [AppPptAlbumController::class, 'create'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_PPT . '_create');
+            Route::post('store', [AppPptAlbumController::class, 'store'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_PPT . '_store');
+            Route::get('edit/{id}', [AppPptAlbumController::class, 'edit'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_PPT . '_edit')->where('id','\d+');
+            Route::post('update/{id}', [AppPptAlbumController::class, 'update'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_PPT . '_update')->where('id','\d+');
+            Route::post('delete', [AppPptAlbumController::class, 'delete'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_PPT . '_delete');
+            Route::get('view/{id}', [AppPptAlbumController::class, 'view'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_PPT . '_view')->where('id','\d+');
+        });
+        Route::group(['prefix' => SaveProcessor::FILE_TYPE_APP_PDF], function () {
+            Route::get('list', [AppPdfAlbumController::class, 'index'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_PDF . '_list');
+            Route::get('create', [AppPdfAlbumController::class, 'create'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_PDF . '_create');
+            Route::post('store', [AppPdfAlbumController::class, 'store'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_PDF . '_store');
+            Route::get('edit/{id}', [AppPdfAlbumController::class, 'edit'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_PDF . '_edit')->where('id','\d+');
+            Route::post('update/{id}', [AppPdfAlbumController::class, 'update'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_PDF . '_update')->where('id','\d+');
+            Route::post('delete', [AppPdfAlbumController::class, 'delete'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_PDF . '_delete');
+            Route::get('view/{id}', [AppPdfAlbumController::class, 'view'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_APP_PDF . '_view')->where('id','\d+');
         });
         Route::group(['prefix' => SaveProcessor::FILE_TYPE_TEXT], function () {
             Route::get('list', [TextAlbumController::class, 'index'])->name('uploader_' . AlbumTyped::ALBUM_TYPE_TEXT . '_list');
