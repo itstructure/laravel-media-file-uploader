@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\{Model, Builder as EloquentBuilder, Collection 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Itstructure\MFU\Interfaces\{HasOwnerInterface, BeingOwnerInterface};
 use Itstructure\MFU\Behaviors\Owner\BehaviorMediafile;
-use Itstructure\MFU\Traits\OwnerBehavior;
+use Itstructure\MFU\Traits\{OwnerBehavior, Thumbnailable};
 use Itstructure\MFU\Models\Owners\{OwnerAlbum, OwnerMediafile};
-use Itstructure\MFU\Models\Mediafile;
 
 /**
  * Class AlbumBase
@@ -17,7 +16,7 @@ use Itstructure\MFU\Models\Mediafile;
  */
 class AlbumBase extends Model implements HasOwnerInterface, BeingOwnerInterface
 {
-    use OwnerBehavior;
+    use OwnerBehavior, Thumbnailable;
 
     /**
      * @var string
@@ -84,17 +83,6 @@ class AlbumBase extends Model implements HasOwnerInterface, BeingOwnerInterface
             'owner_id' => $this->id,
             'owner_attribute' => $ownerAttribute,
         ]);
-    }
-
-    /**
-     * @return Mediafile|null
-     */
-    public function getThumbnailModel(): ?Mediafile
-    {
-        if (null === $this->type || null === $this->id) {
-            return null;
-        }
-        return OwnerMediafile::getOwnerThumbnailModel($this->type, $this->id);
     }
 
     /**

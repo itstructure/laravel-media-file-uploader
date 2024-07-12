@@ -41,7 +41,7 @@
                     [
                         'label' => trans('uploader::main.actions'),
                         'value' => function ($row) use ($fromFileSetter) {
-                            return view('uploader::partials.list-actions', ['row' => $row, 'fromFileSetter' => !empty($fromFileSetter)]);
+                            return view('uploader::partials.file-list-actions', ['row' => $row, 'fromFileSetter' => !empty($fromFileSetter)]);
                         },
                         'filter' => false,
                         'format' => [

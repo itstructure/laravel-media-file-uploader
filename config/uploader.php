@@ -132,7 +132,7 @@ return [
         'visibility' => SaveProcessor::VISIBILITY_PUBLIC
     ],
     'routing' => [
-        'middlewares' => ['auth'],
+        'middlewares' => [],
     ],
     'preview' => [
         'htmlAttributes' => [
@@ -301,6 +301,6 @@ return [
         ]
     ],
     'albums' => [
-        'layout' => 'adminlte::page', // You must set it. Example: 'layout' => 'adminlte::page'
+        'layout' => '', // Example: 'layout' => 'adminlte::page'
     ]
 ];

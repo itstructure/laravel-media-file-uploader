@@ -45,7 +45,7 @@ abstract class SaveProcessor extends BaseProcessor
     const VISIBILITY_PUBLIC = 'public';
     const VISIBILITY_PRIVARE = 'private';
 
-    const DEFAULT_BASE_UPLOAD_DIRECTORY = 'default';
+    public static $defaultBaseUploadDirectory = 'default';
 
     /************************* CONFIG ATTRIBUTES *************************/
     /**
@@ -538,39 +538,39 @@ abstract class SaveProcessor extends BaseProcessor
         }
 
         if (self::isImage($mimeType)) {
-            return $this->baseUploadDirectories[self::FILE_TYPE_IMAGE] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
+            return $this->baseUploadDirectories[self::FILE_TYPE_IMAGE] ?? static::$defaultBaseUploadDirectory;
 
         } elseif (self::isAudio($mimeType)) {
-            return $this->baseUploadDirectories[self::FILE_TYPE_AUDIO] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
+            return $this->baseUploadDirectories[self::FILE_TYPE_AUDIO] ?? static::$defaultBaseUploadDirectory;
 
         } elseif (self::isVideo($mimeType)) {
-            return $this->baseUploadDirectories[self::FILE_TYPE_VIDEO] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
+            return $this->baseUploadDirectories[self::FILE_TYPE_VIDEO] ?? static::$defaultBaseUploadDirectory;
 
         } elseif (self::isApp($mimeType)) {
             if (self::isWord($mimeType)) {
-                return $this->baseUploadDirectories[self::FILE_TYPE_APP_WORD] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
+                return $this->baseUploadDirectories[self::FILE_TYPE_APP_WORD] ?? static::$defaultBaseUploadDirectory;
 
             } elseif (self::isExcel($mimeType)) {
-                return $this->baseUploadDirectories[self::FILE_TYPE_APP_EXCEL] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
+                return $this->baseUploadDirectories[self::FILE_TYPE_APP_EXCEL] ?? static::$defaultBaseUploadDirectory;
 
             } elseif (self::isVisio($mimeType)) {
-                return $this->baseUploadDirectories[self::FILE_TYPE_APP_VISIO] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
+                return $this->baseUploadDirectories[self::FILE_TYPE_APP_VISIO] ?? static::$defaultBaseUploadDirectory;
 
             } elseif (self::isPowerPoint($mimeType)) {
-                return $this->baseUploadDirectories[self::FILE_TYPE_APP_PPT] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
+                return $this->baseUploadDirectories[self::FILE_TYPE_APP_PPT] ?? static::$defaultBaseUploadDirectory;
 
             } elseif (self::isPdf($mimeType)) {
-                return $this->baseUploadDirectories[self::FILE_TYPE_APP_PDF] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
+                return $this->baseUploadDirectories[self::FILE_TYPE_APP_PDF] ?? static::$defaultBaseUploadDirectory;
 
             } else {
-                return $this->baseUploadDirectories[self::FILE_TYPE_APP] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
+                return $this->baseUploadDirectories[self::FILE_TYPE_APP] ?? static::$defaultBaseUploadDirectory;
             }
 
         } elseif (self::isText($mimeType)) {
-            return $this->baseUploadDirectories[self::FILE_TYPE_TEXT] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
+            return $this->baseUploadDirectories[self::FILE_TYPE_TEXT] ?? static::$defaultBaseUploadDirectory;
 
         } else {
-            return $this->baseUploadDirectories[self::FILE_TYPE_OTHER] ?? self::DEFAULT_BASE_UPLOAD_DIRECTORY;
+            return $this->baseUploadDirectories[self::FILE_TYPE_OTHER] ?? static::$defaultBaseUploadDirectory;
         }
     }
 
