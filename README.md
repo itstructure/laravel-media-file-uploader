@@ -29,7 +29,7 @@ This package is to upload different media files to Local or remote Amazon S3 sto
 
 Run the composer command:
 
-`composer require itstructure/laravel-media-file-uploader "~1.0.1"`
+`composer require itstructure/laravel-media-file-uploader "~1.0.2"`
 
 #### If you are testing this package from a local server directory
 
@@ -155,9 +155,9 @@ Run command to create symbolic links:
 
 **Pay Attention! This option is needed just in the next cases:**
 
-- If you use a **File setter** in your app html forms (see **5.3 Digging deeper** point).
+- If you use a **File setter** in your app html forms (see **5.3 Digging deeper** / **5.3.3 Use FileSetter** point).
 
-- If you use an **Album editor** (see **5.3 Digging deeper** point).
+- If you use an **Album editor** (see in **5.1 Routes part**).
 
 **Make sure** you use a **Bootstrap 4** for styling and **JQuery** in your application.
 
@@ -177,7 +177,7 @@ Set the next js asset at the end of the `body` tag of your app layout:
 
 Note: `vendor/uploader/js/jquery.min.js` is required just if **JQuery** is absent in your application.
 
-#### 4.2.2 If you use [AdminLTE](https://github.com/jeroennoten/Laravel-AdminLTE) package
+#### 4.2.2 If you use [AdminLTE](https://github.com/jeroennoten/Laravel-AdminLTE) package in your project
 
 ```php
 'plugins' => [
@@ -208,7 +208,7 @@ Pay attention: Not recommended using of `asset()` in AdminLTE config file, becau
 
 ### 4.3 Change `uploader.php` config file.
 
-This file is **intuitive**. Some features of its configuration are described in the **5.3 Digging deeper** point.
+This file is **intuitive**.
 
 But at this stage, pay attention to the next important options:
 
@@ -397,15 +397,13 @@ The next routes are available by default:
 
 #### 5.2.2 Access to File upload manager
 
-If to click on green **Uploader** button in a file list manager, you will go to **uploader_file_upload_manager** route.
+If to click on green **Uploader** button in a file list manager, you will go to **uploader_file_upload_manager** route: `http://example-domain.com/uploader/managers/file-upload`.
 
 ![MFU file upload manager](https://github.com/itstructure/laravel-media-file-uploader/blob/main/mfu_file_upload_manager.png)
 
 #### 5.2.3 Access to File edit manager
 
-If to click on green edition button in a file list manager, you will go to **uploader_file_edit_manager** route.
-
-Also you can use this route as in a simple example below:
+If to click on green edition button in a file list manager, you will go to **uploader_file_edit_manager** route: `http://example-domain.com/uploader/managers/file-edit/{id}`:
 
 ```php
 route('uploader_file_edit_manager', ['id' => 1])
@@ -426,9 +424,7 @@ If you have got a media file entry `$mediaFile` by `Itstructure\MFU\Models\Media
 Here you can use some of the next options:
 
 `\Itstructure\MFU\Services\Previewer::LOCATION_FILE_ITEM`
-
 `\Itstructure\MFU\Services\Previewer::LOCATION_FILE_INFO`
-
 `\Itstructure\MFU\Services\Previewer::LOCATION_EXISTING`
 
 #### 5.2.5 Download Media file
@@ -484,9 +480,69 @@ Image album edition page example looks like this:
 
 See inside core.
 
-#### 5.3.3 Link Media files with parent owner
+#### 5.3.3 Use FileSetter
 
-Shortly, without extra words.
+FileSetter is needed to set **file id** in to the form field and file **preview** to special container before sending request to controller during saving some entity: Page, Catalog, Product e.t.c.
+
+Example FileSetter using for **thumbnail**:
+
+```blade
+@php
+    $thumbModel = isset($model) ? $model->getThumbnailModel() : null;
+@endphp
+<div id="{{ isset($model) ? 'thumbnail_container_' . $model->id : 'thumbnail_container' }}">
+    @if(!empty($thumbModel))
+        <a href="{{ $thumbModel->getOriginalUrl() }}" target="_blank">
+            {!! \Itstructure\MFU\Facades\Previewer::getPreviewHtml($thumbModel, \Itstructure\MFU\Services\Previewer::LOCATION_FILE_INFO) !!}
+        </a>
+    @endif
+</div>
+<div id="{{ isset($model) ? 'thumbnail_title_' . $model->id : 'thumbnail_title' }}">
+    @if(!empty($thumbModel))
+        {{ $thumbModel->title }}
+    @endif
+</div>
+<div id="{{ isset($model) ? 'thumbnail_description_' . $model->id : 'thumbnail_description' }}">
+    @if(!empty($thumbModel))
+        {{ $thumbModel->description }}
+    @endif
+</div>
+@php
+    $fileSetterConfig = [
+        'attribute' => Itstructure\MFU\Processors\SaveProcessor::FILE_TYPE_THUMB,
+        'value' => !empty($thumbModel) ? $thumbModel->id : null,
+        'openButtonName' => trans('uploader::main.set_thumbnail'),
+        'clearButtonName' => trans('uploader::main.clear'),
+        'mediafileContainerId' => isset($model) ? 'thumbnail_container_' . $model->id : 'thumbnail_container',
+        'titleContainerId' => isset($model) ? 'thumbnail_title_' . $model->id : 'thumbnail_title',
+        'descriptionContainerId' => isset($model) ? 'thumbnail_description_' . $model->id : 'thumbnail_description',
+        //'callbackBeforeInsert' => 'function (e, v) {console.log(e, v);}',//Custom
+        'neededFileType' => Itstructure\MFU\Processors\SaveProcessor::FILE_TYPE_THUMB,
+        'subDir' => isset($model) ? $model->getTable() : null
+    ];
+
+    $ownerConfig = isset($ownerParams) && is_array($ownerParams) ? array_merge([
+        'ownerAttribute' => Itstructure\MFU\Processors\SaveProcessor::FILE_TYPE_THUMB
+    ], $ownerParams) : [];
+
+    $fileSetterConfig = array_merge($fileSetterConfig, $ownerConfig);
+@endphp
+@fileSetter($fileSetterConfig)
+```
+
+Visually it looks like that:
+
+![MFU file setter](https://github.com/itstructure/laravel-media-file-uploader/blob/main/mfu_file_setter.png)
+
+If to click on **Set thumbnail** button, then file list manager will be opened, but with additional button "V":
+
+![MFU file list with file setter button](https://github.com/itstructure/laravel-media-file-uploader/blob/main/mfu_file_list_with_setter_button.png)
+
+This button is to choose a concrete file and insert it's preview in to the `thumbnail_container` and it's ID in to the automatically rendered form field by `attribute` option.
+
+See next point **5.3.4** to understand how this selected file can be linked with a parent owner, like for example: Page, Product e.t.c...
+
+#### 5.3.4 Link media files with parent owner
 
 For example you use `Product` eloquent model, which contains **albums** and **media files** both.
 
@@ -571,15 +627,23 @@ The main rules:
 
 - It is very important to add method `booted()` with behaviour instances.
 
-- It is very important to set **behavior attributes**!
+- It is very important to set `getBehaviorAttributes()` with attributes list, which are used in a blade form for **FileSetter**!
 
 See deeper in to core and imagine how it works :-)
 
 Go next...
 
-It is very important to use MFU partials correctly in your application blade forms!
+It is very important to use MFU blade partials correctly in your application blade forms!
 
-Short cut example for the blade form:
+Short cut example for the blade form with using
+
+`uploader::partials.thumbnail`,
+
+`uploader::partials.new-mediafiles`,
+
+`uploader::partials.existing-mediafiles`, 
+
+`uploader::partials.albums-form-list`:
 
 ```blade
 <form action="{{ route('admin_product_store') }}" method="post">

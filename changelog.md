@@ -1,5 +1,8 @@
 ### CHANGE LOG:
 
+**1.0.2 July 15, 2024:**
+- Fill and improve README.
+
 **1.0.1 July 14, 2024:**
 - Fix `laravel-grid-view` dependency to **^1.1.3**.
 
