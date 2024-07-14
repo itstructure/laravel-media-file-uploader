@@ -1,4 +1,4 @@
 ### CHANGE LOG:
 
-**1.0.0 January 02, 2024:**
-- Create extension with the first release.
+**1.0.0 July 14, 2024:**
+- Finish package development with the first release.

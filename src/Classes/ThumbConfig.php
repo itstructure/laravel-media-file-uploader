@@ -28,7 +28,7 @@ class ThumbConfig
     private $height;
 
     /**
-     * @var
+     * @var string|null
      */
     private $mode;
 
@@ -82,9 +82,9 @@ class ThumbConfig
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getMode(): string
+    public function getMode(): ?string
     {
         return $this->mode;
     }

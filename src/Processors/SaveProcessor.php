@@ -86,7 +86,7 @@ abstract class SaveProcessor extends BaseProcessor
     /**
      * @var array
      */
-    protected $baseUploadDirectories;
+    protected $baseUploadDirectories = [];
 
     /**
      * @var array
@@ -527,13 +527,17 @@ abstract class SaveProcessor extends BaseProcessor
     }
 
     /**
-     * @param string $mimeType
+     * @param string|null $mimeType
      * @throws Exception
      * @return string
      */
-    protected function getBaseUploadDirectory(string $mimeType): string
+    protected function getBaseUploadDirectory(?string $mimeType): string
     {
-        if (!is_array($this->baseUploadDirectories) || empty($this->baseUploadDirectories)) {
+        if (empty($mimeType)) {
+            throw new Exception('The mimeType attribute is empty.');
+        }
+
+        if (empty($this->baseUploadDirectories)) {
             throw new Exception('The baseUploadDirectories attribute is not defined correctly.');
         }
 

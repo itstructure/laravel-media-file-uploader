@@ -4,20 +4,20 @@
 [![Latest Unstable Version](https://poser.pugx.org/itstructure/laravel-media-file-uploader/v/unstable)](https://packagist.org/packages/itstructure/laravel-media-file-uploader)
 [![License](https://poser.pugx.org/itstructure/laravel-media-file-uploader/license)](https://packagist.org/packages/itstructure/laravel-media-file-uploader)
 [![Total Downloads](https://poser.pugx.org/itstructure/laravel-media-file-uploader/downloads)](https://packagist.org/packages/itstructure/laravel-media-file-uploader)
-[![Build Status](https://scrutinizer-ci.com/g/itstructure/laravel-media-file-uploader/badges/build.png?b=main)](https://scrutinizer-ci.com/g/itstructure/laravel-media-file-uploader/build-status/dev)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/itstructure/laravel-media-file-uploader/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/itstructure/laravel-media-file-uploader/?branch=dev)
+[![Build Status](https://scrutinizer-ci.com/g/itstructure/laravel-media-file-uploader/badges/build.png?b=main)](https://scrutinizer-ci.com/g/itstructure/laravel-media-file-uploader/build-status/main)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/itstructure/laravel-media-file-uploader/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/itstructure/laravel-media-file-uploader/?branch=main)
 
 ## 1 Introduction
 
 This package is to upload different media files to Local or remote Amazon S3 storage.
 
-![MFU logotip](https://github.com/itstructure/laravel-media-file-uploader/blob/dev/mfu_logotip.png)
+![MFU logotip](https://github.com/itstructure/laravel-media-file-uploader/blob/main/mfu_logotip.png)
 
 ## 2 Requirements
-- laravel 5.5+ | 6+ | 7+ | 8+ | 9+ | 10+ | 11+
+- laravel 6+ | 7+ | 8+ | 9+ | 10+ | 11+
 - Bootstrap 4 for styling
 - JQuery
-- php >= 7.1
+- php >= 7.2.5
 - composer
 - One of the next php extensions: GD|Imagick|Gmagick
 
@@ -393,13 +393,13 @@ The next routes are available by default:
 </section>
 ```
 
-![MFU file list manager](https://github.com/itstructure/laravel-media-file-uploader/blob/dev/mfu_file_list_manager.png)
+![MFU file list manager](https://github.com/itstructure/laravel-media-file-uploader/blob/main/mfu_file_list_manager.png)
 
 #### 5.2.2 Access to File upload manager
 
 If to click on green **Uploader** button in a file list manager, you will go to **uploader_file_upload_manager** route.
 
-![MFU file upload manager](https://github.com/itstructure/laravel-media-file-uploader/blob/dev/mfu_file_upload_manager.png)
+![MFU file upload manager](https://github.com/itstructure/laravel-media-file-uploader/blob/main/mfu_file_upload_manager.png)
 
 #### 5.2.3 Access to File edit manager
 
@@ -411,7 +411,7 @@ Also you can use this route as in a simple example below:
 route('uploader_file_edit_manager', ['id' => 1])
 ```
 
-![MFU file edit manager](https://github.com/itstructure/laravel-media-file-uploader/blob/dev/mfu_file_edit_manager.png)
+![MFU file edit manager](https://github.com/itstructure/laravel-media-file-uploader/blob/main/mfu_file_edit_manager.png)
 
 #### 5.2.4 Access to Media file preview
 
@@ -455,17 +455,17 @@ Value `adminlte::page` is for case if you use [AdminLTE](https://github.com/jero
 
 Image album list example looks like this:
 
-![MFU album list](https://github.com/itstructure/laravel-media-file-uploader/blob/dev/mfu_album_list.png)
+![MFU album list](https://github.com/itstructure/laravel-media-file-uploader/blob/main/mfu_album_list.png)
 
 Image album edition page example looks like this:
 
-![MFU album edit](https://github.com/itstructure/laravel-media-file-uploader/blob/dev/mfu_album_edit.png)
+![MFU album edit](https://github.com/itstructure/laravel-media-file-uploader/blob/main/mfu_album_edit.png)
 
 ### 5.3 Digging deeper
 
 #### 5.3.1 Data base structure
 
-![MFU db](https://github.com/itstructure/laravel-media-file-uploader/blob/dev/mfu_db.png)
+![MFU db](https://github.com/itstructure/laravel-media-file-uploader/blob/main/mfu_db.png)
 
 #### 5.3.2 Short architecture structure and request way for uploading process in simple words
 
@@ -654,6 +654,9 @@ By `fileType` there will be set a field `image[]`, which will be set by `fill()`
 and then it's value will be put in to the `BehaviorMediafile` object during `booted()` calling after for example `Product` is saved. Then a table `owners_mediafiles` will be filled. 
 Link between `Product` and `Mediafile` will be created.
 
+Product edition page example looks like this:
+
+![MFU product edit](https://github.com/itstructure/laravel-media-file-uploader/blob/main/mfu_product_edit.png)
 
 To see more, how that example works in global, see real example here: [Laravel Microshop Simple](https://github.com/itstructure/laravel-microshop-simple).
 
