@@ -467,6 +467,200 @@ Image album edition page example looks like this:
 
 ![MFU db](https://github.com/itstructure/laravel-media-file-uploader/blob/dev/mfu_db.png)
 
+#### 5.3.2 Short architecture structure and request way for uploading process in simple words
+
+1. Call `UploadController` method.
+2. Call static method from `Itstructure\MFU\Facades\Uploader` facade in controller method.
+3. Get instance of Uploader service `Itstructure\MFU\Services\Uploader::getInstance($config)` and call here a facade's method.
+4. Get instance of needed processor, with set config data from service to this:
+
+    `Itstructure\MFU\Processors\UploadProcessor` or 
+    
+    `Itstructure\MFU\Processors\UpdateProcessor` or 
+    
+    `Itstructure\MFU\Processors\DeleteProcessor`.
+
+5. Set process parameters and then call it's `run()` method.
+
+See inside core.
+
+#### 5.3.3 Link Media files with parent owner
+
+Shortly, without extra words.
+
+For example you use `Product` eloquent model, which contains **albums** and **media files** both.
+
+Albums and media files can be linked with Product, after Product is saved, through `owners_albums` and `owners_mediafiles` DB relations.
+
+This relations are set by `BehaviorMediafile` and `BehaviorAlbum` classes automatically.
+
+```php
+
+namespace App\Models;
+    
+use Illuminate\Database\Eloquent\Model;
+use Itstructure\MFU\Interfaces\BeingOwnerInterface;
+use Itstructure\MFU\Behaviors\Owner\{BehaviorMediafile, BehaviorAlbum};
+use Itstructure\MFU\Processors\SaveProcessor;
+use Itstructure\MFU\Models\Albums\AlbumTyped;
+use Itstructure\MFU\Traits\{OwnerBehavior, Thumbnailable};
+    
+class Product extends Model implements BeingOwnerInterface
+{
+    use Thumbnailable, OwnerBehavior;
+    
+    protected $table = 'products';
+    
+    protected $fillable = ['title', 'alias', 'description', 'price', 'category_id'];
+    
+    public function getItsName(): string
+    {
+        return $this->getTable();
+    }
+    
+    public function getPrimaryKey()
+    {
+        return $this->getKey();
+    }
+    
+    public static function getBehaviorMadiafileAttributes(): array
+    {
+        return [SaveProcessor::FILE_TYPE_THUMB, SaveProcessor::FILE_TYPE_IMAGE];
+    }
+    
+    public static function getBehaviorAlbumAttributes(): array
+    {
+        return [AlbumTyped::ALBUM_TYPE_IMAGE];
+    }
+    
+    public static function getBehaviorAttributes(): array
+    {
+        return array_merge(static::getBehaviorMadiafileAttributes(), static::getBehaviorAlbumAttributes());
+    }
+    
+    protected static function booted(): void
+    {
+        $behaviorMediafile = BehaviorMediafile::getInstance(static::getBehaviorMadiafileAttributes());
+        $behaviorAlbum = BehaviorAlbum::getInstance(static::getBehaviorAlbumAttributes());
+    
+        static::saved(function (Model $ownerModel) use ($behaviorMediafile, $behaviorAlbum) {
+            if ($ownerModel->wasRecentlyCreated) {
+                $behaviorMediafile->link($ownerModel);
+                $behaviorAlbum->link($ownerModel);
+            } else {
+                $behaviorMediafile->refresh($ownerModel);
+                $behaviorAlbum->refresh($ownerModel);
+            }
+        });
+    
+        static::deleted(function (Model $ownerModel) use ($behaviorMediafile, $behaviorAlbum) {
+            $behaviorMediafile->clear($ownerModel);
+            $behaviorAlbum->clear($ownerModel);
+        });
+    }
+}
+```
+
+The main rules:
+
+- It is very important to be implemented from `BeingOwnerInterface`!
+
+- It is very important to use `OwnerBehavior` trait. Some required BASE methods by `BeingOwnerInterface` are already existing in this trait.
+
+- It is very important to make the next methods: `getItsName()`, `getPrimaryKey()`.
+
+- It is very important to add method `booted()` with behaviour instances.
+
+- It is very important to set **behavior attributes**!
+
+See deeper in to core and imagine how it works :-)
+
+Go next...
+
+It is very important to use MFU partials correctly in your application blade forms!
+
+Short cut example for the blade form:
+
+```blade
+<form action="{{ route('admin_product_store') }}" method="post">
+
+<div class="row">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4">
+        @include('uploader::partials.thumbnail', ['model' => $model ?? null, 'ownerParams' => $ownerParams ?? null])
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4">
+        <div class="form-group">
+            <label for="id_title">Title</label>
+            <input id="id_title" type="text" class="form-control @if ($errors->has('title')) is-invalid @endif"
+                   name="title" value="{{ old('title', !empty($model) ? $model->title : null) }}" required autofocus>
+            @if ($errors->has('title'))
+                <div class="invalid-feedback">
+                    <strong>{{ $errors->first('title') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+</div>
+
+..........
+
+..........
+
+<hr />
+<h5>{{ trans('uploader::main.new_files') }}</h5>
+<div class="row mb-3">
+    @include('uploader::partials.new-mediafiles', [
+        'fileType' => \Itstructure\MFU\Processors\SaveProcessor::FILE_TYPE_IMAGE,
+        'ownerParams' => $ownerParams ?? null
+    ])
+</div>
+
+@if(!empty($edition))
+    <hr />
+    <h5>{{ trans('uploader::main.existing_files') }}</h5>
+    <div class="row mb-3">
+        @include('uploader::partials.existing-mediafiles', [
+            'edition' => true,
+            'fileType' => \Itstructure\MFU\Processors\SaveProcessor::FILE_TYPE_IMAGE,
+            'ownerParams' => $ownerParams ?? null,
+            'mediaFiles' => $mediaFiles ?? []
+        ])
+    </div>
+@endif
+
+@if(!empty($allImageAlbums) && !$allImageAlbums->isEmpty())
+    <hr />
+    <h5>{{ trans('uploader::main.image_albums') }}</h5>
+    <div class="row mb-3">
+        @include('uploader::partials.albums-form-list', [
+            'albums' => $allImageAlbums,
+            'edition' => true
+        ])
+    </div>
+@endif
+
+<button class="btn btn-primary" type="submit">Create</button>
+<input type="hidden" value="{!! csrf_token() !!}" name="_token">
+
+</form>
+```
+
+To clarify:
+
+By `fileType` there will be set a field `image[]`, which will be set by `fill()` method in `Itstructure\MFU\Traits\OwnerBehavior` trait using `getBehaviorAttributes()`, 
+and then it's value will be put in to the `BehaviorMediafile` object during `booted()` calling after for example `Product` is saved. Then a table `owners_mediafiles` will be filled. 
+Link between `Product` and `Mediafile` will be created.
+
+
+To see more, how that example works in global, see real example here: [Laravel Microshop Simple](https://github.com/itstructure/laravel-microshop-simple).
+
+I hope you will be happy with this package. Good luck with your development!
+
+With all respect, Andrey!
+
 ## License
 
 Copyright © 2024 Andrey Girnik girnikandrey@gmail.com.
