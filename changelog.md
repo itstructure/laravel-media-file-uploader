@@ -1,5 +1,8 @@
 ### CHANGE LOG:
 
+**1.0.3 July 15, 2024:**
+- Fix README.
+
 **1.0.2 July 15, 2024:**
 - Fill and improve README.
 

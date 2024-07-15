@@ -29,7 +29,7 @@ This package is to upload different media files to Local or remote Amazon S3 sto
 
 Run the composer command:
 
-`composer require itstructure/laravel-media-file-uploader "~1.0.2"`
+`composer require itstructure/laravel-media-file-uploader "^1.0.3"`
 
 #### If you are testing this package from a local server directory
 
@@ -139,6 +139,7 @@ In a config file `filesystems.php` set the next custom settings (set default dis
         'endpoint' => env('AWS_ENDPOINT'),
         'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         'throw' => false,
+        'visibility' => 'public',
     ],
 ],
 
