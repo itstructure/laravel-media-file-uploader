@@ -1,5 +1,8 @@
 ### CHANGE LOG:
 
+**1.0.4 February 26, 2025:**
+- Add Laravel 12 support.
+
 **1.0.3 July 15, 2024:**
 - Fix README.
 
