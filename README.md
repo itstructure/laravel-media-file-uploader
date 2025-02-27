@@ -29,7 +29,7 @@ This package is to upload different media files to Local or remote Amazon S3 sto
 
 Run the composer command:
 
-`composer require itstructure/laravel-media-file-uploader "^1.0.4"`
+`composer require itstructure/laravel-media-file-uploader "^1.0.5"`
 
 #### If you are testing this package from a local server directory
 
@@ -731,6 +731,6 @@ With all respect, Andrey!
 
 ## License
 
-Copyright © 2024 Andrey Girnik girnikandrey@gmail.com.
+Copyright © 2024-2025 Andrey Girnik girnikandrey@gmail.com.
 
 Licensed under the [MIT license](http://opensource.org/licenses/MIT). See LICENSE.txt for details.

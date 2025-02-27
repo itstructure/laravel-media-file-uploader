@@ -1,5 +1,8 @@
 ### CHANGE LOG:
 
+**1.0.5 February 28, 2025:**
+- Fix grid view composer dependency. Fix README.
+
 **1.0.4 February 26, 2025:**
 - Add Laravel 12 support.
 
