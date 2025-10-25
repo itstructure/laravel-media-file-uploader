@@ -1,5 +1,8 @@
 ### CHANGE LOG:
 
+**1.0.6 October 25, 2025:**
+- Improve scrutinizer config to run with composer 2.
+
 **1.0.5 February 28, 2025:**
 - Fix grid view composer dependency. Fix README.
 

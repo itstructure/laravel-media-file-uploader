@@ -18,7 +18,7 @@ This package is to upload different media files to Local or remote Amazon S3 sto
 - Bootstrap 4 for styling
 - JQuery
 - php >= 7.2.5
-- composer
+- composer 2
 - One of the next php extensions: GD|Imagick|Gmagick
 
 ## 3 Installation
@@ -29,7 +29,7 @@ This package is to upload different media files to Local or remote Amazon S3 sto
 
 Run the composer command:
 
-`composer require itstructure/laravel-media-file-uploader "^1.0.5"`
+`composer require itstructure/laravel-media-file-uploader "^1.0.6"`
 
 #### If you are testing this package from a local server directory
 
@@ -723,7 +723,7 @@ Product edition page example looks like this:
 
 ![MFU product edit](https://github.com/itstructure/laravel-media-file-uploader/blob/main/mfu_product_edit.png)
 
-To see more, how that example works in global, see real example here: [Laravel Microshop Simple](https://github.com/itstructure/laravel-microshop-simple).
+To see more, how that example works in global, see real example here: [Laravel Microshop](https://github.com/itstructure/laravel-microshop).
 
 I hope you will be happy with this package. Good luck with your development!
 
