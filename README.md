@@ -14,7 +14,7 @@ This package is to upload different media files to Local or remote Amazon S3 sto
 ![MFU logotip](https://github.com/itstructure/laravel-media-file-uploader/blob/main/mfu_logotip.png)
 
 ## 2 Requirements
-- laravel 6+ | 7+ | 8+ | 9+ | 10+ | 11+ | 12+
+- laravel 6+ | 7+ | 8+ | 9+ | 10+ | 11+ | 12+ | 13+
 - Bootstrap 4 for styling
 - JQuery
 - php >= 7.2.5
@@ -29,7 +29,7 @@ This package is to upload different media files to Local or remote Amazon S3 sto
 
 Run the composer command:
 
-`composer require itstructure/laravel-media-file-uploader "^1.0.6"`
+`composer require itstructure/laravel-media-file-uploader "^1.0.7"`
 
 #### If you are testing this package from a local server directory
 
@@ -731,6 +731,6 @@ With all respect, Andrey!
 
 ## License
 
-Copyright © 2024-2025 Andrey Girnik girnikandrey@gmail.com.
+Copyright © 2024-2026 Andrey Girnik girnikandrey@gmail.com.
 
 Licensed under the [MIT license](http://opensource.org/licenses/MIT). See LICENSE.txt for details.
