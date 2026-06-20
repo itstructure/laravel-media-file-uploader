@@ -34,7 +34,7 @@ abstract class Behavior
      * @param bool $removeDependencies
      * @return bool
      */
-    abstract protected function removeOwner(int $ownerId, string $ownerName, string $ownerAttribute = null, bool $removeDependencies = false): bool;
+    abstract protected function removeOwner(int $ownerId, string $ownerName, ?string $ownerAttribute = null, bool $removeDependencies = false): bool;
 
     /**
      * @param array $attributes

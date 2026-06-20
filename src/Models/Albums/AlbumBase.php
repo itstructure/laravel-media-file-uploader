@@ -67,7 +67,7 @@ class AlbumBase extends Model implements HasOwnerInterface, BeingOwnerInterface
      * @param string|null $ownerAttribute
      * @return EloquentCollection
      */
-    public function getMediaFiles(string $ownerAttribute = null): EloquentCollection
+    public function getMediaFiles(?string $ownerAttribute = null): EloquentCollection
     {
         return OwnerMediafile::getMediaFiles($this->type, $this->id, $ownerAttribute);
     }
@@ -76,7 +76,7 @@ class AlbumBase extends Model implements HasOwnerInterface, BeingOwnerInterface
      * @param string|null $ownerAttribute
      * @return EloquentBuilder
      */
-    public function getMediaFilesQuery(string $ownerAttribute = null): EloquentBuilder
+    public function getMediaFilesQuery(?string $ownerAttribute = null): EloquentBuilder
     {
         return OwnerMediafile::getMediaFilesQuery([
             'owner_name' => $this->type,

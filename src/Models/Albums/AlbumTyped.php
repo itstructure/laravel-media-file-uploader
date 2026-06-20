@@ -64,7 +64,7 @@ abstract class AlbumTyped extends AlbumBase
      * @param string $albumType
      * @return null|string
      */
-    public static function getFileType(string $albumType = null): ?string
+    public static function getFileType(?string $albumType = null): ?string
     {
         $albumTypes = [
             self::ALBUM_TYPE_IMAGE     => SaveProcessor::FILE_TYPE_IMAGE,
@@ -88,7 +88,7 @@ abstract class AlbumTyped extends AlbumBase
      * @param string|null $ownerAttribute
      * @return Collection
      */
-    public function getMediaFiles(string $ownerAttribute = null): Collection
+    public function getMediaFiles(?string $ownerAttribute = null): Collection
     {
         return OwnerMediafile::getMediaFiles($this->type, $this->id, $ownerAttribute);
     }
@@ -97,7 +97,7 @@ abstract class AlbumTyped extends AlbumBase
      * @param string|null $ownerAttribute
      * @return EloquentBuilder
      */
-    public function getMediaFilesQuery(string $ownerAttribute = null): EloquentBuilder
+    public function getMediaFilesQuery(?string $ownerAttribute = null): EloquentBuilder
     {
         return OwnerMediafile::getMediaFilesQuery([
             'owner_name' => $this->type,

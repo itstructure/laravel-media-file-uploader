@@ -40,7 +40,7 @@ class ThumbConfig
      * @param int|null $height
      * @param string|null $mode
      */
-    public function __construct(string $alias, string $name, ?int $width, ?int $height, string $mode = null)
+    public function __construct(string $alias, string $name, ?int $width, ?int $height, ?string $mode = null)
     {
         $this->alias = $alias;
         $this->name = $name;

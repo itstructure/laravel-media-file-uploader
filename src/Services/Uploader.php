@@ -42,7 +42,7 @@ class Uploader
      * @throws Exception
      * @return bool
      */
-    public function upload(array $data, UploadedFile $file = null): bool
+    public function upload(array $data, ?UploadedFile $file = null): bool
     {
         $this->processor = UploadProcessor::getInstance($this->config)
             ->setMediafileModel(new Mediafile())
@@ -59,7 +59,7 @@ class Uploader
      * @throws Exception
      * @return bool
      */
-    public function update(int $id, array $data, UploadedFile $file = null): bool
+    public function update(int $id, array $data, ?UploadedFile $file = null): bool
     {
         $this->processor = UpdateProcessor::getInstance($this->config)
             ->setMediafileModel(Mediafile::find($id))
@@ -110,7 +110,7 @@ class Uploader
      * @param string|null $key
      * @return array
      */
-    public function getConfig(string $key = null)
+    public function getConfig(?string $key = null)
     {
         return !empty($key) ? $this->config[$key] : $this->config;
     }

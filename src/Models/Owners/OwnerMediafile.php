@@ -39,7 +39,7 @@ class OwnerMediafile extends Owner
      * @param null|string $ownerAttribute
      * @return Collection
      */
-    public static function getMediaFiles(string $ownerName, int $ownerId, string $ownerAttribute = null): Collection
+    public static function getMediaFiles(string $ownerName, int $ownerId, ?string $ownerAttribute = null): Collection
     {
         return static::getMediaFilesQuery(static::buildFilterOptions($ownerId, $ownerName, $ownerAttribute))->get();
     }

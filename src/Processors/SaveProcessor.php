@@ -314,7 +314,7 @@ abstract class SaveProcessor extends BaseProcessor
      * @param UploadedFile|null $file
      * @return $this
      */
-    public function setFile(UploadedFile $file = null)
+    public function setFile(?UploadedFile $file = null)
     {
         $this->file = $file;
         return $this;

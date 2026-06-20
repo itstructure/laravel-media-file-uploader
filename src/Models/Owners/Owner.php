@@ -53,7 +53,7 @@ abstract class Owner extends Model
      * @param bool $removeDependencies
      * @return bool
      */
-    public static function removeOwner(int $ownerId, string $ownerName, string $ownerAttribute = null, bool $removeDependencies = false): bool
+    public static function removeOwner(int $ownerId, string $ownerName, ?string $ownerAttribute = null, bool $removeDependencies = false): bool
     {
         $query = static::query();
         foreach (static::buildFilterOptions($ownerId, $ownerName, $ownerAttribute) as $attribute => $value) {
@@ -135,7 +135,7 @@ abstract class Owner extends Model
      * @param string|null $ownerAttribute
      * @return array
      */
-    protected static function buildFilterOptions(int $ownerId, string $ownerName, string $ownerAttribute = null): array
+    protected static function buildFilterOptions(int $ownerId, string $ownerName, ?string $ownerAttribute = null): array
     {
         return array_merge([
             'owner_id' => $ownerId,

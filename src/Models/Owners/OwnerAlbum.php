@@ -37,7 +37,7 @@ class OwnerAlbum extends Owner
      * @param string|null $ownerAttribute
      * @return EloquentCollection
      */
-    public static function getAlbums(string $ownerName, int $ownerId, string $ownerAttribute = null): EloquentCollection
+    public static function getAlbums(string $ownerName, int $ownerId, ?string $ownerAttribute = null): EloquentCollection
     {
         return static::getAlbumsQuery(static::buildFilterOptions($ownerId, $ownerName, $ownerAttribute))->get();
     }
